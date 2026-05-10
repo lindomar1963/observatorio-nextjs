@@ -1,0 +1,98 @@
+import Link from 'next/link'
+
+export default function Footer() {
+  return (
+    <footer role="contentinfo" className="bg-obs-navy">
+      <div className="px-4 md:px-8 py-10 grid md:grid-cols-4 gap-8">
+        {/* Marca */}
+        <div className="md:col-span-1">
+          <div className="flex items-center gap-2 mb-4">
+            <div
+              aria-hidden="true"
+              style={{
+                width: 24, height: 28, background: '#C9963B',
+                clipPath: 'polygon(50% 0%,100% 15%,100% 60%,50% 100%,0% 60%,0% 15%)',
+                flexShrink: 0,
+              }}
+            />
+            <div className="text-white text-xs font-semibold leading-tight">
+              OBSERVATÓRIO<br />
+              <span className="text-obs-gold">SEGURANÇA PÚBLICA · AM</span>
+            </div>
+          </div>
+          <p className="text-white/40 text-xs leading-relaxed">
+            Vinculado à Comissão de Segurança Pública, Acesso à Justiça e
+            Defesa Social da Assembleia Legislativa do Estado do Amazonas.
+          </p>
+        </div>
+
+        {/* Links */}
+        {[
+          {
+            title: 'O Observatório',
+            links: [
+              { href: '/observatorio', label: 'Sobre' },
+              { href: '/observatorio/missao', label: 'Missão e valores' },
+              { href: '/observatorio/equipe', label: 'Equipe técnica' },
+              { href: '/observatorio/resolucao', label: 'Resolução ALEAM' },
+            ],
+          },
+          {
+            title: 'Conteúdo',
+            links: [
+              { href: '/paineis', label: 'Painéis e mapas' },
+              { href: '/relatorios', label: 'Relatórios' },
+              { href: '/biblioteca', label: 'Biblioteca' },
+              { href: '/municipios', label: 'Municípios' },
+            ],
+          },
+          {
+            title: 'Institucional',
+            links: [
+              { href: '/transparencia', label: 'Transparência' },
+              { href: '/dados-abertos', label: 'Dados abertos' },
+              { href: '/contato', label: 'Contato' },
+              { href: '/imprensa', label: 'Imprensa' },
+            ],
+          },
+        ].map((col) => (
+          <nav key={col.title} aria-label={col.title}>
+            <h3 className="text-white/80 text-xs font-bold tracking-widest uppercase mb-4">
+              {col.title}
+            </h3>
+            <ul className="space-y-2">
+              {col.links.map((l) => (
+                <li key={l.href}>
+                  <Link
+                    href={l.href}
+                    className="text-white/40 text-xs hover:text-obs-gold transition-colors"
+                  >
+                    {l.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        ))}
+      </div>
+
+      {/* Rodapé inferior */}
+      <div className="border-t border-white/10 px-4 md:px-8 py-4 flex flex-col md:flex-row justify-between items-center gap-2">
+        <p className="text-white/25 text-xs">
+          © {new Date().getFullYear()} Observatório de Segurança Pública do Amazonas — ALEAM · Manaus, AM
+        </p>
+        <nav aria-label="Links legais" className="flex gap-4">
+          {[
+            { href: '/privacidade', label: 'Política de Privacidade' },
+            { href: '/termos', label: 'Termos de Uso' },
+            { href: '/lgpd', label: 'LGPD' },
+          ].map((l) => (
+            <Link key={l.href} href={l.href} className="text-white/25 text-xs hover:text-white/50 transition-colors">
+              {l.label}
+            </Link>
+          ))}
+        </nav>
+      </div>
+    </footer>
+  )
+}
