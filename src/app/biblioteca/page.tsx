@@ -22,7 +22,7 @@ const ACERVO = [
     categoria: 'Legislação Estadual',
     itens: [
       { titulo: 'Resolução ALEAM nº 003/2023 — Cria o Observatório de Segurança Pública', tipo: 'Resolução', ano: '2023', link: 'https://www.aleam.gov.br/diario/' },
-      { titulo: 'Lei Estadual nº 4.124/2015 — Política Estadual de Segurança Pública', tipo: 'Lei Estadual', ano: '2015', link: 'https://www.aleam.gov.br/diario/' },
+      { titulo: 'Lei Estadual nº 4.124/2015 — Política Estadual de Segurança Pública', tipo: 'Lei Estadual', ano: '2015', link: 'https://sapl.al.am.leg.br/sapl_documentos/norma_juridica/6473_texto_integral' },
       { titulo: 'Decreto Estadual nº 45.319/2022 — Plano Estadual de Segurança Pública e Defesa Social 2021–2030', tipo: 'Decreto', ano: '2022', link: 'https://www.ssp.am.gov.br/wp-content/uploads/2023/10/Plano-Estadual-de-Seguranca-Publica.pdf' },
     ],
   },
