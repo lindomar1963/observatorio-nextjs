@@ -1,6 +1,7 @@
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
 import { getRelatorios } from '@/lib/queries'
+import type { Relatorio } from '@/lib/types'
 
 export const revalidate = 3600
 
@@ -54,7 +55,7 @@ export default async function RelatoriosPage() {
       <section className="bg-[#0F2A45] px-4 md:px-8 py-12">
         <div className="max-w-5xl mx-auto">
           <div className="space-y-4">
-            {relatorios.map((r) => (
+            {relatorios.map((r: Relatorio) => (
               <div key={r.id} className="border border-white/10 bg-white/5 p-5 hover:border-obs-gold/30 transition-colors">
                 <div className="flex flex-wrap items-start gap-3 mb-3">
                   <span className={`text-xs font-bold px-2 py-0.5 border ${catColor(r.categoria)}`}>

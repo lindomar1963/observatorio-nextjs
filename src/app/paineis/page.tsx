@@ -1,6 +1,7 @@
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
 import { getDadosDiarios } from '@/lib/queries'
+import type { MunicipioDestaque } from '@/lib/types'
 
 export const revalidate = 3600
 
@@ -106,7 +107,7 @@ export default async function PaineisPage() {
                 </tr>
               </thead>
               <tbody>
-                {dados.municipios_destaque.map((m, i) => (
+                {dados.municipios_destaque.map((m: MunicipioDestaque, i: number) => (
                   <tr key={i} className="border-b border-white/5">
                     <td className="py-3 pr-6 text-white font-medium">{m.nome}</td>
                     <td className="py-3 pr-6 text-right text-white/80">{m.cvli.toLocaleString('pt-BR')}</td>
