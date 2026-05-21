@@ -1,40 +1,140 @@
-import Link from 'next/link'
+import Nav from '@/components/Nav'
+import Footer from '@/components/Footer'
 
 export const metadata = {
   title: 'O Observatório — Observatório de Segurança Pública do Amazonas',
+  description: 'Missão, visão, valores e base legal do Observatório de Segurança Pública da ALEAM.',
 }
 
-export default function Page() {
-  const nav = ['/', '/paineis', '/municipios', '/biblioteca', '/noticias', '/contato']
-  const navLabels = ['Início', 'Painéis', 'Municípios', 'Biblioteca', 'Notícias', 'Contato']
+const PILARES = [
+  { titulo: 'Monitoramento', descricao: 'Coleta e sistematização contínua de dados de criminalidade, violência e segurança pública nos 62 municípios do Amazonas.' },
+  { titulo: 'Análise', descricao: 'Produção de relatórios técnicos, diagnósticos e estudos com metodologia científica rigorosa e transparência metodológica.' },
+  { titulo: 'Proposição', descricao: 'Subsídio técnico a deputados estaduais, gestores municipais e órgãos de segurança para formulação de políticas públicas baseadas em evidências.' },
+  { titulo: 'Articulação', descricao: 'Fortalecimento de redes com universidades, institutos de pesquisa, organismos federais e internacionais para cooperação técnica.' },
+]
+
+const PARCEIROS = [
+  'SSP-AM — Secretaria de Segurança Pública do Amazonas',
+  'SINESP — Sistema Nacional de Informações de Segurança Pública',
+  'SEJUSC — Secretaria de Justiça, Direitos Humanos e Cidadania',
+  'SESP-AM — Secretaria de Estado de Segurança Pública',
+  'UFAM — Universidade Federal do Amazonas',
+  'UEA — Universidade do Estado do Amazonas',
+]
+
+const HISTORICO = [
+  { ano: '2023', evento: 'Aprovação da Resolução nº 003/2023 pela ALEAM criando o Observatório de Segurança Pública.' },
+  { ano: '2024', evento: 'Estruturação da equipe técnica e assinatura dos primeiros protocolos de cooperação com SSP-AM e UFAM.' },
+  { ano: '2025', evento: 'Lançamento do primeiro Relatório Anual de Segurança Pública do Amazonas e início do monitoramento de todos os 62 municípios.' },
+  { ano: '2026', evento: 'Portal digital com painéis interativos e dados abertos em tempo real disponibilizados ao público.' },
+]
+
+export default function ObservatorioPage() {
   return (
     <main>
-      <header style={{background:'#0A1628',padding:'0 2rem',height:'56px',display:'flex',alignItems:'center',justifyContent:'space-between'}}>
-        <Link href="/" style={{display:'flex',alignItems:'center',gap:'10px',textDecoration:'none'}}>
-          <div style={{width:28,height:32,background:'#C9963B',clipPath:'polygon(50% 0%,100% 15%,100% 60%,50% 100%,0% 60%,0% 15%)',flexShrink:0}}/>
-          <div style={{color:'#fff',fontSize:12,fontWeight:600,lineHeight:1.3,letterSpacing:'0.04em'}}>OBSERVATÓRIO<br/><span style={{color:'#C9963B'}}>SEGURANÇA PÚBLICA · AM</span></div>
-        </Link>
-        <nav style={{display:'flex',gap:'1.5rem'}}>
-          {nav.map((href,i)=>(
-            <Link key={href} href={href} style={{color:'rgba(255,255,255,0.6)',fontSize:12,fontWeight:600,textDecoration:'none'}}>{navLabels[i]}</Link>
+      <Nav />
+
+      <section className="bg-obs-navy px-4 md:px-8 py-16 md:py-24">
+        <div className="max-w-4xl mx-auto">
+          <p className="text-obs-gold text-xs font-bold tracking-widest uppercase mb-4">ALEAM · Observatório de Segurança Pública</p>
+          <h1 className="font-display text-3xl md:text-5xl font-bold text-white leading-tight mb-6">
+            O Observatório
+          </h1>
+          <p className="text-white/70 text-base leading-relaxed max-w-2xl">
+            O Observatório de Segurança Pública do Amazonas é vinculado à Comissão de Segurança Pública,
+            Acesso à Justiça e Defesa Social da Assembleia Legislativa do Estado do Amazonas (ALEAM).
+            Atua como instância técnica independente para monitoramento, análise e produção de conhecimento
+            sobre segurança pública em todo o estado.
+          </p>
+        </div>
+      </section>
+
+      <section className="bg-gradient-to-b from-obs-navy to-[#0F2A45] px-4 md:px-8 py-16">
+        <div className="max-w-4xl mx-auto grid md:grid-cols-3 gap-6">
+          {[
+            { label: 'Missão', text: 'Produzir e disseminar conhecimento técnico-científico sobre segurança pública no Amazonas, contribuindo para a formulação de políticas públicas eficazes e a redução da violência no estado.' },
+            { label: 'Visão', text: 'Ser referência nacional em pesquisa e monitoramento em segurança pública, reconhecido pela excelência técnica, imparcialidade e contribuição efetiva à cidadania amazônica.' },
+            { label: 'Valores', text: 'Transparência · Rigor científico · Independência técnica · Imparcialidade política · Compromisso com direitos humanos · Respeito à diversidade amazônica.' },
+          ].map((item) => (
+            <div key={item.label} className="border border-white/10 p-6">
+              <h2 className="text-obs-gold text-xs font-bold tracking-widest uppercase mb-3">{item.label}</h2>
+              <p className="text-white/65 text-sm leading-relaxed">{item.text}</p>
+            </div>
           ))}
-        </nav>
-      </header>
-      <section style={{background:'linear-gradient(135deg,#0A1628,#0F2A45)',minHeight:'82vh',display:'flex',alignItems:'center',justifyContent:'center',padding:'4rem 2rem'}}>
-        <div style={{textAlign:'center',maxWidth:560}}>
-          <div style={{fontSize:48,marginBottom:'1.5rem'}}>🏛️</div>
-          <div style={{display:'inline-block',background:'rgba(201,150,59,0.2)',border:'0.5px solid rgba(201,150,59,0.4)',color:'#C9963B',fontSize:10,fontWeight:700,letterSpacing:'0.1em',padding:'4px 12px',marginBottom:'1rem',textTransform:'uppercase' as const}}>ALEAM · Observatório de Segurança Pública</div>
-          <h1 style={{fontFamily:'Georgia,serif',fontSize:30,fontWeight:700,color:'#fff',lineHeight:1.25,marginBottom:'1rem'}}>O Observatório</h1>
-          <p style={{color:'rgba(255,255,255,0.55)',fontSize:14,lineHeight:1.7,marginBottom:'2rem'}}>Conheça a missão, visão, valores e equipe técnica do Observatório de Segurança Pública do Amazonas. Esta seção está em desenvolvimento e estará disponível em breve.</p>
-          <div style={{display:'flex',gap:'12px',justifyContent:'center',flexWrap:'wrap' as const}}>
-            <Link href="/" style={{background:'#C9963B',color:'#0A1628',fontWeight:700,padding:'12px 24px',fontSize:13,textDecoration:'none',display:'inline-block'}}>← Voltar ao início</Link>
-            <Link href="/paineis" style={{border:'0.5px solid rgba(255,255,255,0.3)',color:'#fff',fontWeight:600,padding:'12px 24px',fontSize:13,textDecoration:'none',display:'inline-block'}}>Ver Painéis</Link>
+        </div>
+      </section>
+
+      <section className="bg-[#0F2A45] px-4 md:px-8 py-16">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="font-display text-2xl font-bold text-white mb-2">Pilares de atuação</h2>
+          <p className="text-white/50 text-sm mb-10">Quatro eixos estruturantes orientam o trabalho do Observatório.</p>
+          <div className="grid md:grid-cols-2 gap-6">
+            {PILARES.map((p, i) => (
+              <div key={i} className="flex gap-4">
+                <div className="flex-shrink-0 w-8 h-8 bg-obs-gold/20 border border-obs-gold/40 flex items-center justify-center text-obs-gold text-xs font-bold">
+                  {String(i + 1).padStart(2, '0')}
+                </div>
+                <div>
+                  <h3 className="text-white font-semibold text-sm mb-1">{p.titulo}</h3>
+                  <p className="text-white/55 text-xs leading-relaxed">{p.descricao}</p>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
-      <footer style={{background:'#0A1628',padding:'1.5rem 2rem',textAlign:'center' as const,borderTop:'0.5px solid rgba(255,255,255,0.1)'}}>
-        <p style={{color:'rgba(255,255,255,0.25)',fontSize:11}}>© 2026 Observatório de Segurança Pública do Amazonas — ALEAM · Manaus, AM</p>
-      </footer>
+
+      <section className="bg-obs-navy px-4 md:px-8 py-16 border-t border-white/10">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="font-display text-2xl font-bold text-white mb-6">Base Legal</h2>
+          <div className="border border-obs-gold/20 bg-obs-gold/5 p-6">
+            <p className="text-obs-gold text-xs font-bold tracking-widest uppercase mb-2">Resolução ALEAM nº 003/2023</p>
+            <p className="text-white/70 text-sm leading-relaxed mb-4">
+              Institui o Observatório de Segurança Pública, Acesso à Justiça e Defesa Social da
+              Assembleia Legislativa do Estado do Amazonas, vinculado à respectiva Comissão permanente,
+              com as finalidades de pesquisa, monitoramento e produção de conhecimento técnico-científico
+              no campo da segurança pública.
+            </p>
+            <p className="text-white/40 text-xs">Publicada no Diário Oficial do Estado do Amazonas · Manaus, AM</p>
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-gradient-to-b from-obs-navy to-[#0A1628] px-4 md:px-8 py-16">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="font-display text-2xl font-bold text-white mb-10">Histórico</h2>
+          <div className="space-y-0">
+            {HISTORICO.map((item, i) => (
+              <div key={i} className="flex gap-6 pb-8 relative">
+                <div className="flex flex-col items-center">
+                  <div className="w-10 h-10 bg-obs-gold flex items-center justify-center text-obs-navy text-xs font-bold flex-shrink-0">
+                    {item.ano}
+                  </div>
+                  {i < HISTORICO.length - 1 && <div className="w-px flex-1 bg-obs-gold/20 mt-1" />}
+                </div>
+                <p className="text-white/65 text-sm leading-relaxed pt-2">{item.evento}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-[#0A1628] px-4 md:px-8 py-16 border-t border-white/10">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="font-display text-2xl font-bold text-white mb-2">Parceiros institucionais</h2>
+          <p className="text-white/50 text-sm mb-8">Organismos com protocolo de cooperação técnica ativo.</p>
+          <ul className="grid md:grid-cols-2 gap-3">
+            {PARCEIROS.map((p, i) => (
+              <li key={i} className="flex items-start gap-3 text-white/60 text-sm">
+                <span className="text-obs-gold mt-0.5 flex-shrink-0">→</span>
+                {p}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <Footer />
     </main>
   )
 }

@@ -1,40 +1,98 @@
+import Nav from '@/components/Nav'
+import Footer from '@/components/Footer'
 import Link from 'next/link'
 
 export const metadata = {
   title: 'Projetos e Captação — Observatório de Segurança Pública do Amazonas',
 }
 
-export default function Page() {
-  const nav = ['/', '/paineis', '/municipios', '/biblioteca', '/noticias', '/contato']
-  const navLabels = ['Início', 'Painéis', 'Municípios', 'Biblioteca', 'Notícias', 'Contato']
+const PROJETOS = [
+  {
+    titulo: 'Sistema Integrado de Monitoramento Municipal (SIMM)',
+    descricao: 'Desenvolvimento de plataforma tecnológica para coleta automatizada de dados de segurança pública nos 62 municípios do Amazonas, com painéis em tempo real.',
+    status: 'Em execução',
+    parceiros: ['ALEAM', 'SSP-AM', 'SENASP/MJ'],
+    prazo: '2024–2026',
+  },
+  {
+    titulo: 'Plano Municipal de Segurança Pública — Municípios do Interior',
+    descricao: 'Apoio técnico para elaboração ou revisão de Planos Municipais de Segurança Pública em 20 municípios com menos de 50 mil habitantes.',
+    status: 'Em execução',
+    parceiros: ['ALEAM', 'SEJUSC', 'Prefeituras municipais'],
+    prazo: '2025–2026',
+  },
+  {
+    titulo: 'Pesquisa: Violência e Acesso à Justiça nas Calhas dos Rios',
+    descricao: 'Levantamento de campo sobre acesso a serviços de segurança pública e justiça em comunidades ribeirinhas, com foco em populações indígenas e quilombolas.',
+    status: 'Em elaboração',
+    parceiros: ['UFAM', 'UEA', 'FUNAI'],
+    prazo: '2026–2027',
+  },
+  {
+    titulo: 'Rede Estadual de Observatórios Municipais',
+    descricao: 'Criação de observatórios municipais de segurança pública nos 12 maiores municípios do interior, com metodologia e capacitação fornecidas pelo Observatório estadual.',
+    status: 'Em elaboração',
+    parceiros: ['ALEAM', 'Prefeituras', 'SENASP/MJ'],
+    prazo: '2026–2028',
+  },
+]
+
+const statusColor: Record<string, string> = {
+  'Em execução': 'bg-green-500/20 text-green-400 border-green-500/30',
+  'Em elaboração': 'bg-yellow-500/20 text-yellow-400 border-yellow-500/30',
+  'Concluído': 'bg-blue-500/20 text-blue-400 border-blue-500/30',
+}
+
+export default function ProjetosPage() {
   return (
     <main>
-      <header style={{background:'#0A1628',padding:'0 2rem',height:'56px',display:'flex',alignItems:'center',justifyContent:'space-between'}}>
-        <Link href="/" style={{display:'flex',alignItems:'center',gap:'10px',textDecoration:'none'}}>
-          <div style={{width:28,height:32,background:'#C9963B',clipPath:'polygon(50% 0%,100% 15%,100% 60%,50% 100%,0% 60%,0% 15%)',flexShrink:0}}/>
-          <div style={{color:'#fff',fontSize:12,fontWeight:600,lineHeight:1.3,letterSpacing:'0.04em'}}>OBSERVATÓRIO<br/><span style={{color:'#C9963B'}}>SEGURANÇA PÚBLICA · AM</span></div>
-        </Link>
-        <nav style={{display:'flex',gap:'1.5rem'}}>
-          {nav.map((href,i)=>(
-            <Link key={href} href={href} style={{color:'rgba(255,255,255,0.6)',fontSize:12,fontWeight:600,textDecoration:'none'}}>{navLabels[i]}</Link>
-          ))}
-        </nav>
-      </header>
-      <section style={{background:'linear-gradient(135deg,#0A1628,#0F2A45)',minHeight:'82vh',display:'flex',alignItems:'center',justifyContent:'center',padding:'4rem 2rem'}}>
-        <div style={{textAlign:'center',maxWidth:560}}>
-          <div style={{fontSize:48,marginBottom:'1.5rem'}}>🎯</div>
-          <div style={{display:'inline-block',background:'rgba(201,150,59,0.2)',border:'0.5px solid rgba(201,150,59,0.4)',color:'#C9963B',fontSize:10,fontWeight:700,letterSpacing:'0.1em',padding:'4px 12px',marginBottom:'1rem',textTransform:'uppercase' as const}}>ALEAM · Observatório de Segurança Pública</div>
-          <h1 style={{fontFamily:'Georgia,serif',fontSize:30,fontWeight:700,color:'#fff',lineHeight:1.25,marginBottom:'1rem'}}>Projetos e Captação</h1>
-          <p style={{color:'rgba(255,255,255,0.55)',fontSize:14,lineHeight:1.7,marginBottom:'2rem'}}>Programas, projetos e iniciativas do Observatório de Segurança Pública do Amazonas. Esta seção está em desenvolvimento e estará disponível em breve.</p>
-          <div style={{display:'flex',gap:'12px',justifyContent:'center',flexWrap:'wrap' as const}}>
-            <Link href="/" style={{background:'#C9963B',color:'#0A1628',fontWeight:700,padding:'12px 24px',fontSize:13,textDecoration:'none',display:'inline-block'}}>← Voltar ao início</Link>
-            <Link href="/paineis" style={{border:'0.5px solid rgba(255,255,255,0.3)',color:'#fff',fontWeight:600,padding:'12px 24px',fontSize:13,textDecoration:'none',display:'inline-block'}}>Ver Painéis</Link>
-          </div>
+      <Nav />
+      <section className="bg-obs-navy px-4 md:px-8 py-16">
+        <div className="max-w-4xl mx-auto">
+          <p className="text-obs-gold text-xs font-bold tracking-widest uppercase mb-4">Programas e iniciativas</p>
+          <h1 className="font-display text-3xl md:text-4xl font-bold text-white mb-4">Projetos e Captação</h1>
+          <p className="text-white/60 text-sm max-w-xl">
+            Projetos, programas e iniciativas em desenvolvimento pelo Observatório de Segurança
+            Pública do Amazonas, em parceria com órgãos federais, estaduais e municipais.
+          </p>
         </div>
       </section>
-      <footer style={{background:'#0A1628',padding:'1.5rem 2rem',textAlign:'center' as const,borderTop:'0.5px solid rgba(255,255,255,0.1)'}}>
-        <p style={{color:'rgba(255,255,255,0.25)',fontSize:11}}>© 2026 Observatório de Segurança Pública do Amazonas — ALEAM · Manaus, AM</p>
-      </footer>
+      <section className="bg-gradient-to-b from-obs-navy to-[#0F2A45] px-4 md:px-8 py-12">
+        <div className="max-w-4xl mx-auto space-y-5">
+          {PROJETOS.map((p, i) => (
+            <div key={i} className="border border-white/10 bg-white/5 p-5">
+              <div className="flex flex-wrap gap-2 mb-3">
+                <span className={`text-xs font-bold px-2 py-0.5 border ${statusColor[p.status] || 'bg-white/10 text-white/40'}`}>
+                  {p.status}
+                </span>
+                <span className="text-white/35 text-xs self-center">{p.prazo}</span>
+              </div>
+              <h3 className="text-white font-semibold text-base leading-snug mb-2">{p.titulo}</h3>
+              <p className="text-white/55 text-sm leading-relaxed mb-4">{p.descricao}</p>
+              <div className="flex flex-wrap gap-2">
+                <span className="text-white/30 text-xs font-semibold">Parceiros:</span>
+                {p.parceiros.map((par, j) => (
+                  <span key={j} className="text-obs-gold/70 text-xs">{par}{j < p.parceiros.length - 1 ? ' ·' : ''}</span>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+      <section className="bg-obs-navy px-4 md:px-8 py-10 border-t border-white/10">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="font-display text-xl font-bold text-white mb-4">Captação de recursos</h2>
+          <p className="text-white/60 text-sm leading-relaxed max-w-xl mb-6">
+            O Observatório está aberto a parcerias com organismos nacionais e internacionais,
+            fundações e agências de cooperação para financiamento de pesquisas e projetos
+            de fortalecimento da segurança pública no Amazonas.
+          </p>
+          <Link href="/contato" className="inline-block bg-obs-gold text-obs-navy font-bold text-sm px-6 py-3 hover:bg-yellow-500 transition-colors">
+            Propor parceria ou financiamento
+          </Link>
+        </div>
+      </section>
+      <Footer />
     </main>
   )
 }

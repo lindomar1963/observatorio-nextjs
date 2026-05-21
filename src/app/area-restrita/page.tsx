@@ -1,40 +1,49 @@
+import Nav from '@/components/Nav'
+import Footer from '@/components/Footer'
 import Link from 'next/link'
 
 export const metadata = {
   title: 'Área Restrita — Observatório de Segurança Pública do Amazonas',
 }
 
-export default function Page() {
-  const nav = ['/', '/paineis', '/municipios', '/biblioteca', '/noticias', '/contato']
-  const navLabels = ['Início', 'Painéis', 'Municípios', 'Biblioteca', 'Notícias', 'Contato']
+export default function AreaRestritaPage() {
   return (
     <main>
-      <header style={{background:'#0A1628',padding:'0 2rem',height:'56px',display:'flex',alignItems:'center',justifyContent:'space-between'}}>
-        <Link href="/" style={{display:'flex',alignItems:'center',gap:'10px',textDecoration:'none'}}>
-          <div style={{width:28,height:32,background:'#C9963B',clipPath:'polygon(50% 0%,100% 15%,100% 60%,50% 100%,0% 60%,0% 15%)',flexShrink:0}}/>
-          <div style={{color:'#fff',fontSize:12,fontWeight:600,lineHeight:1.3,letterSpacing:'0.04em'}}>OBSERVATÓRIO<br/><span style={{color:'#C9963B'}}>SEGURANÇA PÚBLICA · AM</span></div>
-        </Link>
-        <nav style={{display:'flex',gap:'1.5rem'}}>
-          {nav.map((href,i)=>(
-            <Link key={href} href={href} style={{color:'rgba(255,255,255,0.6)',fontSize:12,fontWeight:600,textDecoration:'none'}}>{navLabels[i]}</Link>
-          ))}
-        </nav>
-      </header>
-      <section style={{background:'linear-gradient(135deg,#0A1628,#0F2A45)',minHeight:'82vh',display:'flex',alignItems:'center',justifyContent:'center',padding:'4rem 2rem'}}>
-        <div style={{textAlign:'center',maxWidth:560}}>
-          <div style={{fontSize:48,marginBottom:'1.5rem'}}>🔐</div>
-          <div style={{display:'inline-block',background:'rgba(201,150,59,0.2)',border:'0.5px solid rgba(201,150,59,0.4)',color:'#C9963B',fontSize:10,fontWeight:700,letterSpacing:'0.1em',padding:'4px 12px',marginBottom:'1rem',textTransform:'uppercase' as const}}>ALEAM · Observatório de Segurança Pública</div>
-          <h1 style={{fontFamily:'Georgia,serif',fontSize:30,fontWeight:700,color:'#fff',lineHeight:1.25,marginBottom:'1rem'}}>Área Restrita</h1>
-          <p style={{color:'rgba(255,255,255,0.55)',fontSize:14,lineHeight:1.7,marginBottom:'2rem'}}>Acesso exclusivo para a equipe técnica, parlamentares e parceiros do Observatório. Esta seção está em desenvolvimento e estará disponível em breve.</p>
-          <div style={{display:'flex',gap:'12px',justifyContent:'center',flexWrap:'wrap' as const}}>
-            <Link href="/" style={{background:'#C9963B',color:'#0A1628',fontWeight:700,padding:'12px 24px',fontSize:13,textDecoration:'none',display:'inline-block'}}>← Voltar ao início</Link>
-            <Link href="/paineis" style={{border:'0.5px solid rgba(255,255,255,0.3)',color:'#fff',fontWeight:600,padding:'12px 24px',fontSize:13,textDecoration:'none',display:'inline-block'}}>Ver Painéis</Link>
+      <Nav />
+      <section className="bg-obs-navy min-h-[80vh] px-4 md:px-8 py-16 flex items-center">
+        <div className="max-w-md mx-auto w-full">
+          <p className="text-obs-gold text-xs font-bold tracking-widest uppercase mb-4">Acesso restrito</p>
+          <h1 className="font-display text-3xl font-bold text-white mb-4">Área Restrita</h1>
+          <p className="text-white/55 text-sm mb-8">
+            Acesso exclusivo para a equipe técnica, parlamentares credenciados e parceiros
+            institucionais do Observatório. Sistema de autenticação em implantação.
+          </p>
+          <div className="border border-white/10 bg-white/5 p-6 mb-6">
+            <div className="space-y-4">
+              <div>
+                <label className="text-white/50 text-xs font-bold tracking-widest uppercase block mb-2">E-mail institucional</label>
+                <div className="border border-white/20 bg-white/5 px-4 py-3 text-white/30 text-sm">usuario@aleam.am.leg.br</div>
+              </div>
+              <div>
+                <label className="text-white/50 text-xs font-bold tracking-widest uppercase block mb-2">Senha</label>
+                <div className="border border-white/20 bg-white/5 px-4 py-3 text-white/30 text-sm">••••••••</div>
+              </div>
+              <div className="bg-obs-gold/20 border border-obs-gold/30 p-3 text-obs-gold text-xs">
+                Sistema de autenticação em desenvolvimento. Disponível em breve.
+              </div>
+            </div>
+          </div>
+          <div className="flex flex-wrap gap-3">
+            <Link href="/" className="bg-obs-gold text-obs-navy font-bold text-sm px-6 py-3 hover:bg-yellow-500 transition-colors">
+              ← Voltar ao início
+            </Link>
+            <Link href="/contato" className="border border-white/30 text-white font-semibold text-sm px-6 py-3 hover:border-white/60 transition-colors">
+              Solicitar acesso
+            </Link>
           </div>
         </div>
       </section>
-      <footer style={{background:'#0A1628',padding:'1.5rem 2rem',textAlign:'center' as const,borderTop:'0.5px solid rgba(255,255,255,0.1)'}}>
-        <p style={{color:'rgba(255,255,255,0.25)',fontSize:11}}>© 2026 Observatório de Segurança Pública do Amazonas — ALEAM · Manaus, AM</p>
-      </footer>
+      <Footer />
     </main>
   )
 }

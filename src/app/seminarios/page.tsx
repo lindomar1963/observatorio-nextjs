@@ -1,40 +1,99 @@
+import Nav from '@/components/Nav'
+import Footer from '@/components/Footer'
 import Link from 'next/link'
 
 export const metadata = {
   title: 'Seminários e Capacitações — Observatório de Segurança Pública do Amazonas',
 }
 
-export default function Page() {
-  const nav = ['/', '/paineis', '/municipios', '/biblioteca', '/noticias', '/contato']
-  const navLabels = ['Início', 'Painéis', 'Municípios', 'Biblioteca', 'Notícias', 'Contato']
+const EVENTOS = [
+  {
+    titulo: 'Seminário Regional — Calha do Médio Amazonas',
+    data: '12 de junho de 2026',
+    local: 'Itacoatiara, AM',
+    descricao: 'Debate sobre indicadores de segurança pública nos municípios da Calha do Médio Amazonas, com participação de gestores municipais, delegados e representantes da comunidade.',
+    status: 'Inscrições abertas',
+  },
+  {
+    titulo: 'Capacitação em Segurança Comunitária para Gestores Municipais',
+    data: '14 de julho de 2026',
+    local: 'Manaus, AM',
+    descricao: 'Capacitação de 20 horas voltada a secretários municipais de segurança, guardas municipais e gestores de políticas públicas sobre metodologias de segurança comunitária.',
+    status: 'Inscrições em breve',
+  },
+  {
+    titulo: 'Workshop: Análise Criminal e Geoprocessamento',
+    data: '28 de agosto de 2026',
+    local: 'Online',
+    descricao: 'Treinamento técnico em ferramentas de análise criminal, uso de SIG (Sistemas de Informação Geográfica) e elaboração de mapas de calor para gestores de segurança pública.',
+    status: 'Inscrições em breve',
+  },
+]
+
+const REALIZADOS = [
+  { titulo: 'Capacitação em Análise Criminal — SSP-AM', data: 'Março 2026', participantes: 32 },
+  { titulo: 'Seminário "Segurança Pública no Interior do Amazonas"', data: 'Abril 2026', participantes: 120 },
+  { titulo: 'Workshop: Indicadores de Violência Doméstica', data: 'Fevereiro 2026', participantes: 45 },
+]
+
+export default function SeminariosPage() {
   return (
     <main>
-      <header style={{background:'#0A1628',padding:'0 2rem',height:'56px',display:'flex',alignItems:'center',justifyContent:'space-between'}}>
-        <Link href="/" style={{display:'flex',alignItems:'center',gap:'10px',textDecoration:'none'}}>
-          <div style={{width:28,height:32,background:'#C9963B',clipPath:'polygon(50% 0%,100% 15%,100% 60%,50% 100%,0% 60%,0% 15%)',flexShrink:0}}/>
-          <div style={{color:'#fff',fontSize:12,fontWeight:600,lineHeight:1.3,letterSpacing:'0.04em'}}>OBSERVATÓRIO<br/><span style={{color:'#C9963B'}}>SEGURANÇA PÚBLICA · AM</span></div>
-        </Link>
-        <nav style={{display:'flex',gap:'1.5rem'}}>
-          {nav.map((href,i)=>(
-            <Link key={href} href={href} style={{color:'rgba(255,255,255,0.6)',fontSize:12,fontWeight:600,textDecoration:'none'}}>{navLabels[i]}</Link>
-          ))}
-        </nav>
-      </header>
-      <section style={{background:'linear-gradient(135deg,#0A1628,#0F2A45)',minHeight:'82vh',display:'flex',alignItems:'center',justifyContent:'center',padding:'4rem 2rem'}}>
-        <div style={{textAlign:'center',maxWidth:560}}>
-          <div style={{fontSize:48,marginBottom:'1.5rem'}}>🎓</div>
-          <div style={{display:'inline-block',background:'rgba(201,150,59,0.2)',border:'0.5px solid rgba(201,150,59,0.4)',color:'#C9963B',fontSize:10,fontWeight:700,letterSpacing:'0.1em',padding:'4px 12px',marginBottom:'1rem',textTransform:'uppercase' as const}}>ALEAM · Observatório de Segurança Pública</div>
-          <h1 style={{fontFamily:'Georgia,serif',fontSize:30,fontWeight:700,color:'#fff',lineHeight:1.25,marginBottom:'1rem'}}>Seminários e Capacitações</h1>
-          <p style={{color:'rgba(255,255,255,0.55)',fontSize:14,lineHeight:1.7,marginBottom:'2rem'}}>Eventos, seminários, workshops e capacitações sobre segurança pública no Amazonas. Esta seção está em desenvolvimento e estará disponível em breve.</p>
-          <div style={{display:'flex',gap:'12px',justifyContent:'center',flexWrap:'wrap' as const}}>
-            <Link href="/" style={{background:'#C9963B',color:'#0A1628',fontWeight:700,padding:'12px 24px',fontSize:13,textDecoration:'none',display:'inline-block'}}>← Voltar ao início</Link>
-            <Link href="/paineis" style={{border:'0.5px solid rgba(255,255,255,0.3)',color:'#fff',fontWeight:600,padding:'12px 24px',fontSize:13,textDecoration:'none',display:'inline-block'}}>Ver Painéis</Link>
+      <Nav />
+      <section className="bg-obs-navy px-4 md:px-8 py-16">
+        <div className="max-w-4xl mx-auto">
+          <p className="text-obs-gold text-xs font-bold tracking-widest uppercase mb-4">Formação e capacitação</p>
+          <h1 className="font-display text-3xl md:text-4xl font-bold text-white mb-4">Seminários e Capacitações</h1>
+          <p className="text-white/60 text-sm max-w-xl">
+            Eventos, seminários, workshops e capacitações promovidos pelo Observatório de Segurança
+            Pública do Amazonas para gestores, profissionais de segurança e pesquisadores.
+          </p>
+        </div>
+      </section>
+      <section className="bg-gradient-to-b from-obs-navy to-[#0F2A45] px-4 md:px-8 py-12">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-white/50 text-xs font-bold tracking-widest uppercase mb-6">Próximos eventos</h2>
+          <div className="space-y-5">
+            {EVENTOS.map((e, i) => (
+              <div key={i} className="border border-white/10 bg-white/5 p-5">
+                <div className="flex flex-wrap gap-2 mb-3">
+                  <span className="bg-obs-gold/20 text-obs-gold border border-obs-gold/30 text-xs font-bold px-2 py-0.5">{e.status}</span>
+                  <span className="text-white/40 text-xs self-center">{e.data} · {e.local}</span>
+                </div>
+                <h3 className="text-white font-semibold text-base mb-2">{e.titulo}</h3>
+                <p className="text-white/55 text-xs leading-relaxed">{e.descricao}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
-      <footer style={{background:'#0A1628',padding:'1.5rem 2rem',textAlign:'center' as const,borderTop:'0.5px solid rgba(255,255,255,0.1)'}}>
-        <p style={{color:'rgba(255,255,255,0.25)',fontSize:11}}>© 2026 Observatório de Segurança Pública do Amazonas — ALEAM · Manaus, AM</p>
-      </footer>
+      <section className="bg-obs-navy px-4 md:px-8 py-12 border-t border-white/10">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="font-display text-xl font-bold text-white mb-6">Eventos realizados</h2>
+          <div className="space-y-3">
+            {REALIZADOS.map((e, i) => (
+              <div key={i} className="flex items-center gap-4 border border-white/10 p-4">
+                <div className="flex-1">
+                  <p className="text-white/80 text-sm font-medium">{e.titulo}</p>
+                  <p className="text-white/40 text-xs">{e.data}</p>
+                </div>
+                <p className="text-white/40 text-xs flex-shrink-0">{e.participantes} participantes</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+      <section className="bg-[#0A1628] px-4 md:px-8 py-10 border-t border-white/10">
+        <div className="max-w-4xl mx-auto">
+          <p className="text-white/55 text-sm mb-4">
+            Para propor parcerias em capacitações ou solicitar realização de evento em seu município, entre em contato.
+          </p>
+          <Link href="/contato" className="inline-block bg-obs-gold text-obs-navy font-bold text-sm px-6 py-3 hover:bg-yellow-500 transition-colors">
+            Propor parceria
+          </Link>
+        </div>
+      </section>
+      <Footer />
     </main>
   )
 }

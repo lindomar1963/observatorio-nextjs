@@ -1,40 +1,111 @@
-import Link from 'next/link'
+import Nav from '@/components/Nav'
+import Footer from '@/components/Footer'
+import { getRelatorios } from '@/lib/queries'
+
+export const revalidate = 3600
 
 export const metadata = {
   title: 'Relatórios — Observatório de Segurança Pública do Amazonas',
+  description: 'Relatórios técnicos, diagnósticos e estudos sobre segurança pública no Amazonas.',
 }
 
-export default function Page() {
-  const nav = ['/', '/paineis', '/municipios', '/biblioteca', '/noticias', '/contato']
-  const navLabels = ['Início', 'Painéis', 'Municípios', 'Biblioteca', 'Notícias', 'Contato']
+const CATEGORIAS = [
+  { nome: 'Segurança Pública', cor: 'bg-obs-gold/20 text-obs-gold border-obs-gold/30' },
+  { nome: 'Acesso à Justiça', cor: 'bg-blue-500/20 text-blue-400 border-blue-500/30' },
+  { nome: 'Defesa Social', cor: 'bg-purple-500/20 text-purple-400 border-purple-500/30' },
+  { nome: 'Violência Doméstica', cor: 'bg-red-500/20 text-red-400 border-red-500/30' },
+  { nome: 'Municipios', cor: 'bg-green-500/20 text-green-400 border-green-500/30' },
+]
+
+function catColor(cat: string) {
+  const found = CATEGORIAS.find((c) => c.nome === cat)
+  return found?.cor ?? 'bg-white/10 text-white/60 border-white/20'
+}
+
+export default async function RelatoriosPage() {
+  const relatorios = await getRelatorios(20)
+
   return (
     <main>
-      <header style={{background:'#0A1628',padding:'0 2rem',height:'56px',display:'flex',alignItems:'center',justifyContent:'space-between'}}>
-        <Link href="/" style={{display:'flex',alignItems:'center',gap:'10px',textDecoration:'none'}}>
-          <div style={{width:28,height:32,background:'#C9963B',clipPath:'polygon(50% 0%,100% 15%,100% 60%,50% 100%,0% 60%,0% 15%)',flexShrink:0}}/>
-          <div style={{color:'#fff',fontSize:12,fontWeight:600,lineHeight:1.3,letterSpacing:'0.04em'}}>OBSERVATÓRIO<br/><span style={{color:'#C9963B'}}>SEGURANÇA PÚBLICA · AM</span></div>
-        </Link>
-        <nav style={{display:'flex',gap:'1.5rem'}}>
-          {nav.map((href,i)=>(
-            <Link key={href} href={href} style={{color:'rgba(255,255,255,0.6)',fontSize:12,fontWeight:600,textDecoration:'none'}}>{navLabels[i]}</Link>
+      <Nav />
+
+      <section className="bg-obs-navy px-4 md:px-8 py-16">
+        <div className="max-w-5xl mx-auto">
+          <p className="text-obs-gold text-xs font-bold tracking-widest uppercase mb-4">Produção técnica</p>
+          <h1 className="font-display text-3xl md:text-4xl font-bold text-white mb-4">Relatórios</h1>
+          <p className="text-white/60 text-sm max-w-xl">
+            Relatórios técnicos, diagnósticos, notas de pesquisa e estudos temáticos produzidos pelo
+            Observatório de Segurança Pública do Amazonas.
+          </p>
+        </div>
+      </section>
+
+      <section className="bg-gradient-to-b from-obs-navy to-[#0F2A45] px-4 md:px-8 py-4">
+        <div className="max-w-5xl mx-auto flex flex-wrap gap-2">
+          <span className="text-white/40 text-xs font-semibold tracking-wider uppercase self-center mr-2">Filtrar por:</span>
+          {CATEGORIAS.map((c) => (
+            <span key={c.nome} className={`text-xs font-bold px-3 py-1 border ${c.cor} cursor-default`}>
+              {c.nome}
+            </span>
           ))}
-        </nav>
-      </header>
-      <section style={{background:'linear-gradient(135deg,#0A1628,#0F2A45)',minHeight:'82vh',display:'flex',alignItems:'center',justifyContent:'center',padding:'4rem 2rem'}}>
-        <div style={{textAlign:'center',maxWidth:560}}>
-          <div style={{fontSize:48,marginBottom:'1.5rem'}}>📊</div>
-          <div style={{display:'inline-block',background:'rgba(201,150,59,0.2)',border:'0.5px solid rgba(201,150,59,0.4)',color:'#C9963B',fontSize:10,fontWeight:700,letterSpacing:'0.1em',padding:'4px 12px',marginBottom:'1rem',textTransform:'uppercase' as const}}>ALEAM · Observatório de Segurança Pública</div>
-          <h1 style={{fontFamily:'Georgia,serif',fontSize:30,fontWeight:700,color:'#fff',lineHeight:1.25,marginBottom:'1rem'}}>Relatórios</h1>
-          <p style={{color:'rgba(255,255,255,0.55)',fontSize:14,lineHeight:1.7,marginBottom:'2rem'}}>Relatórios técnicos, diagnósticos e estudos sobre segurança pública no Amazonas. Esta seção está em desenvolvimento e estará disponível em breve.</p>
-          <div style={{display:'flex',gap:'12px',justifyContent:'center',flexWrap:'wrap' as const}}>
-            <Link href="/" style={{background:'#C9963B',color:'#0A1628',fontWeight:700,padding:'12px 24px',fontSize:13,textDecoration:'none',display:'inline-block'}}>← Voltar ao início</Link>
-            <Link href="/paineis" style={{border:'0.5px solid rgba(255,255,255,0.3)',color:'#fff',fontWeight:600,padding:'12px 24px',fontSize:13,textDecoration:'none',display:'inline-block'}}>Ver Painéis</Link>
+        </div>
+      </section>
+
+      <section className="bg-[#0F2A45] px-4 md:px-8 py-12">
+        <div className="max-w-5xl mx-auto">
+          <div className="space-y-4">
+            {relatorios.map((r) => (
+              <div key={r.id} className="border border-white/10 bg-white/5 p-5 hover:border-obs-gold/30 transition-colors">
+                <div className="flex flex-wrap items-start gap-3 mb-3">
+                  <span className={`text-xs font-bold px-2 py-0.5 border ${catColor(r.categoria)}`}>
+                    {r.categoria}
+                  </span>
+                  <span className="text-white/30 text-xs">{r.publicado_em ? new Date(r.publicado_em).toLocaleDateString('pt-BR') : '—'}</span>
+                  {r.paginas && <span className="text-white/30 text-xs">{r.paginas} páginas</span>}
+                  {r.acessos && <span className="text-white/30 text-xs">{r.acessos.toLocaleString('pt-BR')} acessos</span>}
+                </div>
+                <h3 className="text-white font-semibold text-base leading-snug mb-3">{r.titulo}</h3>
+                <div className="flex gap-3">
+                  {r.arquivo_url ? (
+                    <a
+                      href={r.arquivo_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="bg-obs-gold text-obs-navy text-xs font-bold px-4 py-2 hover:bg-yellow-500 transition-colors"
+                    >
+                      Baixar PDF
+                    </a>
+                  ) : (
+                    <span className="border border-white/20 text-white/40 text-xs font-bold px-4 py-2 cursor-default">
+                      PDF em breve
+                    </span>
+                  )}
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
-      <footer style={{background:'#0A1628',padding:'1.5rem 2rem',textAlign:'center' as const,borderTop:'0.5px solid rgba(255,255,255,0.1)'}}>
-        <p style={{color:'rgba(255,255,255,0.25)',fontSize:11}}>© 2026 Observatório de Segurança Pública do Amazonas — ALEAM · Manaus, AM</p>
-      </footer>
+
+      <section className="bg-obs-navy px-4 md:px-8 py-12 border-t border-white/10">
+        <div className="max-w-5xl mx-auto">
+          <h2 className="font-display text-xl font-bold text-white mb-4">Séries e publicações periódicas</h2>
+          <div className="grid md:grid-cols-3 gap-4">
+            {[
+              { titulo: 'Relatório Anual de Segurança Pública', descricao: 'Publicado anualmente com o panorama geral da segurança pública no estado.' },
+              { titulo: 'Boletim Trimestral de Indicadores', descricao: 'Atualização trimestral dos principais indicadores de criminalidade por região.' },
+              { titulo: 'Nota Técnica Temática', descricao: 'Publicações pontuais sobre temas específicos, como feminicídio, tráfico ou crimes no interior.' },
+            ].map((s) => (
+              <div key={s.titulo} className="border border-white/10 p-5">
+                <h3 className="text-obs-gold text-xs font-bold tracking-wider uppercase mb-2">{s.titulo}</h3>
+                <p className="text-white/55 text-xs leading-relaxed">{s.descricao}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <Footer />
     </main>
   )
 }

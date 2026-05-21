@@ -1,40 +1,70 @@
+import Nav from '@/components/Nav'
+import Footer from '@/components/Footer'
 import Link from 'next/link'
 
 export const metadata = {
   title: 'Imprensa — Observatório de Segurança Pública do Amazonas',
 }
 
-export default function Page() {
-  const nav = ['/', '/paineis', '/municipios', '/biblioteca', '/noticias', '/contato']
-  const navLabels = ['Início', 'Painéis', 'Municípios', 'Biblioteca', 'Notícias', 'Contato']
+const CONTATOS_IMPRENSA = [
+  { rotulo: 'Assessoria de comunicação', valor: 'comunicacao@aleam.am.leg.br' },
+  { rotulo: 'Telefone', valor: '(92) 3182-3100' },
+  { rotulo: 'Horário de atendimento', valor: 'Segunda a sexta, das 8h às 14h' },
+]
+
+export default function ImprensaPage() {
   return (
     <main>
-      <header style={{background:'#0A1628',padding:'0 2rem',height:'56px',display:'flex',alignItems:'center',justifyContent:'space-between'}}>
-        <Link href="/" style={{display:'flex',alignItems:'center',gap:'10px',textDecoration:'none'}}>
-          <div style={{width:28,height:32,background:'#C9963B',clipPath:'polygon(50% 0%,100% 15%,100% 60%,50% 100%,0% 60%,0% 15%)',flexShrink:0}}/>
-          <div style={{color:'#fff',fontSize:12,fontWeight:600,lineHeight:1.3,letterSpacing:'0.04em'}}>OBSERVATÓRIO<br/><span style={{color:'#C9963B'}}>SEGURANÇA PÚBLICA · AM</span></div>
-        </Link>
-        <nav style={{display:'flex',gap:'1.5rem'}}>
-          {nav.map((href,i)=>(
-            <Link key={href} href={href} style={{color:'rgba(255,255,255,0.6)',fontSize:12,fontWeight:600,textDecoration:'none'}}>{navLabels[i]}</Link>
-          ))}
-        </nav>
-      </header>
-      <section style={{background:'linear-gradient(135deg,#0A1628,#0F2A45)',minHeight:'82vh',display:'flex',alignItems:'center',justifyContent:'center',padding:'4rem 2rem'}}>
-        <div style={{textAlign:'center',maxWidth:560}}>
-          <div style={{fontSize:48,marginBottom:'1.5rem'}}>📡</div>
-          <div style={{display:'inline-block',background:'rgba(201,150,59,0.2)',border:'0.5px solid rgba(201,150,59,0.4)',color:'#C9963B',fontSize:10,fontWeight:700,letterSpacing:'0.1em',padding:'4px 12px',marginBottom:'1rem',textTransform:'uppercase' as const}}>ALEAM · Observatório de Segurança Pública</div>
-          <h1 style={{fontFamily:'Georgia,serif',fontSize:30,fontWeight:700,color:'#fff',lineHeight:1.25,marginBottom:'1rem'}}>Imprensa</h1>
-          <p style={{color:'rgba(255,255,255,0.55)',fontSize:14,lineHeight:1.7,marginBottom:'2rem'}}>Releases, fotos e materiais de comunicação para jornalistas e veículos de mídia. Esta seção está em desenvolvimento e estará disponível em breve.</p>
-          <div style={{display:'flex',gap:'12px',justifyContent:'center',flexWrap:'wrap' as const}}>
-            <Link href="/" style={{background:'#C9963B',color:'#0A1628',fontWeight:700,padding:'12px 24px',fontSize:13,textDecoration:'none',display:'inline-block'}}>← Voltar ao início</Link>
-            <Link href="/paineis" style={{border:'0.5px solid rgba(255,255,255,0.3)',color:'#fff',fontWeight:600,padding:'12px 24px',fontSize:13,textDecoration:'none',display:'inline-block'}}>Ver Painéis</Link>
+      <Nav />
+      <section className="bg-obs-navy px-4 md:px-8 py-16">
+        <div className="max-w-4xl mx-auto">
+          <p className="text-obs-gold text-xs font-bold tracking-widest uppercase mb-4">Para jornalistas</p>
+          <h1 className="font-display text-3xl md:text-4xl font-bold text-white mb-4">Imprensa</h1>
+          <p className="text-white/60 text-sm max-w-xl">
+            Releases, notas, dados e materiais de apoio para jornalistas e veículos de comunicação
+            que cobrem segurança pública no Amazonas.
+          </p>
+        </div>
+      </section>
+      <section className="bg-gradient-to-b from-obs-navy to-[#0F2A45] px-4 md:px-8 py-12">
+        <div className="max-w-4xl mx-auto grid md:grid-cols-2 gap-8">
+          <div>
+            <h2 className="font-display text-xl font-bold text-white mb-6">Contatos de imprensa</h2>
+            <div className="space-y-4">
+              {CONTATOS_IMPRENSA.map((c, i) => (
+                <div key={i} className="border border-white/10 p-4">
+                  <p className="text-obs-gold text-xs font-bold tracking-widest uppercase mb-1">{c.rotulo}</p>
+                  <p className="text-white/80 text-sm">{c.valor}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div>
+            <h2 className="font-display text-xl font-bold text-white mb-6">Materiais disponíveis</h2>
+            <div className="space-y-3">
+              {['Manual de identidade visual', 'Logotipos em alta resolução', 'Fotos institucionais', 'Releases e notas oficiais'].map((item, i) => (
+                <div key={i} className="flex items-center gap-3 border border-white/10 p-3">
+                  <span className="text-obs-gold">→</span>
+                  <span className="text-white/70 text-sm">{item}</span>
+                  <span className="ml-auto text-yellow-400 text-xs font-bold">Em breve</span>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
-      <footer style={{background:'#0A1628',padding:'1.5rem 2rem',textAlign:'center' as const,borderTop:'0.5px solid rgba(255,255,255,0.1)'}}>
-        <p style={{color:'rgba(255,255,255,0.25)',fontSize:11}}>© 2026 Observatório de Segurança Pública do Amazonas — ALEAM · Manaus, AM</p>
-      </footer>
+      <section className="bg-obs-navy px-4 md:px-8 py-10 border-t border-white/10">
+        <div className="max-w-4xl mx-auto">
+          <p className="text-white/50 text-sm mb-4">
+            Para solicitações de entrevista com a equipe técnica ou dados específicos para reportagens,
+            entre em contato pela assessoria de comunicação da ALEAM.
+          </p>
+          <Link href="/contato" className="inline-block bg-obs-gold text-obs-navy font-bold text-sm px-6 py-3 hover:bg-yellow-500 transition-colors">
+            Entrar em contato
+          </Link>
+        </div>
+      </section>
+      <Footer />
     </main>
   )
 }

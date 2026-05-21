@@ -1,40 +1,69 @@
+import Nav from '@/components/Nav'
+import Footer from '@/components/Footer'
 import Link from 'next/link'
 
 export const metadata = {
   title: 'Transparência — Observatório de Segurança Pública do Amazonas',
 }
 
-export default function Page() {
-  const nav = ['/', '/paineis', '/municipios', '/biblioteca', '/noticias', '/contato']
-  const navLabels = ['Início', 'Painéis', 'Municípios', 'Biblioteca', 'Notícias', 'Contato']
+const ITENS = [
+  { titulo: 'Resolução de criação — ALEAM nº 003/2023', tipo: 'Documento legal', status: 'Disponível' },
+  { titulo: 'Relatório de atividades 2024', tipo: 'Relatório institucional', status: 'Disponível' },
+  { titulo: 'Relatório de atividades 2025', tipo: 'Relatório institucional', status: 'Em elaboração' },
+  { titulo: 'Orçamento e execução financeira 2025', tipo: 'Financeiro', status: 'Portal ALEAM' },
+  { titulo: 'Contratos e convênios vigentes', tipo: 'Contratações', status: 'Portal ALEAM' },
+  { titulo: 'Plano de trabalho 2026', tipo: 'Planejamento', status: 'Em elaboração' },
+  { titulo: 'Protocolo de cooperação — UFAM', tipo: 'Parceria', status: 'Disponível' },
+  { titulo: 'Protocolo de cooperação — SSP-AM', tipo: 'Parceria', status: 'Disponível' },
+]
+
+const statusColor: Record<string, string> = {
+  'Disponível': 'text-green-400',
+  'Em elaboração': 'text-yellow-400',
+  'Portal ALEAM': 'text-blue-400',
+}
+
+export default function TransparenciaPage() {
   return (
     <main>
-      <header style={{background:'#0A1628',padding:'0 2rem',height:'56px',display:'flex',alignItems:'center',justifyContent:'space-between'}}>
-        <Link href="/" style={{display:'flex',alignItems:'center',gap:'10px',textDecoration:'none'}}>
-          <div style={{width:28,height:32,background:'#C9963B',clipPath:'polygon(50% 0%,100% 15%,100% 60%,50% 100%,0% 60%,0% 15%)',flexShrink:0}}/>
-          <div style={{color:'#fff',fontSize:12,fontWeight:600,lineHeight:1.3,letterSpacing:'0.04em'}}>OBSERVATÓRIO<br/><span style={{color:'#C9963B'}}>SEGURANÇA PÚBLICA · AM</span></div>
-        </Link>
-        <nav style={{display:'flex',gap:'1.5rem'}}>
-          {nav.map((href,i)=>(
-            <Link key={href} href={href} style={{color:'rgba(255,255,255,0.6)',fontSize:12,fontWeight:600,textDecoration:'none'}}>{navLabels[i]}</Link>
-          ))}
-        </nav>
-      </header>
-      <section style={{background:'linear-gradient(135deg,#0A1628,#0F2A45)',minHeight:'82vh',display:'flex',alignItems:'center',justifyContent:'center',padding:'4rem 2rem'}}>
-        <div style={{textAlign:'center',maxWidth:560}}>
-          <div style={{fontSize:48,marginBottom:'1.5rem'}}>🔍</div>
-          <div style={{display:'inline-block',background:'rgba(201,150,59,0.2)',border:'0.5px solid rgba(201,150,59,0.4)',color:'#C9963B',fontSize:10,fontWeight:700,letterSpacing:'0.1em',padding:'4px 12px',marginBottom:'1rem',textTransform:'uppercase' as const}}>ALEAM · Observatório de Segurança Pública</div>
-          <h1 style={{fontFamily:'Georgia,serif',fontSize:30,fontWeight:700,color:'#fff',lineHeight:1.25,marginBottom:'1rem'}}>Transparência</h1>
-          <p style={{color:'rgba(255,255,255,0.55)',fontSize:14,lineHeight:1.7,marginBottom:'2rem'}}>Acesso às informações públicas, prestação de contas e dados abertos do Observatório. Esta seção está em desenvolvimento e estará disponível em breve.</p>
-          <div style={{display:'flex',gap:'12px',justifyContent:'center',flexWrap:'wrap' as const}}>
-            <Link href="/" style={{background:'#C9963B',color:'#0A1628',fontWeight:700,padding:'12px 24px',fontSize:13,textDecoration:'none',display:'inline-block'}}>← Voltar ao início</Link>
-            <Link href="/paineis" style={{border:'0.5px solid rgba(255,255,255,0.3)',color:'#fff',fontWeight:600,padding:'12px 24px',fontSize:13,textDecoration:'none',display:'inline-block'}}>Ver Painéis</Link>
-          </div>
+      <Nav />
+      <section className="bg-obs-navy px-4 md:px-8 py-16">
+        <div className="max-w-4xl mx-auto">
+          <p className="text-obs-gold text-xs font-bold tracking-widest uppercase mb-4">Prestação de contas</p>
+          <h1 className="font-display text-3xl md:text-4xl font-bold text-white mb-4">Transparência</h1>
+          <p className="text-white/60 text-sm max-w-xl">
+            Documentos, relatórios institucionais, contratos e informações de acesso público
+            do Observatório de Segurança Pública do Amazonas, em cumprimento à Lei nº 12.527/2011.
+          </p>
         </div>
       </section>
-      <footer style={{background:'#0A1628',padding:'1.5rem 2rem',textAlign:'center' as const,borderTop:'0.5px solid rgba(255,255,255,0.1)'}}>
-        <p style={{color:'rgba(255,255,255,0.25)',fontSize:11}}>© 2026 Observatório de Segurança Pública do Amazonas — ALEAM · Manaus, AM</p>
-      </footer>
+      <section className="bg-gradient-to-b from-obs-navy to-[#0F2A45] px-4 md:px-8 py-12">
+        <div className="max-w-4xl mx-auto">
+          <div className="space-y-3">
+            {ITENS.map((item, i) => (
+              <div key={i} className="flex flex-col md:flex-row md:items-center gap-2 border border-white/10 bg-white/5 p-4">
+                <div className="flex-1">
+                  <p className="text-white/85 text-sm font-medium">{item.titulo}</p>
+                  <p className="text-white/35 text-xs">{item.tipo}</p>
+                </div>
+                <span className={`text-xs font-bold flex-shrink-0 ${statusColor[item.status] || 'text-white/40'}`}>
+                  {item.status}
+                </span>
+              </div>
+            ))}
+          </div>
+          <p className="text-white/30 text-xs mt-8">
+            Documentos marcados como &quot;Portal ALEAM&quot; estão disponíveis no portal oficial da Assembleia Legislativa do Estado do Amazonas.
+          </p>
+        </div>
+      </section>
+      <section className="bg-obs-navy px-4 md:px-8 py-10 border-t border-white/10">
+        <div className="max-w-4xl mx-auto flex flex-wrap gap-3">
+          <a href="https://www.aleam.am.leg.br" target="_blank" rel="noopener noreferrer" className="bg-obs-gold text-obs-navy font-bold text-sm px-6 py-3 hover:bg-yellow-500 transition-colors">Portal ALEAM →</a>
+          <Link href="/contato" className="border border-white/30 text-white font-semibold text-sm px-6 py-3 hover:border-white/60 transition-colors">Solicitar informação</Link>
+        </div>
+      </section>
+      <Footer />
     </main>
   )
 }
