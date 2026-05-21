@@ -10,39 +10,39 @@ const ACERVO = [
   {
     categoria: 'Legislação Federal',
     itens: [
-      { titulo: 'Lei nº 13.675/2018 — Sistema Único de Segurança Pública (SUSP)', tipo: 'Lei', ano: '2018' },
-      { titulo: 'Lei nº 11.340/2006 — Lei Maria da Penha', tipo: 'Lei', ano: '2006' },
-      { titulo: 'Lei nº 12.850/2013 — Organizações Criminosas', tipo: 'Lei', ano: '2013' },
-      { titulo: 'Lei nº 10.826/2003 — Estatuto do Desarmamento', tipo: 'Lei', ano: '2003' },
-      { titulo: 'Lei nº 8.069/1990 — Estatuto da Criança e do Adolescente (ECA)', tipo: 'Lei', ano: '1990' },
-      { titulo: 'Decreto nº 9.489/2018 — Regulamenta o SUSP', tipo: 'Decreto', ano: '2018' },
+      { titulo: 'Lei nº 13.675/2018 — Sistema Único de Segurança Pública (SUSP)', tipo: 'Lei', ano: '2018', link: 'https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13675.htm' },
+      { titulo: 'Lei nº 11.340/2006 — Lei Maria da Penha', tipo: 'Lei', ano: '2006', link: 'https://www.planalto.gov.br/ccivil_03/_ato2004-2006/2006/lei/l11340.htm' },
+      { titulo: 'Lei nº 12.850/2013 — Organizações Criminosas', tipo: 'Lei', ano: '2013', link: 'https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2013/lei/l12850.htm' },
+      { titulo: 'Lei nº 10.826/2003 — Estatuto do Desarmamento', tipo: 'Lei', ano: '2003', link: 'https://www.planalto.gov.br/ccivil_03/leis/2003/l10.826.htm' },
+      { titulo: 'Lei nº 8.069/1990 — Estatuto da Criança e do Adolescente (ECA)', tipo: 'Lei', ano: '1990', link: 'https://www.planalto.gov.br/ccivil_03/leis/l8069.htm' },
+      { titulo: 'Decreto nº 9.489/2018 — Regulamenta o SUSP', tipo: 'Decreto', ano: '2018', link: 'https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/decreto/d9489.htm' },
     ],
   },
   {
     categoria: 'Legislação Estadual',
     itens: [
-      { titulo: 'Resolução ALEAM nº 003/2023 — Cria o Observatório de Segurança Pública', tipo: 'Resolução', ano: '2023' },
-      { titulo: 'Lei Estadual nº 4.124/2015 — Política Estadual de Segurança Pública', tipo: 'Lei Estadual', ano: '2015' },
-      { titulo: 'Decreto Estadual nº 43.666/2021 — Plano Estadual de Segurança Pública', tipo: 'Decreto', ano: '2021' },
+      { titulo: 'Resolução ALEAM nº 003/2023 — Cria o Observatório de Segurança Pública', tipo: 'Resolução', ano: '2023', link: 'https://www.aleam.am.leg.br' },
+      { titulo: 'Lei Estadual nº 4.124/2015 — Política Estadual de Segurança Pública', tipo: 'Lei Estadual', ano: '2015', link: 'https://www.legisweb.com.br/legislacao/?id=287939' },
+      { titulo: 'Decreto Estadual nº 43.666/2021 — Plano Estadual de Segurança Pública', tipo: 'Decreto', ano: '2021', link: 'https://www.ssp.am.gov.br' },
     ],
   },
   {
     categoria: 'Estudos e Referências',
     itens: [
-      { titulo: 'Atlas da Violência 2024 — IPEA/FBSP', tipo: 'Publicação externa', ano: '2024' },
-      { titulo: 'Anuário Brasileiro de Segurança Pública 2024 — FBSP', tipo: 'Publicação externa', ano: '2024' },
-      { titulo: 'Nota Técnica: Feminicídio no Amazonas 2019-2023 — SSP-AM', tipo: 'Nota técnica', ano: '2023' },
-      { titulo: 'Diagnóstico do Sistema Penitenciário do Amazonas — DEPEN', tipo: 'Diagnóstico', ano: '2023' },
-      { titulo: 'Relatório Nacional sobre Drogas — SENAD/MJ', tipo: 'Relatório', ano: '2022' },
+      { titulo: 'Atlas da Violência 2024 — IPEA/FBSP', tipo: 'Publicação externa', ano: '2024', link: 'https://www.ipea.gov.br/atlasviolencia/' },
+      { titulo: 'Anuário Brasileiro de Segurança Pública 2024 — FBSP', tipo: 'Publicação externa', ano: '2024', link: 'https://forumseguranca.org.br/anuario-brasileiro-seguranca-publica/' },
+      { titulo: 'Nota Técnica: Feminicídio no Amazonas 2019-2023 — SSP-AM', tipo: 'Nota técnica', ano: '2023', link: 'https://www.ssp.am.gov.br' },
+      { titulo: 'Diagnóstico do Sistema Penitenciário do Amazonas — DEPEN', tipo: 'Diagnóstico', ano: '2023', link: 'https://www.gov.br/senappen/pt-br/servicos/sisdepen' },
+      { titulo: 'Relatório Nacional sobre Drogas — SENAD/MJ', tipo: 'Relatório', ano: '2022', link: 'https://www.gov.br/mj/pt-br/assuntos/sua-seguranca/politicas-sobre-drogas' },
     ],
   },
   {
     categoria: 'Cartilhas e Guias',
     itens: [
-      { titulo: 'Guia de Orientação às Vítimas de Violência Doméstica — SEJUSC-AM', tipo: 'Cartilha', ano: '2024' },
-      { titulo: 'Cartilha de Prevenção ao Tráfico de Pessoas — MJ', tipo: 'Cartilha', ano: '2023' },
-      { titulo: 'Manual de Boas Práticas em Policiamento Comunitário — SENASP', tipo: 'Manual', ano: '2022' },
-      { titulo: 'Guia de Políticas Públicas de Segurança Municipal — FBSP', tipo: 'Guia', ano: '2023' },
+      { titulo: 'Guia de Orientação às Vítimas de Violência Doméstica — SEJUSC-AM', tipo: 'Cartilha', ano: '2024', link: 'https://www.sejusc.am.gov.br' },
+      { titulo: 'Cartilha de Prevenção ao Tráfico de Pessoas — MJ', tipo: 'Cartilha', ano: '2023', link: 'https://www.gov.br/mj/pt-br/assuntos/sua-protecao/trafico-de-pessoas' },
+      { titulo: 'Manual de Boas Práticas em Policiamento Comunitário — SENASP', tipo: 'Manual', ano: '2022', link: 'https://www.gov.br/mj/pt-br/assuntos/sua-seguranca/seguranca-publica/senasp-1' },
+      { titulo: 'Guia de Políticas Públicas de Segurança Municipal — FBSP', tipo: 'Guia', ano: '2023', link: 'https://forumseguranca.org.br/publicacoes/' },
     ],
   },
 ]
@@ -93,9 +93,14 @@ export default function BibliotecaPage() {
                       <span className="text-white/30 text-xs self-center">{item.ano}</span>
                     </div>
                   </div>
-                  <span className="text-white/20 text-xs font-semibold self-center flex-shrink-0 hidden md:block">
+                  <a
+                    href={item.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-obs-gold/60 hover:text-obs-gold text-xs font-semibold self-center flex-shrink-0 hidden md:block transition-colors"
+                  >
                     Consultar →
-                  </span>
+                  </a>
                 </div>
               ))}
             </div>
