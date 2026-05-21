@@ -22,7 +22,7 @@ export default function AreaRestritaPage() {
             <div className="space-y-4">
               <div>
                 <label className="text-white/50 text-xs font-bold tracking-widest uppercase block mb-2">E-mail institucional</label>
-                <div className="border border-white/20 bg-white/5 px-4 py-3 text-white/30 text-sm">usuario@aleam.am.leg.br</div>
+                <div className="border border-white/20 bg-white/5 px-4 py-3 text-white/30 text-sm">coordenacao@observatoriodeseguranca.site</div>
               </div>
               <div>
                 <label className="text-white/50 text-xs font-bold tracking-widest uppercase block mb-2">Senha</label>

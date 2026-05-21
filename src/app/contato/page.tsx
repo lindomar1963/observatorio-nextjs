@@ -9,7 +9,7 @@ export const metadata = {
 const CANAIS = [
   {
     rotulo: 'E-mail institucional',
-    valor: 'observatorio@aleam.am.leg.br',
+    valor: 'coordenacao@observatoriodeseguranca.site',
     descricao: 'Para solicitações formais, parcerias institucionais e pedidos de acesso à informação.',
   },
   {
@@ -95,7 +95,7 @@ export default function ContatoPage() {
           </p>
           <div className="flex flex-wrap gap-3">
             <a
-              href="https://www.aleam.am.leg.br"
+              href="https://www.aleam.gov.br"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-block bg-obs-gold text-obs-navy font-bold text-sm px-6 py-3 hover:bg-yellow-500 transition-colors"

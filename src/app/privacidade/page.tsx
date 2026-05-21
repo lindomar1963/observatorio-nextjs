@@ -28,7 +28,7 @@ const SECOES = [
   },
   {
     titulo: '6. Contato do Encarregado (DPO)',
-    texto: 'O encarregado de proteção de dados do Observatório pode ser contactado por meio da assessoria jurídica da ALEAM: juridico@aleam.am.leg.br.',
+    texto: 'O encarregado de proteção de dados do Observatório pode ser contactado por meio da assessoria jurídica da ALEAM: coordenacao@observatoriodeseguranca.site.',
   },
 ]
 

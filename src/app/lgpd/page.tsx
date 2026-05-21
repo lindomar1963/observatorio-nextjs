@@ -48,7 +48,7 @@ export default function LgpdPage() {
           <h2 className="font-display text-xl font-bold text-white mb-4">Como exercer seus direitos</h2>
           <p className="text-white/60 text-sm leading-relaxed mb-6">
             Para exercer qualquer dos seus direitos como titular de dados, envie solicitação para
-            o e-mail <span className="text-obs-gold">juridico@aleam.am.leg.br</span> identificando-se
+            o e-mail <span className="text-obs-gold">coordenacao@observatoriodeseguranca.site</span> identificando-se
             e descrevendo o direito que deseja exercer. O prazo de resposta é de até 15 dias úteis.
           </p>
           <div className="flex flex-wrap gap-3">

@@ -7,7 +7,7 @@ export const metadata = {
 }
 
 const CONTATOS_IMPRENSA = [
-  { rotulo: 'Assessoria de comunicação', valor: 'comunicacao@aleam.am.leg.br' },
+  { rotulo: 'E-mail', valor: 'coordenacao@observatoriodeseguranca.site' },
   { rotulo: 'Telefone', valor: '(92) 3182-3100' },
   { rotulo: 'Horário de atendimento', valor: 'Segunda a sexta, das 8h às 14h' },
 ]
