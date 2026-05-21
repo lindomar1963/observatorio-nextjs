@@ -21,9 +21,9 @@ const ACERVO = [
   {
     categoria: 'Legislação Estadual',
     itens: [
-      { titulo: 'Resolução ALEAM nº 003/2023 — Cria o Observatório de Segurança Pública', tipo: 'Resolução', ano: '2023', link: 'https://www.aleam.am.leg.br' },
-      { titulo: 'Lei Estadual nº 4.124/2015 — Política Estadual de Segurança Pública', tipo: 'Lei Estadual', ano: '2015', link: 'https://www.legisweb.com.br/legislacao/?id=287939' },
-      { titulo: 'Decreto Estadual nº 43.666/2021 — Plano Estadual de Segurança Pública', tipo: 'Decreto', ano: '2021', link: 'https://www.ssp.am.gov.br' },
+      { titulo: 'Resolução ALEAM nº 003/2023 — Cria o Observatório de Segurança Pública', tipo: 'Resolução', ano: '2023', link: 'https://www.aleam.gov.br/diario/' },
+      { titulo: 'Lei Estadual nº 4.124/2015 — Política Estadual de Segurança Pública', tipo: 'Lei Estadual', ano: '2015', link: 'https://www.aleam.gov.br/diario/' },
+      { titulo: 'Decreto Estadual nº 43.666/2021 — Plano Estadual de Segurança Pública', tipo: 'Decreto', ano: '2021', link: 'https://www.aleam.gov.br/diario/' },
     ],
   },
   {
