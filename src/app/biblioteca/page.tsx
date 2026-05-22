@@ -10,7 +10,11 @@ const ACERVO = [
   {
     categoria: 'Legislação Federal',
     itens: [
+      { titulo: 'Constituição Federal de 1988 — Arts. 142 e 144 (Segurança Pública e Defesa Nacional)', tipo: 'Constituição', ano: '1988', link: 'https://www.planalto.gov.br/ccivil_03/Constituicao/Constituicao.htm' },
       { titulo: 'Lei nº 13.675/2018 — Sistema Único de Segurança Pública (SUSP)', tipo: 'Lei', ano: '2018', link: 'https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13675.htm' },
+      { titulo: 'Lei nº 13.954/2019 — Valorização dos Profissionais de Segurança Pública (PCEV)', tipo: 'Lei', ano: '2019', link: 'https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2019/lei/l13954.htm' },
+      { titulo: 'Emenda Constitucional nº 104/2019 — Polícias Penais Federais e Estaduais', tipo: 'EC', ano: '2019', link: 'https://www.planalto.gov.br/ccivil_03/constituicao/Emendas/Emc/emc104.htm' },
+      { titulo: 'Lei nº 13.022/2014 — Estatuto Geral das Guardas Municipais', tipo: 'Lei', ano: '2014', link: 'https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2014/lei/l13022.htm' },
       { titulo: 'Lei nº 11.340/2006 — Lei Maria da Penha', tipo: 'Lei', ano: '2006', link: 'https://www.planalto.gov.br/ccivil_03/_ato2004-2006/2006/lei/l11340.htm' },
       { titulo: 'Lei nº 12.850/2013 — Organizações Criminosas', tipo: 'Lei', ano: '2013', link: 'https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2013/lei/l12850.htm' },
       { titulo: 'Lei nº 10.826/2003 — Estatuto do Desarmamento', tipo: 'Lei', ano: '2003', link: 'https://www.planalto.gov.br/ccivil_03/leis/2003/l10.826.htm' },
@@ -24,6 +28,9 @@ const ACERVO = [
       { titulo: 'Resolução Legislativa ALEAM nº 1.089/2025 — Institui o Observatório de Segurança Pública', tipo: 'Resolução', ano: '2025', link: 'https://sapl.al.am.leg.br/norma/13917?display' },
       { titulo: 'Lei Estadual nº 4.124/2015 — Política Estadual de Segurança Pública', tipo: 'Lei Estadual', ano: '2015', link: 'https://sapl.al.am.leg.br/sapl_documentos/norma_juridica/6473_texto_integral' },
       { titulo: 'Decreto Estadual nº 45.319/2022 — Plano Estadual de Segurança Pública e Defesa Social 2021–2030', tipo: 'Decreto', ano: '2022', link: 'https://www.ssp.am.gov.br/wp-content/uploads/2023/10/Plano-Estadual-de-Seguranca-Publica.pdf' },
+      { titulo: 'Portal de Legislação Estadual — RHNet/SEAD-AM', tipo: 'Portal', ano: '—', link: 'https://rhnet.sead.am.gov.br/legislacao-estadual/' },
+      { titulo: 'Portal de Normas Jurídicas — Imprensa Oficial do Amazonas', tipo: 'Portal', ano: '—', link: 'https://legisla.imprensaoficial.am.gov.br/diario_am' },
+      { titulo: 'Portal de Pesquisa de Normas — SAPL/ALEAM', tipo: 'Portal', ano: '—', link: 'https://sapl.al.am.leg.br/norma/pesquisar' },
     ],
   },
   {
@@ -31,34 +38,37 @@ const ACERVO = [
     itens: [
       { titulo: 'Atlas da Violência 2024 — IPEA/FBSP', tipo: 'Publicação externa', ano: '2024', link: 'https://www.ipea.gov.br/atlasviolencia/' },
       { titulo: 'Anuário Brasileiro de Segurança Pública 2024 — FBSP', tipo: 'Publicação externa', ano: '2024', link: 'https://forumseguranca.org.br/anuario-brasileiro-seguranca-publica/' },
-      { titulo: 'Nota Técnica: Feminicídio no Amazonas 2019-2023 — SSP-AM', tipo: 'Nota técnica', ano: '2023', link: 'https://www.ssp.am.gov.br/amazonas-alcancou-a-menor-taxa-de-feminicidio-do-pais-em-2025-aponta-ministerio-da-justica/' },
-      { titulo: 'Diagnóstico do Sistema Penitenciário do Amazonas — DEPEN', tipo: 'Diagnóstico', ano: '2023', link: 'https://www.gov.br/senappen/pt-br/servicos/sisdepen' },
+      { titulo: 'Anuário de Segurança Pública do Amazonas 2025 — SSP-AM', tipo: 'Relatório', ano: '2025', link: 'https://www.ssp.am.gov.br/wp-content/uploads/2025/05/Anuario-2025-SSP-AM.pdf' },
+      { titulo: 'Diagnóstico do Sistema Penitenciário do Amazonas — SENAPPEN', tipo: 'Diagnóstico', ano: '2023', link: 'https://www.gov.br/senappen/pt-br/servicos/sisdepen' },
       { titulo: 'Informações Nacionais sobre Drogas — OBID/SENAD/MJ', tipo: 'Relatório', ano: '2022', link: 'https://www.gov.br/mj/pt-br/assuntos/sua-protecao/politicas-sobre-drogas/obid' },
     ],
   },
   {
     categoria: 'Cartilhas e Guias',
     itens: [
-      { titulo: 'Guia de Orientação às Vítimas de Violência Doméstica — SEJUSC-AM', tipo: 'Cartilha', ano: '2024', link: 'https://www.sejusc.am.gov.br' },
+      { titulo: 'Cartilha de Orientação às Vítimas de Violência Doméstica — SEJUSC-AM', tipo: 'Cartilha', ano: '2022', link: 'https://www.sejusc.am.gov.br/wp-content/uploads/2022/11/Cartilha-SEPM-148x210mm_corrigido.pdf' },
       { titulo: 'Cartilha de Prevenção ao Tráfico de Pessoas — MJ', tipo: 'Cartilha', ano: '2023', link: 'https://www.gov.br/mj/pt-br/assuntos/sua-protecao/trafico-de-pessoas' },
-      { titulo: 'Manual de Boas Práticas em Policiamento Comunitário — SENASP', tipo: 'Manual', ano: '2022', link: 'https://www.gov.br/mj/pt-br/assuntos/sua-seguranca/seguranca-publica/senasp-1' },
+      { titulo: 'Policiamento Comunitário: Conceitos e Fundamentos — SENASP/MJ', tipo: 'Guia', ano: '2023', link: 'https://www.gov.br/mj/pt-br/assuntos/sua-seguranca/seguranca-publica/senasp-1' },
       { titulo: 'Guia de Políticas Públicas de Segurança Municipal — FBSP', tipo: 'Guia', ano: '2023', link: 'https://forumseguranca.org.br/publicacoes/' },
     ],
   },
 ]
 
 const tipoColor: Record<string, string> = {
-  'Lei': 'bg-obs-gold/20 text-obs-gold',
-  'Lei Estadual': 'bg-obs-gold/20 text-obs-gold',
-  'Decreto': 'bg-blue-500/20 text-blue-400',
-  'Resolução': 'bg-purple-500/20 text-purple-400',
-  'Nota técnica': 'bg-green-500/20 text-green-400',
+  'Lei':                'bg-obs-gold/20 text-obs-gold',
+  'Lei Estadual':       'bg-obs-gold/20 text-obs-gold',
+  'Constituição':       'bg-red-500/20 text-red-300',
+  'EC':                 'bg-orange-500/20 text-orange-400',
+  'Decreto':            'bg-blue-500/20 text-blue-400',
+  'Resolução':          'bg-purple-500/20 text-purple-400',
+  'Portal':             'bg-teal-500/20 text-teal-300',
+  'Nota técnica':       'bg-green-500/20 text-green-400',
   'Publicação externa': 'bg-cyan-500/20 text-cyan-400',
-  'Diagnóstico': 'bg-green-500/20 text-green-400',
-  'Relatório': 'bg-green-500/20 text-green-400',
-  'Cartilha': 'bg-pink-500/20 text-pink-400',
-  'Manual': 'bg-pink-500/20 text-pink-400',
-  'Guia': 'bg-pink-500/20 text-pink-400',
+  'Diagnóstico':        'bg-green-500/20 text-green-400',
+  'Relatório':          'bg-green-500/20 text-green-400',
+  'Cartilha':           'bg-pink-500/20 text-pink-400',
+  'Manual':             'bg-pink-500/20 text-pink-400',
+  'Guia':               'bg-pink-500/20 text-pink-400',
 }
 
 export default function BibliotecaPage() {
@@ -90,7 +100,9 @@ export default function BibliotecaPage() {
                       <span className={`text-xs font-bold px-2 py-0.5 ${tipoColor[item.tipo] || 'bg-white/10 text-white/50'}`}>
                         {item.tipo}
                       </span>
-                      <span className="text-white/30 text-xs self-center">{item.ano}</span>
+                      {item.ano !== '—' && (
+                        <span className="text-white/30 text-xs self-center">{item.ano}</span>
+                      )}
                     </div>
                   </div>
                   <a

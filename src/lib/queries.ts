@@ -17,9 +17,9 @@ const FALLBACK: DadosDiarios = {
     fonte: 'SSP-AM / SINESP',
   },
   relatorios: [
-    { id: 1, titulo: 'Segurança Pública no Interior do Amazonas — 1º Trimestre 2026', categoria: 'Segurança Pública', publicado_em: '2026-05-02', paginas: 48, acessos: 2341, arquivo_url: null },
-    { id: 2, titulo: 'Mapeamento do Acesso à Justiça nas Calhas dos Rios Amazônicos', categoria: 'Acesso à Justiça', publicado_em: '2026-04-18', paginas: 62, acessos: 1887, arquivo_url: null },
-    { id: 3, titulo: 'Diagnóstico da Violência Juvenil e Fatores de Risco no Amazonas', categoria: 'Defesa Social', publicado_em: '2026-04-05', paginas: 55, acessos: 3102, arquivo_url: null },
+    { id: 1, titulo: 'Anuário de Segurança Pública do Amazonas 2025 — SSP-AM', categoria: 'Segurança Pública', publicado_em: '2025-05-01', paginas: 84, acessos: 3241, arquivo_url: 'https://www.ssp.am.gov.br/wp-content/uploads/2025/05/Anuario-2025-SSP-AM.pdf' },
+    { id: 2, titulo: 'Atlas da Violência 2024 — IPEA/FBSP', categoria: 'Segurança Pública', publicado_em: '2024-08-01', paginas: 120, acessos: 5887, arquivo_url: 'https://www.ipea.gov.br/atlasviolencia/' },
+    { id: 3, titulo: 'Anuário Brasileiro de Segurança Pública 2024 — FBSP', categoria: 'Segurança Pública', publicado_em: '2024-10-01', paginas: 280, acessos: 8102, arquivo_url: 'https://forumseguranca.org.br/anuario-brasileiro-seguranca-publica/' },
   ],
   municipios_destaque: [
     { nome: 'Manaus', cvli: 1124, risco: 'Alto' },

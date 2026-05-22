@@ -74,11 +74,11 @@ export default async function RelatoriosPage() {
                       rel="noopener noreferrer"
                       className="bg-obs-gold text-obs-navy text-xs font-bold px-4 py-2 hover:bg-yellow-500 transition-colors"
                     >
-                      Baixar PDF
+                      Acessar →
                     </a>
                   ) : (
                     <span className="border border-white/20 text-white/40 text-xs font-bold px-4 py-2 cursor-default">
-                      PDF em breve
+                      Em breve
                     </span>
                   )}
                 </div>

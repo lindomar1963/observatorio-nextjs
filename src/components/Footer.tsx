@@ -1,6 +1,46 @@
 import Link from 'next/link'
 
+interface FooterLink {
+  href: string
+  label: string
+  external?: boolean
+}
+
+interface FooterCol {
+  title: string
+  links: FooterLink[]
+}
+
 export default function Footer() {
+  const cols: FooterCol[] = [
+    {
+      title: 'O Observatório',
+      links: [
+        { href: '/observatorio', label: 'Sobre' },
+        { href: '/observatorio', label: 'Missão e valores' },
+        { href: 'https://sapl.al.am.leg.br/norma/13917?display', label: 'Resolução ALEAM', external: true },
+      ],
+    },
+    {
+      title: 'Conteúdo',
+      links: [
+        { href: '/paineis', label: 'Painéis e mapas' },
+        { href: '/relatorios', label: 'Relatórios' },
+        { href: '/biblioteca', label: 'Biblioteca' },
+        { href: '/municipios', label: 'Municípios' },
+      ],
+    },
+    {
+      title: 'Institucional',
+      links: [
+        { href: '/transparencia', label: 'Transparência' },
+        { href: '/dados-abertos', label: 'Dados abertos' },
+        { href: '/contato', label: 'Contato' },
+        { href: '/imprensa', label: 'Imprensa' },
+      ],
+    },
+  ]
+
   return (
     <footer role="contentinfo" className="bg-obs-navy">
       <div className="px-4 md:px-8 py-10 grid md:grid-cols-4 gap-8">
@@ -27,48 +67,31 @@ export default function Footer() {
         </div>
 
         {/* Links */}
-        {[
-          {
-            title: 'O Observatório',
-            links: [
-              { href: '/observatorio', label: 'Sobre' },
-              { href: '/observatorio', label: 'Missão e valores' },
-              { href: '/observatorio', label: 'Equipe técnica' },
-              { href: '/biblioteca', label: 'Resolução ALEAM' },
-            ],
-          },
-          {
-            title: 'Conteúdo',
-            links: [
-              { href: '/paineis', label: 'Painéis e mapas' },
-              { href: '/relatorios', label: 'Relatórios' },
-              { href: '/biblioteca', label: 'Biblioteca' },
-              { href: '/municipios', label: 'Municípios' },
-            ],
-          },
-          {
-            title: 'Institucional',
-            links: [
-              { href: '/transparencia', label: 'Transparência' },
-              { href: '/dados-abertos', label: 'Dados abertos' },
-              { href: '/contato', label: 'Contato' },
-              { href: '/imprensa', label: 'Imprensa' },
-            ],
-          },
-        ].map((col) => (
+        {cols.map((col) => (
           <nav key={col.title} aria-label={col.title}>
             <h3 className="text-white/80 text-xs font-bold tracking-widest uppercase mb-4">
               {col.title}
             </h3>
             <ul className="space-y-2">
               {col.links.map((l) => (
-                <li key={l.href}>
-                  <Link
-                    href={l.href}
-                    className="text-white/40 text-xs hover:text-obs-gold transition-colors"
-                  >
-                    {l.label}
-                  </Link>
+                <li key={l.label}>
+                  {l.external ? (
+                    <a
+                      href={l.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-white/40 text-xs hover:text-obs-gold transition-colors"
+                    >
+                      {l.label}
+                    </a>
+                  ) : (
+                    <Link
+                      href={l.href}
+                      className="text-white/40 text-xs hover:text-obs-gold transition-colors"
+                    >
+                      {l.label}
+                    </Link>
+                  )}
                 </li>
               ))}
             </ul>

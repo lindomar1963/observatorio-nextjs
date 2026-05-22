@@ -161,6 +161,59 @@ export default async function PaineisPage() {
         </div>
       </section>
 
+      <section className="bg-obs-navy px-4 md:px-8 py-16 border-t border-white/10">
+        <div className="max-w-5xl mx-auto">
+          <h2 className="font-display text-2xl font-bold text-white mb-2">Painéis externos de referência</h2>
+          <p className="text-white/50 text-sm mb-8">
+            Plataformas e painéis de dados públicos de outros órgãos para consulta e complementação das análises do Observatório.
+          </p>
+          <div className="grid md:grid-cols-2 gap-4">
+            {[
+              {
+                nome: 'SSP-AM — Estatísticas Oficiais',
+                descricao: 'Painel de dados e estatísticas de segurança pública da Secretaria de Segurança Pública do Amazonas.',
+                link: 'https://www.ssp.am.gov.br/estatisticas/',
+                tag: 'ESTADUAL',
+              },
+              {
+                nome: 'SINESP / Ministério da Justiça',
+                descricao: 'Sistema Nacional de Informações de Segurança Pública com dados consolidados por estado e município.',
+                link: 'https://www.gov.br/mj/pt-br/assuntos/sua-seguranca/seguranca-publica/sinesp-1',
+                tag: 'FEDERAL',
+              },
+              {
+                nome: 'Atlas da Violência — IPEA/FBSP',
+                descricao: 'Painel interativo com indicadores de violência no Brasil: homicídios, feminicídios e tendências históricas.',
+                link: 'https://www.ipea.gov.br/atlasviolencia/filtros-series',
+                tag: 'NACIONAL',
+              },
+              {
+                nome: 'SISDEPEN — Sistema Prisional',
+                descricao: 'Informações do sistema penitenciário brasileiro por estado, perfil da população carcerária e capacidade.',
+                link: 'https://www.gov.br/senappen/pt-br/servicos/sisdepen',
+                tag: 'FEDERAL',
+              },
+            ].map((p) => (
+              <div key={p.nome} className="border border-white/10 bg-white/5 p-5 hover:border-obs-gold/30 transition-colors">
+                <div className="flex items-start justify-between gap-3 mb-3">
+                  <h3 className="text-white font-semibold text-sm leading-snug">{p.nome}</h3>
+                  <span className="text-obs-gold text-xs font-bold tracking-wider flex-shrink-0">{p.tag}</span>
+                </div>
+                <p className="text-white/50 text-xs leading-relaxed mb-4">{p.descricao}</p>
+                <a
+                  href={p.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-block bg-obs-gold/10 border border-obs-gold/30 text-obs-gold text-xs font-bold px-4 py-2 hover:bg-obs-gold/20 transition-colors"
+                >
+                  Acessar painel →
+                </a>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <Footer />
     </main>
   )

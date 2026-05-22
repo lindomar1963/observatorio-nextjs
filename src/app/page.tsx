@@ -1,5 +1,6 @@
 import Nav from '@/components/Nav'
 import Hero from '@/components/Hero'
+import HeroCarousel from '@/components/HeroCarousel'
 import Ticker from '@/components/Ticker'
 import StatsGrid from '@/components/StatsGrid'
 import DashboardPreview from '@/components/DashboardPreview'
@@ -18,6 +19,7 @@ export default async function HomePage() {
       <a href="#main-content" className="skip-link">Ir para o conteúdo principal</a>
       <Nav />
       <Ticker atualizado_em={dados.indicadores.atualizado_em} />
+      <HeroCarousel />
       <Hero indicadores={dados.indicadores} />
       <StatsGrid indicadores={dados.indicadores} />
       <DashboardPreview />
