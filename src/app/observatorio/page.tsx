@@ -23,7 +23,7 @@ const PARCEIROS = [
 ]
 
 const HISTORICO = [
-  { ano: '2023', evento: 'Aprovação da Resolução nº 003/2023 pela ALEAM criando o Observatório de Segurança Pública.' },
+  { ano: '2025', evento: 'Aprovação da Resolução Legislativa nº 1.089/2025 pela ALEAM instituindo o Observatório de Segurança Pública.' },
   { ano: '2024', evento: 'Estruturação da equipe técnica e assinatura dos primeiros protocolos de cooperação com SSP-AM e UFAM.' },
   { ano: '2025', evento: 'Lançamento do primeiro Relatório Anual de Segurança Pública do Amazonas e início do monitoramento de todos os 62 municípios.' },
   { ano: '2026', evento: 'Portal digital com painéis interativos e dados abertos em tempo real disponibilizados ao público.' },
@@ -88,7 +88,7 @@ export default function ObservatorioPage() {
         <div className="max-w-4xl mx-auto">
           <h2 className="font-display text-2xl font-bold text-white mb-6">Base Legal</h2>
           <div className="border border-obs-gold/20 bg-obs-gold/5 p-6">
-            <p className="text-obs-gold text-xs font-bold tracking-widest uppercase mb-2">Resolução ALEAM nº 003/2023</p>
+            <p className="text-obs-gold text-xs font-bold tracking-widest uppercase mb-2">Resolução Legislativa ALEAM nº 1.089/2025</p>
             <p className="text-white/70 text-sm leading-relaxed mb-4">
               Institui o Observatório de Segurança Pública, Acesso à Justiça e Defesa Social da
               Assembleia Legislativa do Estado do Amazonas, vinculado à respectiva Comissão permanente,
