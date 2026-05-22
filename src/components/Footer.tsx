@@ -32,9 +32,9 @@ export default function Footer() {
             title: 'O Observatório',
             links: [
               { href: '/observatorio', label: 'Sobre' },
-              { href: '/observatorio/missao', label: 'Missão e valores' },
-              { href: '/observatorio/equipe', label: 'Equipe técnica' },
-              { href: '/observatorio/resolucao', label: 'Resolução ALEAM' },
+              { href: '/observatorio', label: 'Missão e valores' },
+              { href: '/observatorio', label: 'Equipe técnica' },
+              { href: '/biblioteca', label: 'Resolução ALEAM' },
             ],
           },
           {
