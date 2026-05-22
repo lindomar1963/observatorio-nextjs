@@ -31,7 +31,7 @@ const ACERVO = [
     itens: [
       { titulo: 'Atlas da Violência 2024 — IPEA/FBSP', tipo: 'Publicação externa', ano: '2024', link: 'https://www.ipea.gov.br/atlasviolencia/' },
       { titulo: 'Anuário Brasileiro de Segurança Pública 2024 — FBSP', tipo: 'Publicação externa', ano: '2024', link: 'https://forumseguranca.org.br/anuario-brasileiro-seguranca-publica/' },
-      { titulo: 'Nota Técnica: Feminicídio no Amazonas 2019-2023 — SSP-AM', tipo: 'Nota técnica', ano: '2023', link: 'https://www.ssp.am.gov.br' },
+      { titulo: 'Nota Técnica: Feminicídio no Amazonas 2019-2023 — SSP-AM', tipo: 'Nota técnica', ano: '2023', link: 'https://www.ssp.am.gov.br/amazonas-alcancou-a-menor-taxa-de-feminicidio-do-pais-em-2025-aponta-ministerio-da-justica/' },
       { titulo: 'Diagnóstico do Sistema Penitenciário do Amazonas — DEPEN', tipo: 'Diagnóstico', ano: '2023', link: 'https://www.gov.br/senappen/pt-br/servicos/sisdepen' },
       { titulo: 'Informações Nacionais sobre Drogas — OBID/SENAD/MJ', tipo: 'Relatório', ano: '2022', link: 'https://www.gov.br/mj/pt-br/assuntos/sua-protecao/politicas-sobre-drogas/obid' },
     ],
