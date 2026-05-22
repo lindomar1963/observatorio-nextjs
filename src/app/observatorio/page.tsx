@@ -23,10 +23,9 @@ const PARCEIROS = [
 ]
 
 const HISTORICO = [
-  { ano: '2025', evento: 'Aprovação da Resolução Legislativa nº 1.089/2025 pela ALEAM instituindo o Observatório de Segurança Pública.' },
-  { ano: '2024', evento: 'Estruturação da equipe técnica e assinatura dos primeiros protocolos de cooperação com SSP-AM e UFAM.' },
-  { ano: '2025', evento: 'Lançamento do primeiro Relatório Anual de Segurança Pública do Amazonas e início do monitoramento de todos os 62 municípios.' },
-  { ano: '2026', evento: 'Portal digital com painéis interativos e dados abertos em tempo real disponibilizados ao público.' },
+  { ano: '2025', evento: 'Aprovação da Resolução Legislativa nº 1.089/2025 pela ALEAM, instituindo o Observatório de Segurança Pública, vinculado à Comissão de Segurança Pública, Acesso à Justiça e Defesa Social (CSPJD), presidida pelo Dep. Dan Câmara (Republicanos).', link: null },
+  { ano: '2025', evento: '3º Seminário de Segurança Inovadora — realizado nos dias 29 e 30 de maio de 2025 no Auditório Belarmino Lins, promovido pela CSPJD da ALEAM. Apresentação de casos de sucesso em segurança pública.', link: 'https://www.aleam.gov.br/terceira-edicao-do-seminario-de-seguranca-inovadora-da-aleam-apresentara-casos-de-sucesso-em-seguranca-publica/' },
+  { ano: '2026', evento: '4º Seminário de Segurança Pública — lançamento oficial do Portal do Observatório com painéis de dados e indicadores de segurança pública para os 62 municípios do Amazonas.', link: 'https://observatoriodeseguranca.com/seminario/' },
 ]
 
 export default function ObservatorioPage() {
@@ -112,9 +111,35 @@ export default function ObservatorioPage() {
                   </div>
                   {i < HISTORICO.length - 1 && <div className="w-px flex-1 bg-obs-gold/20 mt-1" />}
                 </div>
-                <p className="text-white/65 text-sm leading-relaxed pt-2">{item.evento}</p>
+                <div className="pt-2">
+                  <p className="text-white/65 text-sm leading-relaxed mb-2">{item.evento}</p>
+                  {item.link && (
+                    <a
+                      href={item.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-block text-xs font-bold text-obs-gold hover:text-yellow-400 transition-colors"
+                    >
+                      Saiba mais →
+                    </a>
+                  )}
+                </div>
               </div>
             ))}
+          </div>
+          <div className="mt-6 border border-obs-gold/30 bg-obs-gold/5 p-5 flex flex-col md:flex-row md:items-center gap-4">
+            <div className="flex-1">
+              <p className="text-obs-gold text-xs font-bold tracking-widest uppercase mb-1">Próximo evento</p>
+              <p className="text-white/80 text-sm font-semibold">4º Seminário de Segurança Pública — ALEAM · 2026</p>
+            </div>
+            <a
+              href="https://observatoriodeseguranca.com/seminario/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-obs-gold text-obs-navy font-bold text-sm px-6 py-3 hover:bg-yellow-500 transition-colors flex-shrink-0"
+            >
+              Acessar página do evento →
+            </a>
           </div>
         </div>
       </section>
