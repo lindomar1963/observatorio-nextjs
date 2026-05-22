@@ -33,7 +33,7 @@ const ACERVO = [
       { titulo: 'Anuário Brasileiro de Segurança Pública 2024 — FBSP', tipo: 'Publicação externa', ano: '2024', link: 'https://forumseguranca.org.br/anuario-brasileiro-seguranca-publica/' },
       { titulo: 'Nota Técnica: Feminicídio no Amazonas 2019-2023 — SSP-AM', tipo: 'Nota técnica', ano: '2023', link: 'https://www.ssp.am.gov.br' },
       { titulo: 'Diagnóstico do Sistema Penitenciário do Amazonas — DEPEN', tipo: 'Diagnóstico', ano: '2023', link: 'https://www.gov.br/senappen/pt-br/servicos/sisdepen' },
-      { titulo: 'Relatório Nacional sobre Drogas — SENAD/MJ', tipo: 'Relatório', ano: '2022', link: 'https://www.gov.br/mj/pt-br/assuntos/sua-seguranca/politicas-sobre-drogas' },
+      { titulo: 'Informações Nacionais sobre Drogas — OBID/SENAD/MJ', tipo: 'Relatório', ano: '2022', link: 'https://www.gov.br/mj/pt-br/assuntos/sua-protecao/politicas-sobre-drogas/obid' },
     ],
   },
   {
