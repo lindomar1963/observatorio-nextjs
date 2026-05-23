@@ -63,6 +63,7 @@ const SLIDES = [
 export default function HeroCarousel() {
   const [current, setCurrent] = useState(0)
   const [fading, setFading] = useState(false)
+  const [paused, setPaused] = useState(false)
 
   const goTo = useCallback((i: number) => {
     if (i === current) return
@@ -74,15 +75,16 @@ export default function HeroCarousel() {
   }, [current])
 
   useEffect(() => {
+    if (paused) return
     const id = setInterval(() => {
       setFading(true)
       setTimeout(() => {
         setCurrent((c) => (c + 1) % SLIDES.length)
         setFading(false)
       }, 400)
-    }, 7000)
+    }, 9000)
     return () => clearInterval(id)
-  }, [])
+  }, [paused])
 
   const s = SLIDES[current]
   const isBanner = s.bg === '/seminario-4.jpg'
@@ -104,6 +106,8 @@ export default function HeroCarousel() {
   return (
     <section
       aria-label="Destaques do Observatório"
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
       style={{
         position: 'relative',
         overflow: 'hidden',
@@ -132,7 +136,10 @@ export default function HeroCarousel() {
         aria-hidden="true"
         style={{
           position: 'absolute',
-          inset: 0,
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: isBanner ? '96px' : 0,
           backgroundImage: `url('${s.bg}')`,
           backgroundSize: isBanner ? 'contain' : 'cover',
           backgroundRepeat: 'no-repeat',
