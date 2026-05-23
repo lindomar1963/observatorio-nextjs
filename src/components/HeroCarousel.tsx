@@ -177,6 +177,36 @@ export default function HeroCarousel() {
         />
       )}
 
+      {/* Banner do seminário: botão de inscrição visível */}
+      {isBanner && (
+        <Link
+          href={s.cta.href}
+          style={{
+            position: 'absolute',
+            bottom: '2.6rem',
+            left: '50%',
+            transform: 'translateX(-50%)',
+            zIndex: 5,
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '0.5rem',
+            background: '#C9963B',
+            color: '#0A1628',
+            fontWeight: 800,
+            fontSize: '0.82rem',
+            letterSpacing: '0.06em',
+            textTransform: 'uppercase',
+            padding: '0.8rem 2rem',
+            textDecoration: 'none',
+            borderRadius: '4px',
+            boxShadow: '0 8px 28px rgba(0,0,0,0.55)',
+            whiteSpace: 'nowrap',
+          }}
+        >
+          Inscrição gratuita →
+        </Link>
+      )}
+
       {/* Linha de destaque no topo */}
       <div
         aria-hidden="true"
@@ -267,12 +297,14 @@ export default function HeroCarousel() {
       {/* Navegação por pontos */}
       <div
         style={{
-          position: 'relative',
+          position: 'absolute',
+          bottom: '1.1rem',
+          left: 0,
+          right: 0,
           zIndex: 4,
           display: 'flex',
           gap: '0.4rem',
           justifyContent: 'center',
-          paddingBottom: '1.5rem',
         }}
         role="tablist"
         aria-label="Slides"
