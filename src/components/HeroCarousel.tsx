@@ -130,36 +130,15 @@ export default function HeroCarousel() {
         }
       `}</style>
 
-      {/* Fundo desfocado para preencher as laterais (só no banner) */}
-      {isBanner && (
-        <div
-          aria-hidden="true"
-          style={{
-            position: 'absolute',
-            inset: 0,
-            backgroundImage: `url('${s.bg}')`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            filter: 'blur(30px) brightness(0.5)',
-            transform: 'scale(1.12)',
-            opacity: fading ? 0 : 1,
-            transition: 'opacity 0.4s ease',
-          }}
-        />
-      )}
-
       {/* Imagem de fundo com zoom lento (Ken Burns) */}
       <div
         key={current}
         aria-hidden="true"
         style={{
           position: 'absolute',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: isBanner ? '96px' : 0,
+          inset: 0,
           backgroundImage: `url('${s.bg}')`,
-          backgroundSize: isBanner ? 'contain' : 'cover',
+          backgroundSize: 'cover',
           backgroundRepeat: 'no-repeat',
           backgroundPosition: s.bgPos,
           animation: isBanner ? 'none' : 'obsKenBurns 8s ease-out forwards',
@@ -167,6 +146,18 @@ export default function HeroCarousel() {
           transition: 'opacity 0.4s ease',
         }}
       />
+
+      {/* Gradiente inferior para legibilidade do botão (só no banner) */}
+      {isBanner && (
+        <div
+          aria-hidden="true"
+          style={{
+            position: 'absolute',
+            inset: 0,
+            background: 'linear-gradient(to top, rgba(8,18,34,0.88) 0%, rgba(8,18,34,0.30) 40%, transparent 65%)',
+          }}
+        />
+      )}
 
       {/* Escurecimento para legibilidade do texto */}
       {!isBanner && (
