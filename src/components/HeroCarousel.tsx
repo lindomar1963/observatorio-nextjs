@@ -130,6 +130,24 @@ export default function HeroCarousel() {
         }
       `}</style>
 
+      {/* Fundo desfocado para preencher as laterais (só no banner) */}
+      {isBanner && (
+        <div
+          aria-hidden="true"
+          style={{
+            position: 'absolute',
+            inset: 0,
+            backgroundImage: `url('${s.bg}')`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            filter: 'blur(30px) brightness(0.5)',
+            transform: 'scale(1.12)',
+            opacity: fading ? 0 : 1,
+            transition: 'opacity 0.4s ease',
+          }}
+        />
+      )}
+
       {/* Imagem de fundo com zoom lento (Ken Burns) */}
       <div
         key={current}
