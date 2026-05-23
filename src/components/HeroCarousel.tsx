@@ -11,6 +11,7 @@ const SLIDES = [
     cta: { label: 'Ver Painéis', href: '/paineis' },
     accent: '#C9963B',
     bg: 'https://images.unsplash.com/photo-1449824913935-59a10b8d2000?auto=format&fit=crop&w=1600&q=70',
+    bgPos: 'center',
   },
   {
     tag: 'ANÁLISE E INTELIGÊNCIA',
@@ -19,6 +20,7 @@ const SLIDES = [
     cta: { label: 'Ver Relatórios', href: '/relatorios' },
     accent: '#3b82f6',
     bg: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1600&q=70',
+    bgPos: 'center',
   },
   {
     tag: 'BASE LEGISLATIVA',
@@ -27,6 +29,7 @@ const SLIDES = [
     cta: { label: 'Acessar Biblioteca', href: '/biblioteca' },
     accent: '#a855f7',
     bg: 'https://images.unsplash.com/photo-1507842217343-583bb7270b66?auto=format&fit=crop&w=1600&q=70',
+    bgPos: 'center',
   },
   {
     tag: 'TRANSPARÊNCIA E DADOS ABERTOS',
@@ -35,6 +38,16 @@ const SLIDES = [
     cta: { label: 'Dados Abertos', href: '/dados-abertos' },
     accent: '#10b981',
     bg: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1600&q=70',
+    bgPos: 'center',
+  },
+  {
+    tag: 'IDEALIZADOR DO OBSERVATÓRIO',
+    title: 'Dep. Comandante Dan',
+    desc: 'Presidente da Comissão de Segurança Pública, Acesso à Justiça e Defesa Social da ALEAM e idealizador do Observatório de Segurança Pública do Amazonas.',
+    cta: { label: 'Conheça o mandato', href: 'https://www.comandantedan.com.br/' },
+    accent: '#C9963B',
+    bg: 'https://comandantedan.com.br/arquivos/imagens/01-%5B30-01-26%5D%5B00-48-51%5D.jpg',
+    bgPos: 'center top',
   },
 ]
 
@@ -63,6 +76,20 @@ export default function HeroCarousel() {
   }, [])
 
   const s = SLIDES[current]
+  const isExternal = s.cta.href.startsWith('http')
+  const ctaStyle = {
+    display: 'inline-block',
+    background: s.accent,
+    color: '#fff',
+    fontWeight: 700,
+    fontSize: '0.78rem',
+    letterSpacing: '0.1em',
+    textTransform: 'uppercase' as const,
+    padding: '0.75rem 1.9rem',
+    textDecoration: 'none',
+    borderRadius: '3px',
+    boxShadow: `0 6px 24px ${s.accent}50`,
+  }
 
   return (
     <section
@@ -98,7 +125,7 @@ export default function HeroCarousel() {
           inset: 0,
           backgroundImage: `url('${s.bg}')`,
           backgroundSize: 'cover',
-          backgroundPosition: 'center',
+          backgroundPosition: s.bgPos,
           animation: 'obsKenBurns 8s ease-out forwards',
           opacity: fading ? 0 : 1,
           transition: 'opacity 0.4s ease',
@@ -199,24 +226,15 @@ export default function HeroCarousel() {
             {s.desc}
           </p>
 
-          <Link
-            href={s.cta.href}
-            style={{
-              display: 'inline-block',
-              background: s.accent,
-              color: '#fff',
-              fontWeight: 700,
-              fontSize: '0.78rem',
-              letterSpacing: '0.1em',
-              textTransform: 'uppercase',
-              padding: '0.75rem 1.9rem',
-              textDecoration: 'none',
-              borderRadius: '3px',
-              boxShadow: `0 6px 24px ${s.accent}50`,
-            }}
-          >
-            {s.cta.label} →
-          </Link>
+          {isExternal ? (
+            <a href={s.cta.href} target="_blank" rel="noopener noreferrer" style={ctaStyle}>
+              {s.cta.label} →
+            </a>
+          ) : (
+            <Link href={s.cta.href} style={ctaStyle}>
+              {s.cta.label} →
+            </Link>
+          )}
         </div>
       </div>
 
