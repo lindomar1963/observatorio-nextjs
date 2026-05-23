@@ -5,6 +5,15 @@ import Link from 'next/link'
 
 const SLIDES = [
   {
+    tag: 'SEMINÁRIO 2026',
+    title: '4º Seminário de Segurança Inovadora',
+    desc: '28 e 29 de maio de 2026 — Ordem pública e controle territorial: integração e participação da sociedade na construção de políticas de segurança pública eficazes.',
+    cta: { label: 'Saiba mais', href: '/seminario' },
+    accent: '#2E9BD6',
+    bg: '/seminario-4.jpg',
+    bgPos: 'center',
+  },
+  {
     tag: 'MONITORAMENTO ESTADUAL',
     title: 'Segurança pública nos 62 municípios do Amazonas',
     desc: 'Dados em tempo real sobre criminalidade, violência e indicadores de segurança pública em todo o estado, organizados por calha regional.',
@@ -48,15 +57,6 @@ const SLIDES = [
     accent: '#C9963B',
     bg: 'https://comandantedan.com.br/arquivos/imagens/01-%5B30-01-26%5D%5B00-48-51%5D.jpg',
     bgPos: 'center top',
-  },
-  {
-    tag: 'SEMINÁRIO 2026',
-    title: '4º Seminário de Segurança Inovadora',
-    desc: '28 e 29 de maio de 2026 — Ordem pública e controle territorial: integração e participação da sociedade na construção de políticas de segurança pública eficazes.',
-    cta: { label: 'Saiba mais', href: '/seminario' },
-    accent: '#2E9BD6',
-    bg: '/seminario-4.jpg',
-    bgPos: 'center',
   },
 ]
 
