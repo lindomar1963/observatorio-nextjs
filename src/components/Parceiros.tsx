@@ -1,4 +1,19 @@
-const parceiros = ['SSP-AM','UFAM','UEA','Ministério Público — AM','Defensoria Pública — AM','TJAM','FBSP','IBGE','FGV','SENASP','DETRAN-AM','SEAP-AM']
+import Link from 'next/link'
+
+const parceiros = [
+  { nome: 'SSP-AM',                   href: 'https://www.ssp.am.gov.br/' },
+  { nome: 'UFAM',                     href: 'https://www.ufam.edu.br/' },
+  { nome: 'UEA',                      href: 'https://www.uea.edu.br/' },
+  { nome: 'Ministério Público — AM',  href: 'https://www.mpam.mp.br/' },
+  { nome: 'Defensoria Pública — AM',  href: 'https://www.defensoria.am.def.br/' },
+  { nome: 'TJAM',                     href: 'https://www.tjam.jus.br/' },
+  { nome: 'FBSP',                     href: 'https://forumseguranca.org.br/' },
+  { nome: 'IBGE',                     href: 'https://www.ibge.gov.br/' },
+  { nome: 'FGV',                      href: 'https://www.fgv.br/' },
+  { nome: 'SENASP',                   href: 'https://www.gov.br/mj/pt-br/assuntos/sua-seguranca/seguranca-publica/senasp-1' },
+  { nome: 'DETRAN-AM',                href: 'https://www.detran.am.gov.br/' },
+  { nome: 'SEAP-AM',                  href: 'https://www.seap.am.gov.br/' },
+]
 
 export default function Parceiros() {
   return (
@@ -11,12 +26,17 @@ export default function Parceiros() {
           </h2>
         </div>
         <ul className="flex flex-wrap gap-3" aria-label="Instituições parceiras">
-          {parceiros.map((p, i) => (
-            <li
-              key={i}
-              className="bg-white border border-gray-200 px-4 py-2 text-xs font-semibold text-gray-600 hover:border-obs-blue/30 hover:text-obs-blue transition-colors"
-            >
-              {p}
+          {parceiros.map((p) => (
+            <li key={p.nome}>
+              <a
+                href={p.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block bg-white border border-gray-200 px-4 py-2 text-xs font-semibold text-gray-600 hover:border-obs-blue/40 hover:text-obs-blue hover:shadow-sm transition-all"
+                aria-label={`Visitar site: ${p.nome}`}
+              >
+                {p.nome} ↗
+              </a>
             </li>
           ))}
         </ul>

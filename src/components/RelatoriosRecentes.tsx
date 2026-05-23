@@ -52,8 +52,8 @@ export default function RelatoriosRecentes({ relatorios }: { relatorios: Relator
                       ↓ Baixar PDF
                     </a>
                   ) : (
-                    <Link href="/biblioteca" className="text-xs font-bold text-obs-blue hover:underline">
-                      ↓ Baixar PDF
+                    <Link href="/relatorios" className="text-xs font-bold text-obs-blue hover:underline">
+                      ↓ Ver relatório
                     </Link>
                   )}
                   <span className="text-xs text-gray-400">↗ {r.acessos.toLocaleString('pt-BR')} acessos</span>
