@@ -5,6 +5,7 @@ import Link from 'next/link'
 export default function Nav() {
   const [open, setOpen] = useState(false)
   const links = [
+    { href: '/', label: 'Início' },
     { href: '/observatorio', label: 'O Observatório' },
     { href: '/paineis', label: 'Painéis' },
     { href: '/municipios', label: 'Municípios' },
