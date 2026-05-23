@@ -1,120 +1,175 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
 import { supabaseBrowser } from '@/lib/supabase-browser'
+import type { User } from '@supabase/supabase-js'
 
-export default function AreaRestritaPage() {
+const MODULOS = [
+  {
+    titulo: 'Indicadores de Segurança',
+    descricao: 'Acesso aos dados brutos de CVLI, roubos e violência doméstica por município.',
+    icone: '📊',
+    status: 'Acessar →',
+    href: '/area-restrita/painel/indicadores',
+  },
+  {
+    titulo: 'Gestão de Conteúdo',
+    descricao: 'Publicação de notícias, relatórios e atualizações no portal.',
+    icone: '✏️',
+    status: 'Acessar →',
+    href: '/area-restrita/painel/conteudo',
+  },
+  {
+    titulo: 'Relatórios Internos',
+    descricao: 'Notas técnicas e relatórios preliminares antes da publicação pública.',
+    icone: '📋',
+    status: 'Em desenvolvimento',
+  },
+  {
+    titulo: 'Usuários e Acessos',
+    descricao: 'Gerenciamento de usuários credenciados ao sistema.',
+    icone: '👥',
+    status: 'Em desenvolvimento',
+  },
+]
+
+export default function PainelPage() {
   const router = useRouter()
-  const [email, setEmail]       = useState('')
-  const [senha, setSenha]       = useState('')
-  const [erro, setErro]         = useState('')
-  const [loading, setLoading]   = useState(false)
+  const [user, setUser]       = useState<User | null>(null)
+  const [loading, setLoading] = useState(true)
 
-  async function handleLogin(e: React.FormEvent) {
-    e.preventDefault()
-    setErro('')
-
-    if (!supabaseBrowser) {
-      setErro('Sistema de autenticação não configurado. Contate o administrador.')
-      return
-    }
-
-    setLoading(true)
-    const { error } = await supabaseBrowser.auth.signInWithPassword({
-      email: email.trim().toLowerCase(),
-      password: senha,
-    })
-    setLoading(false)
-
-    if (error) {
-      if (error.message.includes('Invalid login')) {
-        setErro('E-mail ou senha incorretos. Verifique os dados e tente novamente.')
-      } else if (error.message.includes('Email not confirmed')) {
-        setErro('E-mail ainda não confirmado. Verifique sua caixa de entrada.')
-      } else {
-        setErro('Erro ao autenticar. Tente novamente em alguns instantes.')
+  useEffect(() => {
+    async function checkSession() {
+      if (!supabaseBrowser) {
+        router.replace('/area-restrita')
+        return
       }
-      return
+      const { data: { session } } = await supabaseBrowser.auth.getSession()
+      if (!session) {
+        router.replace('/area-restrita')
+        return
+      }
+      setUser(session.user)
+      setLoading(false)
     }
+    checkSession()
 
-    router.push('/area-restrita/painel')
+    if (!supabaseBrowser) return
+    const { data: { subscription } } = supabaseBrowser.auth.onAuthStateChange((event, session) => {
+      if (event === 'SIGNED_OUT' || !session) {
+        router.replace('/area-restrita')
+      }
+    })
+    return () => subscription.unsubscribe()
+  }, [router])
+
+  async function handleLogout() {
+    if (!supabaseBrowser) return
+    await supabaseBrowser.auth.signOut()
+    router.replace('/area-restrita')
+  }
+
+  if (loading) {
+    return (
+      <main>
+        <Nav />
+        <section className="bg-obs-navy min-h-[80vh] flex items-center justify-center">
+          <div className="text-center">
+            <div className="text-obs-gold text-xs font-bold tracking-widest uppercase mb-4 animate-pulse">
+              Verificando credenciais...
+            </div>
+          </div>
+        </section>
+        <Footer />
+      </main>
+    )
   }
 
   return (
     <main>
       <Nav />
-      <section className="bg-obs-navy min-h-[80vh] px-4 md:px-8 py-16 flex items-center">
-        <div className="max-w-md mx-auto w-full">
-          <p className="text-obs-gold text-xs font-bold tracking-widest uppercase mb-4">Acesso restrito</p>
-          <h1 className="font-display text-3xl font-bold text-white mb-4">Área Restrita</h1>
-          <p className="text-white/55 text-sm mb-8">
-            Acesso exclusivo para a equipe técnica, parlamentares credenciados e parceiros
-            institucionais do Observatório.
+
+      <section className="bg-obs-navy px-4 md:px-8 py-10 border-b border-white/10">
+        <div className="max-w-5xl mx-auto flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div>
+            <p className="text-obs-gold text-xs font-bold tracking-widest uppercase mb-2">
+              Área Restrita · Painel de Controle
+            </p>
+            <h1 className="font-display text-2xl font-bold text-white">
+              Bem-vindo, {user?.email?.split('@')[0]}
+            </h1>
+            <p className="text-white/40 text-xs mt-1">{user?.email}</p>
+          </div>
+          <button
+            onClick={handleLogout}
+            className="border border-white/20 text-white/60 text-xs font-bold tracking-widest uppercase px-5 py-2.5 hover:border-red-500/50 hover:text-red-400 transition-colors self-start md:self-center"
+          >
+            Sair →
+          </button>
+        </div>
+      </section>
+
+      <section className="bg-gradient-to-b from-obs-navy to-[#0F2A45] px-4 md:px-8 py-12">
+        <div className="max-w-5xl mx-auto">
+          <p className="text-white/40 text-xs mb-6">
+            Os módulos abaixo serão ativados progressivamente conforme o Observatório entra em operação plena.
           </p>
-
-          <form onSubmit={handleLogin} noValidate>
-            <div className="border border-white/10 bg-white/5 p-6 mb-6 space-y-5">
-              <div>
-                <label htmlFor="email" className="text-white/50 text-xs font-bold tracking-widest uppercase block mb-2">
-                  E-mail institucional
-                </label>
-                <input
-                  id="email"
-                  type="email"
-                  autoComplete="email"
-                  required
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="seu@email.com"
-                  className="w-full border border-white/20 bg-white/5 px-4 py-3 text-white text-sm placeholder:text-white/25 focus:outline-none focus:border-obs-gold/60 transition-colors"
-                />
-              </div>
-
-              <div>
-                <label htmlFor="senha" className="text-white/50 text-xs font-bold tracking-widest uppercase block mb-2">
-                  Senha
-                </label>
-                <input
-                  id="senha"
-                  type="password"
-                  autoComplete="current-password"
-                  required
-                  value={senha}
-                  onChange={(e) => setSenha(e.target.value)}
-                  placeholder="••••••••"
-                  className="w-full border border-white/20 bg-white/5 px-4 py-3 text-white text-sm placeholder:text-white/25 focus:outline-none focus:border-obs-gold/60 transition-colors"
-                />
-              </div>
-
-              {erro && (
-                <div className="bg-red-500/15 border border-red-500/30 p-3 text-red-400 text-xs leading-relaxed">
-                  {erro}
+          <div className="grid md:grid-cols-2 gap-4">
+            {MODULOS.map((m) => {
+              const cardContent = (
+                <div className="flex items-start gap-4">
+                  <span className="text-2xl flex-shrink-0">{m.icone}</span>
+                  <div className="flex-1">
+                    <h3 className="text-white font-semibold text-sm mb-1">{m.titulo}</h3>
+                    <p className="text-white/50 text-xs leading-relaxed mb-3">{m.descricao}</p>
+                    <span className={`text-xs font-bold ${m.href ? 'text-obs-gold' : 'text-yellow-400'}`}>
+                      {m.status}
+                    </span>
+                  </div>
                 </div>
-              )}
-
-              <button
-                type="submit"
-                disabled={loading || !email || !senha}
-                className="w-full bg-obs-gold text-obs-navy font-bold text-sm py-3 hover:bg-yellow-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                {loading ? 'Autenticando...' : 'Entrar'}
-              </button>
-            </div>
-          </form>
-
-          <div className="flex flex-wrap gap-3">
-            <a href="/" className="border border-white/20 text-white/60 font-semibold text-sm px-5 py-2.5 hover:border-white/40 transition-colors text-xs">
-              ← Voltar ao início
-            </a>
-            <a href="/contato" className="border border-white/20 text-white/60 font-semibold text-sm px-5 py-2.5 hover:border-white/40 transition-colors text-xs">
-              Solicitar acesso
-            </a>
+              )
+              if (m.href) {
+                return (
+                  <Link
+                    key={m.titulo}
+                    href={m.href}
+                    className="border border-white/10 bg-white/5 p-6 hover:border-obs-gold/40 cursor-pointer transition-colors block"
+                  >
+                    {cardContent}
+                  </Link>
+                )
+              }
+              return (
+                <div key={m.titulo} className="border border-white/10 bg-white/5 p-6">
+                  {cardContent}
+                </div>
+              )
+            })}
           </div>
         </div>
       </section>
+
+      <section className="bg-[#0A1628] px-4 md:px-8 py-10 border-t border-white/10">
+        <div className="max-w-5xl mx-auto">
+          <div className="border border-obs-gold/20 bg-obs-gold/5 p-5">
+            <p className="text-obs-gold text-xs font-bold tracking-widest uppercase mb-2">
+              Observatório em implantação
+            </p>
+            <p className="text-white/60 text-sm leading-relaxed">
+              O sistema está em fase de implantação. Para reportar problemas de acesso
+              ou solicitar funcionalidades, entre em contato com a coordenação:
+              <a href="mailto:coordenacao@observatoriodeseguranca.site" className="text-obs-gold ml-1 hover:text-yellow-400 transition-colors">
+                coordenacao@observatoriodeseguranca.site
+              </a>
+            </p>
+          </div>
+        </div>
+      </section>
+
       <Footer />
     </main>
   )

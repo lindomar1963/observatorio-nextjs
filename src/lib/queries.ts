@@ -1,5 +1,5 @@
 import { supabase } from './supabase'
-import type { DadosDiarios, Indicadores, Relatorio, MunicipioDestaque } from './types'
+import type { DadosDiarios, Indicadores, Noticia, Relatorio, MunicipioDestaque } from './types'
 
 // Dados fixos usados como fallback quando o banco está vazio
 const FALLBACK: DadosDiarios = {
@@ -38,7 +38,6 @@ export async function getIndicadores(): Promise<Indicadores> {
       .order('data', { ascending: false })
       .limit(1)
       .single()
-
     if (error || !data) return FALLBACK.indicadores
     return data as Indicadores
   } catch {
@@ -54,7 +53,6 @@ export async function getRelatorios(limit = 3): Promise<Relatorio[]> {
       .select('*')
       .order('publicado_em', { ascending: false })
       .limit(limit)
-
     if (error || !data || data.length === 0) return FALLBACK.relatorios
     return data as Relatorio[]
   } catch {
@@ -70,7 +68,6 @@ export async function getMunicipiosDestaque(): Promise<MunicipioDestaque[]> {
       .select('nome, cvli, risco')
       .order('cvli', { ascending: false })
       .limit(5)
-
     if (error || !data || data.length === 0) return FALLBACK.municipios_destaque
     return data as MunicipioDestaque[]
   } catch {
@@ -86,11 +83,32 @@ export async function getTendenciaMensal(): Promise<number[]> {
       .select('valor')
       .order('mes', { ascending: true })
       .limit(12)
-
     if (error || !data || data.length === 0) return FALLBACK.tendencia_mensal
     return data.map((d: { valor: number }) => d.valor)
   } catch {
     return FALLBACK.tendencia_mensal
+  }
+}
+
+const FALLBACK_NOTICIAS: Noticia[] = [
+  { id: 1, titulo: 'Observatório lança Relatório do 1º Trimestre de 2026 com dados dos 62 municípios', resumo: 'Publicação inédita consolida indicadores de CVLI, roubos e violência doméstica de todos os municípios do estado, com análise comparativa por calha regional.', categoria: 'Publicação', destaque: true, publicado: true, data_publicacao: '2026-05-02' },
+  { id: 2, titulo: 'Protocolo de cooperação técnica firmado com o Ministério da Justiça', resumo: 'Acordo amplia o acesso do Observatório às bases do SINESP e abre caminho para integração com o Sistema Nacional de Informações de Segurança Pública.', categoria: 'Parceria', destaque: true, publicado: true, data_publicacao: '2026-04-22' },
+  { id: 3, titulo: 'Seminário "Segurança Pública no Interior do Amazonas" reúne gestores de 15 municípios', resumo: 'Evento realizado em parceria com a UFAM e a SSP-AM discutiu os desafios da segurança pública em municípios com menos de 50 mil habitantes.', categoria: 'Evento', destaque: false, publicado: true, data_publicacao: '2026-04-18' },
+]
+
+export async function getNoticias(limit = 20): Promise<Noticia[]> {
+  try {
+    if (!supabase) return FALLBACK_NOTICIAS
+    const { data, error } = await supabase
+      .from('noticias')
+      .select('*')
+      .eq('publicado', true)
+      .order('data_publicacao', { ascending: false })
+      .limit(limit)
+    if (error || !data || data.length === 0) return FALLBACK_NOTICIAS
+    return data as Noticia[]
+  } catch {
+    return FALLBACK_NOTICIAS
   }
 }
 

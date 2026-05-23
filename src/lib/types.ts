@@ -1,3 +1,14 @@
+export interface Noticia {
+  id: number
+  titulo: string
+  resumo: string
+  categoria: string
+  destaque: boolean
+  publicado: boolean
+  data_publicacao: string
+  created_at?: string
+}
+
 export interface Indicadores {
   cvli_12m: number
   cvli_variacao: number
