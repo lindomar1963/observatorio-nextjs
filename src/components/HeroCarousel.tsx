@@ -130,46 +130,30 @@ export default function HeroCarousel() {
         }
       `}</style>
 
-      {/* Imagem de fundo com zoom lento (Ken Burns) — slides comuns */}
-      {!isBanner && (
-        <div
-          key={current}
-          aria-hidden="true"
-          style={{
-            position: 'absolute',
-            inset: 0,
-            backgroundImage: `url('${s.bg}')`,
-            backgroundSize: 'cover',
-            backgroundRepeat: 'no-repeat',
-            backgroundPosition: s.bgPos,
-            animation: 'obsKenBurns 8s ease-out forwards',
-            opacity: fading ? 0 : 1,
-            transition: 'opacity 0.4s ease',
-          }}
-        />
-      )}
+      {/* Imagem de fundo com zoom lento (Ken Burns) */}
+      <div
+        key={current}
+        aria-hidden="true"
+        style={{
+          position: 'absolute',
+          inset: 0,
+          backgroundImage: `url('${s.bg}')`,
+          backgroundSize: 'cover',
+          backgroundRepeat: 'no-repeat',
+          backgroundPosition: s.bgPos,
+          animation: 'obsKenBurns 8s ease-out forwards',
+          opacity: fading ? 0 : 1,
+          transition: 'opacity 0.4s ease',
+        }}
+      />
 
-      {/* Banner do seminário: imagem inteira, largura total, clicável */}
+      {/* Banner do seminário: clicável (a imagem já traz o próprio texto) */}
       {isBanner && (
         <Link
           href={s.cta.href}
           aria-label="4º Seminário de Segurança Inovadora — saiba mais"
-          style={{ display: 'block', width: '100%' }}
-        >
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            key={current}
-            src={s.bg}
-            alt="4º Seminário de Segurança Inovadora — 28 e 29 de maio de 2026"
-            style={{
-              display: 'block',
-              width: '100%',
-              height: 'auto',
-              opacity: fading ? 0 : 1,
-              transition: 'opacity 0.4s ease',
-            }}
-          />
-        </Link>
+          style={{ position: 'absolute', inset: 0, zIndex: 3 }}
+        />
       )}
 
       {/* Escurecimento para legibilidade do texto */}
