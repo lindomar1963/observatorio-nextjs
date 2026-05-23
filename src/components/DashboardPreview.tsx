@@ -23,7 +23,7 @@ export default function DashboardPreview() {
               badge: '−5,2% no ano',
               badgeOk: true,
               desc: 'Monitoramento mensal dos homicídios dolosos com comparativo histórico e média móvel de 3 meses.',
-              href: '/paineis/cvli',
+              href: '/paineis',
             },
             {
               title: 'Mapa de calor — Municípios',
@@ -31,7 +31,7 @@ export default function DashboardPreview() {
               badge: '62 municípios',
               badgeOk: true,
               desc: 'Visualização georreferenciada dos indicadores de segurança por município, calha e região integrada.',
-              href: '/paineis/mapa',
+              href: '/paineis',
             },
             {
               title: 'Distribuição por tipo de crime',
@@ -39,7 +39,7 @@ export default function DashboardPreview() {
               badge: 'Atualizado',
               badgeOk: true,
               desc: 'Análise proporcional das categorias criminais registradas no Amazonas com comparativo entre períodos.',
-              href: '/paineis/tipos',
+              href: '/paineis',
             },
           ].map((d, i) => (
             <Link
