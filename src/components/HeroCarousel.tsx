@@ -10,9 +10,7 @@ const SLIDES = [
     desc: 'Dados em tempo real sobre criminalidade, violência e indicadores de segurança pública em todo o estado, organizados por calha regional.',
     cta: { label: 'Ver Painéis', href: '/paineis' },
     accent: '#C9963B',
-    gradFrom: '#0A1628',
-    gradTo: '#1a2f4a',
-    icon: '🗺️',
+    bg: 'https://images.unsplash.com/photo-1449824913935-59a10b8d2000?auto=format&fit=crop&w=1600&q=70',
   },
   {
     tag: 'ANÁLISE E INTELIGÊNCIA',
@@ -20,9 +18,7 @@ const SLIDES = [
     desc: 'Diagnósticos, notas de pesquisa e estudos temáticos sobre criminalidade, violência doméstica e segurança pública no Amazonas.',
     cta: { label: 'Ver Relatórios', href: '/relatorios' },
     accent: '#3b82f6',
-    gradFrom: '#060d1a',
-    gradTo: '#0d1f40',
-    icon: '📊',
+    bg: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1600&q=70',
   },
   {
     tag: 'BASE LEGISLATIVA',
@@ -30,9 +26,7 @@ const SLIDES = [
     desc: 'Acervo técnico com legislação federal e estadual, estudos comparados e referências para gestores, legisladores e pesquisadores.',
     cta: { label: 'Acessar Biblioteca', href: '/biblioteca' },
     accent: '#a855f7',
-    gradFrom: '#0c0a20',
-    gradTo: '#1a0d3a',
-    icon: '📚',
+    bg: 'https://images.unsplash.com/photo-1507842217343-583bb7270b66?auto=format&fit=crop&w=1600&q=70',
   },
   {
     tag: 'TRANSPARÊNCIA E DADOS ABERTOS',
@@ -40,9 +34,7 @@ const SLIDES = [
     desc: 'Bases de dados abertas em conformidade com a Lei de Acesso à Informação, disponíveis para pesquisadores, gestores e cidadãos.',
     cta: { label: 'Dados Abertos', href: '/dados-abertos' },
     accent: '#10b981',
-    gradFrom: '#041a12',
-    gradTo: '#062a1e',
-    icon: '🔓',
+    bg: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1600&q=70',
   },
 ]
 
@@ -56,7 +48,7 @@ export default function HeroCarousel() {
     setTimeout(() => {
       setCurrent(i)
       setFading(false)
-    }, 350)
+    }, 400)
   }, [current])
 
   useEffect(() => {
@@ -65,7 +57,7 @@ export default function HeroCarousel() {
       setTimeout(() => {
         setCurrent((c) => (c + 1) % SLIDES.length)
         setFading(false)
-      }, 350)
+      }, 400)
     }, 7000)
     return () => clearInterval(id)
   }, [])
@@ -78,49 +70,93 @@ export default function HeroCarousel() {
       style={{
         position: 'relative',
         overflow: 'hidden',
-        background: `linear-gradient(135deg, ${s.gradFrom} 0%, ${s.gradTo} 100%)`,
-        transition: 'background 0.8s ease',
+        minHeight: '440px',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        background: '#0A1628',
         borderBottom: '1px solid rgba(255,255,255,0.06)',
       }}
     >
-      {/* grid background */}
+      <style>{`
+        @keyframes obsKenBurns {
+          0%   { transform: scale(1.04) translate(0, 0); }
+          100% { transform: scale(1.16) translate(-1.5%, -1.5%); }
+        }
+        @keyframes obsFadeUp {
+          0%   { opacity: 0; transform: translateY(14px); }
+          100% { opacity: 1; transform: translateY(0); }
+        }
+      `}</style>
+
+      {/* Imagem de fundo com zoom lento (Ken Burns) */}
+      <div
+        key={current}
+        aria-hidden="true"
+        style={{
+          position: 'absolute',
+          inset: 0,
+          backgroundImage: `url('${s.bg}')`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          animation: 'obsKenBurns 8s ease-out forwards',
+          opacity: fading ? 0 : 1,
+          transition: 'opacity 0.4s ease',
+        }}
+      />
+
+      {/* Escurecimento para legibilidade do texto */}
+      <div
+        aria-hidden="true"
+        style={{
+          position: 'absolute',
+          inset: 0,
+          background: `linear-gradient(90deg, rgba(8,18,34,0.94) 0%, rgba(8,18,34,0.80) 45%, rgba(8,18,34,0.45) 100%)`,
+        }}
+      />
+
+      {/* Grade sutil sobre a imagem */}
       <div
         aria-hidden="true"
         style={{
           position: 'absolute', inset: 0,
           backgroundImage:
-            'linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px)',
+            'linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px)',
           backgroundSize: '60px 60px',
         }}
       />
 
-      {/* accent line top */}
+      {/* Linha de destaque no topo */}
       <div
         aria-hidden="true"
         style={{
           position: 'absolute', top: 0, left: 0, right: 0,
           height: '2px',
           background: `linear-gradient(90deg, transparent, ${s.accent}, transparent)`,
-          opacity: 0.6,
+          opacity: 0.7,
           transition: 'background 0.8s ease',
         }}
       />
 
+      {/* Conteúdo */}
       <div
         style={{
+          position: 'relative',
+          zIndex: 2,
           maxWidth: '1100px',
+          width: '100%',
           margin: '0 auto',
-          padding: '3.5rem 6vw 2.5rem',
-          display: 'grid',
-          gridTemplateColumns: '1fr auto',
-          gap: '2rem',
-          alignItems: 'center',
-          opacity: fading ? 0 : 1,
-          transform: fading ? 'translateY(10px)' : 'translateY(0)',
-          transition: 'opacity 0.35s ease, transform 0.35s ease',
+          padding: '3rem 6vw',
         }}
       >
-        <div>
+        <div
+          key={`txt-${current}`}
+          style={{
+            maxWidth: '660px',
+            opacity: fading ? 0 : 1,
+            animation: fading ? 'none' : 'obsFadeUp 0.6s ease both',
+          }}
+        >
           <p style={{
             display: 'inline-flex',
             alignItems: 'center',
@@ -130,34 +166,35 @@ export default function HeroCarousel() {
             letterSpacing: '0.22em',
             color: s.accent,
             textTransform: 'uppercase',
-            border: `1px solid ${s.accent}35`,
-            background: `${s.accent}10`,
-            padding: '0.25rem 0.75rem',
+            border: `1px solid ${s.accent}45`,
+            background: `${s.accent}18`,
+            padding: '0.3rem 0.8rem',
             borderRadius: '2px',
-            marginBottom: '1rem',
-            transition: 'all 0.5s',
+            marginBottom: '1.1rem',
+            backdropFilter: 'blur(4px)',
           }}>
             ▸ {s.tag}
           </p>
 
           <h2 style={{
             fontFamily: 'var(--font-playfair, serif)',
-            fontSize: 'clamp(1.5rem, 3.5vw, 2.4rem)',
+            fontSize: 'clamp(1.6rem, 4vw, 2.7rem)',
             fontWeight: 700,
             color: '#fff',
-            lineHeight: 1.2,
-            marginBottom: '0.8rem',
-            maxWidth: '640px',
+            lineHeight: 1.15,
+            marginBottom: '0.9rem',
+            textShadow: '0 2px 20px rgba(0,0,0,0.5)',
           }}>
             {s.title}
           </h2>
 
           <p style={{
-            color: 'rgba(240,248,255,0.55)',
-            fontSize: '0.88rem',
+            color: 'rgba(240,248,255,0.82)',
+            fontSize: '0.92rem',
             lineHeight: 1.7,
-            maxWidth: '540px',
-            marginBottom: '1.5rem',
+            maxWidth: '560px',
+            marginBottom: '1.6rem',
+            textShadow: '0 1px 12px rgba(0,0,0,0.6)',
           }}>
             {s.desc}
           </p>
@@ -172,32 +209,22 @@ export default function HeroCarousel() {
               fontSize: '0.78rem',
               letterSpacing: '0.1em',
               textTransform: 'uppercase',
-              padding: '0.65rem 1.75rem',
+              padding: '0.75rem 1.9rem',
               textDecoration: 'none',
               borderRadius: '3px',
-              transition: 'opacity 0.2s',
+              boxShadow: `0 6px 24px ${s.accent}50`,
             }}
           >
             {s.cta.label} →
           </Link>
         </div>
-
-        <div
-          aria-hidden="true"
-          style={{
-            fontSize: '4rem',
-            opacity: 0.15,
-            display: 'none',
-          }}
-          className="md:block"
-        >
-          {s.icon}
-        </div>
       </div>
 
-      {/* dot navigation */}
+      {/* Navegação por pontos */}
       <div
         style={{
+          position: 'relative',
+          zIndex: 2,
           display: 'flex',
           gap: '0.4rem',
           justifyContent: 'center',
@@ -217,7 +244,7 @@ export default function HeroCarousel() {
               width: i === current ? '28px' : '8px',
               height: '6px',
               borderRadius: '3px',
-              background: i === current ? s.accent : 'rgba(255,255,255,0.2)',
+              background: i === current ? s.accent : 'rgba(255,255,255,0.3)',
               border: 'none',
               cursor: 'pointer',
               transition: 'all 0.35s ease',
