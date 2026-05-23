@@ -130,33 +130,46 @@ export default function HeroCarousel() {
         }
       `}</style>
 
-      {/* Imagem de fundo com zoom lento (Ken Burns) */}
-      <div
-        key={current}
-        aria-hidden="true"
-        style={{
-          position: 'absolute',
-          inset: 0,
-          backgroundImage: `url('${s.bg}')`,
-          backgroundSize: 'cover',
-          backgroundRepeat: 'no-repeat',
-          backgroundPosition: s.bgPos,
-          animation: isBanner ? 'none' : 'obsKenBurns 8s ease-out forwards',
-          opacity: fading ? 0 : 1,
-          transition: 'opacity 0.4s ease',
-        }}
-      />
-
-      {/* Gradiente inferior para legibilidade do botão (só no banner) */}
-      {isBanner && (
+      {/* Imagem de fundo com zoom lento (Ken Burns) — slides comuns */}
+      {!isBanner && (
         <div
+          key={current}
           aria-hidden="true"
           style={{
             position: 'absolute',
             inset: 0,
-            background: 'linear-gradient(to top, rgba(8,18,34,0.88) 0%, rgba(8,18,34,0.30) 40%, transparent 65%)',
+            backgroundImage: `url('${s.bg}')`,
+            backgroundSize: 'cover',
+            backgroundRepeat: 'no-repeat',
+            backgroundPosition: s.bgPos,
+            animation: 'obsKenBurns 8s ease-out forwards',
+            opacity: fading ? 0 : 1,
+            transition: 'opacity 0.4s ease',
           }}
         />
+      )}
+
+      {/* Banner do seminário: imagem inteira, largura total, clicável */}
+      {isBanner && (
+        <Link
+          href={s.cta.href}
+          aria-label="4º Seminário de Segurança Inovadora — saiba mais"
+          style={{ display: 'block', width: '100%' }}
+        >
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            key={current}
+            src={s.bg}
+            alt="4º Seminário de Segurança Inovadora — 28 e 29 de maio de 2026"
+            style={{
+              display: 'block',
+              width: '100%',
+              height: 'auto',
+              opacity: fading ? 0 : 1,
+              transition: 'opacity 0.4s ease',
+            }}
+          />
+        </Link>
       )}
 
       {/* Escurecimento para legibilidade do texto */}
@@ -182,45 +195,6 @@ export default function HeroCarousel() {
             backgroundSize: '60px 60px',
           }}
         />
-      )}
-
-      {/* Banner do seminário: clicável, sem texto sobreposto */}
-      {isBanner && (
-        <Link
-          href={s.cta.href}
-          aria-label="4º Seminário de Segurança Inovadora — saiba mais"
-          style={{ position: 'absolute', inset: 0, zIndex: 3 }}
-        />
-      )}
-
-      {/* Banner do seminário: botão de inscrição visível */}
-      {isBanner && (
-        <Link
-          href={s.cta.href}
-          style={{
-            position: 'absolute',
-            bottom: '2.6rem',
-            left: '50%',
-            transform: 'translateX(-50%)',
-            zIndex: 5,
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: '0.5rem',
-            background: '#C9963B',
-            color: '#0A1628',
-            fontWeight: 800,
-            fontSize: '0.82rem',
-            letterSpacing: '0.06em',
-            textTransform: 'uppercase',
-            padding: '0.8rem 2rem',
-            textDecoration: 'none',
-            borderRadius: '4px',
-            boxShadow: '0 8px 28px rgba(0,0,0,0.55)',
-            whiteSpace: 'nowrap',
-          }}
-        >
-          Inscrição gratuita →
-        </Link>
       )}
 
       {/* Linha de destaque no topo */}
