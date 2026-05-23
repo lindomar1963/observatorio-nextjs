@@ -49,6 +49,15 @@ const SLIDES = [
     bg: 'https://comandantedan.com.br/arquivos/imagens/01-%5B30-01-26%5D%5B00-48-51%5D.jpg',
     bgPos: 'center top',
   },
+  {
+    tag: 'SEMINÁRIO 2026',
+    title: '4º Seminário de Segurança Inovadora',
+    desc: '28 e 29 de maio de 2026 — Ordem pública e controle territorial: integração e participação da sociedade na construção de políticas de segurança pública eficazes.',
+    cta: { label: 'Saiba mais', href: '/seminario' },
+    accent: '#2E9BD6',
+    bg: '/seminario-4.jpg',
+    bgPos: 'center',
+  },
 ]
 
 export default function HeroCarousel() {
@@ -76,6 +85,7 @@ export default function HeroCarousel() {
   }, [])
 
   const s = SLIDES[current]
+  const isBanner = s.bg === '/seminario-4.jpg'
   const isExternal = s.cta.href.startsWith('http')
   const ctaStyle = {
     display: 'inline-block',
@@ -124,34 +134,48 @@ export default function HeroCarousel() {
           position: 'absolute',
           inset: 0,
           backgroundImage: `url('${s.bg}')`,
-          backgroundSize: 'cover',
+          backgroundSize: isBanner ? 'contain' : 'cover',
+          backgroundRepeat: 'no-repeat',
           backgroundPosition: s.bgPos,
-          animation: 'obsKenBurns 8s ease-out forwards',
+          animation: isBanner ? 'none' : 'obsKenBurns 8s ease-out forwards',
           opacity: fading ? 0 : 1,
           transition: 'opacity 0.4s ease',
         }}
       />
 
       {/* Escurecimento para legibilidade do texto */}
-      <div
-        aria-hidden="true"
-        style={{
-          position: 'absolute',
-          inset: 0,
-          background: `linear-gradient(90deg, rgba(8,18,34,0.94) 0%, rgba(8,18,34,0.80) 45%, rgba(8,18,34,0.45) 100%)`,
-        }}
-      />
+      {!isBanner && (
+        <div
+          aria-hidden="true"
+          style={{
+            position: 'absolute',
+            inset: 0,
+            background: `linear-gradient(90deg, rgba(8,18,34,0.94) 0%, rgba(8,18,34,0.80) 45%, rgba(8,18,34,0.45) 100%)`,
+          }}
+        />
+      )}
 
       {/* Grade sutil sobre a imagem */}
-      <div
-        aria-hidden="true"
-        style={{
-          position: 'absolute', inset: 0,
-          backgroundImage:
-            'linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px)',
-          backgroundSize: '60px 60px',
-        }}
-      />
+      {!isBanner && (
+        <div
+          aria-hidden="true"
+          style={{
+            position: 'absolute', inset: 0,
+            backgroundImage:
+              'linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px)',
+            backgroundSize: '60px 60px',
+          }}
+        />
+      )}
+
+      {/* Banner do seminário: clicável, sem texto sobreposto */}
+      {isBanner && (
+        <Link
+          href={s.cta.href}
+          aria-label="4º Seminário de Segurança Inovadora — saiba mais"
+          style={{ position: 'absolute', inset: 0, zIndex: 3 }}
+        />
+      )}
 
       {/* Linha de destaque no topo */}
       <div
@@ -166,6 +190,7 @@ export default function HeroCarousel() {
       />
 
       {/* Conteúdo */}
+      {!isBanner && (
       <div
         style={{
           position: 'relative',
@@ -237,12 +262,13 @@ export default function HeroCarousel() {
           )}
         </div>
       </div>
+      )}
 
       {/* Navegação por pontos */}
       <div
         style={{
           position: 'relative',
-          zIndex: 2,
+          zIndex: 4,
           display: 'flex',
           gap: '0.4rem',
           justifyContent: 'center',
