@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useState } from 'react'
 import dynamic from 'next/dynamic'
-import { ZONAS, type ZonaManaus } from '@/lib/ocorrencias'
+import { ZONAS, PERIODOS_DIA, type PeriodoDia, type ZonaManaus } from '@/lib/ocorrencias'
 import {
   estimarPorZona,
   amostrarMarcadores,
@@ -21,6 +21,8 @@ const MapaLeaflet = dynamic(() => import('./MapaLeaflet'), {
   ),
 })
 
+const TODOS_PERIODOS = PERIODOS_DIA.map((p) => p.id)
+
 /** Estimativa e marcadores a partir dos pontos de demonstração (fallback). */
 function estimativaDeDemo(demo: OcorrenciaTematica[]): CelulaEstimativa[] {
   const mapa = new Map<string, number>()
@@ -34,12 +36,19 @@ function estimativaDeDemo(demo: OcorrenciaTematica[]): CelulaEstimativa[] {
   })
 }
 
+/** Peso combinado dos períodos selecionados (soma dos pesos individuais) */
+function pesoPeriodos(selecionados: Set<PeriodoDia>): number {
+  const total = PERIODOS_DIA.filter((p) => selecionados.has(p.id)).reduce((s, p) => s + p.peso, 0)
+  return Math.max(total, 0.01) // nunca zero
+}
+
 export default function ObservatorioMapa({ config }: { config: ObservatorioConfig }) {
   const TODOS_TIPOS = config.tipos.map((t) => t.tipo)
   const TODAS_ZONAS = ZONAS.map((z) => z.zona)
 
   const [tipos, setTipos] = useState<Set<string>>(new Set(TODOS_TIPOS))
   const [zonas, setZonas] = useState<Set<ZonaManaus>>(new Set(TODAS_ZONAS))
+  const [periodos, setPeriodos] = useState<Set<PeriodoDia>>(new Set(TODOS_PERIODOS))
 
   const [carregando, setCarregando] = useState(config.fonte === 'sinesp')
   const [modoReal, setModoReal] = useState(false)
@@ -76,37 +85,50 @@ export default function ObservatorioMapa({ config }: { config: ObservatorioConfi
     return (t: string) => mapa.get(t) ?? '#64748B'
   }, [config])
 
+  // Peso dos períodos selecionados (fator de escala)
+  const fatorPeriodo = useMemo(() => pesoPeriodos(periodos), [periodos])
+
   const estimativaFiltrada = useMemo(
     () => estimativa.filter((c) => tipos.has(c.tipo) && zonas.has(c.zona)),
     [estimativa, tipos, zonas]
   )
 
+  // Total com escala pelo período (para SINESP que só tem mensal)
   const totalExibido = useMemo(
-    () => estimativaFiltrada.reduce((s, c) => s + c.total, 0),
-    [estimativaFiltrada]
+    () => Math.round(estimativaFiltrada.reduce((s, c) => s + c.total, 0) * fatorPeriodo),
+    [estimativaFiltrada, fatorPeriodo]
   )
 
-  const marcadoresFiltrados = useMemo(
-    () => marcadores.filter((o) => tipos.has(o.tipo) && zonas.has(o.zona)),
-    [marcadores, tipos, zonas]
+  // Estimativa com escala pelo período aplicada
+  const estimativaComPeriodo = useMemo(
+    () => estimativaFiltrada.map((c) => ({ ...c, total: Math.round(c.total * fatorPeriodo) })),
+    [estimativaFiltrada, fatorPeriodo]
   )
+
+  const marcadoresFiltrados = useMemo(() => {
+    const base = marcadores.filter((o) => tipos.has(o.tipo) && zonas.has(o.zona))
+    // subsample markers proportional to period weight
+    if (fatorPeriodo >= 0.99) return base
+    const n = Math.round(base.length * fatorPeriodo)
+    return base.slice(0, n)
+  }, [marcadores, tipos, zonas, fatorPeriodo])
 
   const zonasConcentracao = useMemo(
     () =>
       ZONAS.map((z) => ({
         ...z,
-        total: estimativaFiltrada.filter((c) => c.zona === z.zona).reduce((s, c) => s + c.total, 0),
+        total: estimativaComPeriodo.filter((c) => c.zona === z.zona).reduce((s, c) => s + c.total, 0),
       })),
-    [estimativaFiltrada]
+    [estimativaComPeriodo]
   )
 
   const porTipo = useMemo(
     () =>
       config.tipos.map((t) => ({
         ...t,
-        total: estimativaFiltrada.filter((c) => c.tipo === t.tipo).reduce((s, c) => s + c.total, 0),
+        total: estimativaComPeriodo.filter((c) => c.tipo === t.tipo).reduce((s, c) => s + c.total, 0),
       })),
-    [config.tipos, estimativaFiltrada]
+    [config.tipos, estimativaComPeriodo]
   )
 
   function toggle<T>(set: Set<T>, val: T, setter: (s: Set<T>) => void) {
@@ -115,17 +137,35 @@ export default function ObservatorioMapa({ config }: { config: ObservatorioConfi
     setter(next)
   }
 
+  function togglePeriodo(p: PeriodoDia) {
+    setPeriodos((prev) => {
+      const next = new Set(prev)
+      next.has(p) ? next.delete(p) : next.add(p)
+      return next
+    })
+  }
+
   function limpar() {
     setTipos(new Set(TODOS_TIPOS))
     setZonas(new Set(TODAS_ZONAS))
+    setPeriodos(new Set(TODOS_PERIODOS))
   }
 
   return (
     <section className="bg-[#0F2A45]">
       <div className="grid grid-cols-1 lg:grid-cols-[300px_1fr]">
-        <aside className="bg-obs-navy border-b lg:border-b-0 lg:border-r border-white/10 p-5">
-          <h2 className="text-white text-sm font-bold tracking-wider uppercase mb-5">Filtros</h2>
+        <aside className="bg-obs-navy border-b lg:border-b-0 lg:border-r border-white/10 p-5 overflow-y-auto">
+          <div className="flex items-center justify-between mb-5">
+            <h2 className="text-white text-sm font-bold tracking-wider uppercase">Filtros</h2>
+            <button
+              onClick={limpar}
+              className="text-white/40 hover:text-obs-gold text-[10px] font-bold tracking-wider uppercase transition-colors"
+            >
+              Limpar
+            </button>
+          </div>
 
+          {/* Tipo de ocorrência */}
           <p className="text-obs-gold text-[11px] font-bold tracking-widest uppercase mb-3">Tipo de ocorrência</p>
           <div className="space-y-2 mb-6">
             {config.tipos.map((t) => (
@@ -142,6 +182,49 @@ export default function ObservatorioMapa({ config }: { config: ObservatorioConfi
             ))}
           </div>
 
+          {/* Período temporal */}
+          <p className="text-obs-gold text-[11px] font-bold tracking-widest uppercase mb-3">Período temporal</p>
+          {modoReal && mesRef ? (
+            <div className="mb-2 px-3 py-2 bg-blue-900/30 border border-blue-600/30 rounded">
+              <p className="text-[10px] text-blue-300/70 font-bold tracking-wider uppercase mb-0.5">Referência</p>
+              <p className="text-blue-300 text-sm font-bold">{mesRef}</p>
+              <p className="text-blue-300/50 text-[9px] mt-0.5">Base SINESP/MJ · dados mensais</p>
+            </div>
+          ) : (
+            <div className="mb-2 px-3 py-2 bg-white/5 border border-white/10 rounded">
+              <p className="text-[10px] text-white/30 font-bold tracking-wider uppercase mb-0.5">Referência</p>
+              <p className="text-white/50 text-sm font-bold">{carregando ? 'Carregando…' : 'Estimativa'}</p>
+            </div>
+          )}
+
+          {/* Período do dia */}
+          <p className="text-white/50 text-[11px] font-bold tracking-widest uppercase mb-2 mt-4">Período do dia</p>
+          <div className="grid grid-cols-2 gap-1.5 mb-3">
+            {PERIODOS_DIA.map((p) => {
+              const ativo = periodos.has(p.id)
+              return (
+                <button
+                  key={p.id}
+                  onClick={() => togglePeriodo(p.id)}
+                  className={`text-left px-2.5 py-2 border rounded text-[10px] font-bold transition-all ${
+                    ativo
+                      ? 'border-obs-gold bg-obs-gold/10 text-obs-gold'
+                      : 'border-white/15 text-white/40 hover:border-white/30 hover:text-white/60'
+                  }`}
+                >
+                  <div className="font-bold">{p.label}</div>
+                  <div className={`text-[9px] font-normal ${ativo ? 'text-obs-gold/70' : 'text-white/30'}`}>{p.faixa}</div>
+                </button>
+              )
+            })}
+          </div>
+          {config.fonte === 'sinesp' && (
+            <p className="text-white/25 text-[9px] leading-relaxed mb-6">
+              SINESP divulga totais mensais sem horário individual. Filtro aplica estimativa estatística proporcional.
+            </p>
+          )}
+
+          {/* Zona de Manaus */}
           <p className="text-obs-gold text-[11px] font-bold tracking-widest uppercase mb-3">Zona de Manaus</p>
           <div className="space-y-2 mb-6">
             {ZONAS.map((z) => (
@@ -166,16 +249,38 @@ export default function ObservatorioMapa({ config }: { config: ObservatorioConfi
         </aside>
 
         <div className="flex flex-col">
+          {/* Cabeçalho com referência temporal e contagem */}
           <div className="flex flex-wrap items-center justify-between gap-3 px-5 py-3 bg-obs-navy border-b border-white/10">
-            <p className="text-white text-sm">
-              <span className="font-bold text-obs-gold">{carregando ? '…' : totalExibido.toLocaleString('pt-BR')}</span>
-              <span className="text-white/60"> ocorrências{modoReal && mesRef ? ` em ${mesRef}` : ''}</span>
-            </p>
-            {modoReal && (
-              <span className="text-[10px] font-bold tracking-wider uppercase bg-green-900/40 text-green-400 border border-green-600/30 px-2 py-1 rounded">
-                Estimativa territorial · base SINESP
-              </span>
-            )}
+            <div className="flex flex-wrap items-center gap-4">
+              <p className="text-white text-sm">
+                <span className="font-bold text-obs-gold">{carregando ? '…' : totalExibido.toLocaleString('pt-BR')}</span>
+                <span className="text-white/60">
+                  {' '}ocorrências
+                  {periodos.size < TODOS_PERIODOS.length ? (
+                    <span className="text-white/40">
+                      {' '}·{' '}
+                      {Array.from(periodos).map((pid) => {
+                        const p = PERIODOS_DIA.find((x) => x.id === pid)
+                        return p ? p.label : pid
+                      }).join(' + ')}
+                    </span>
+                  ) : null}
+                  {modoReal && mesRef ? ` — ${mesRef}` : ''}
+                </span>
+              </p>
+            </div>
+            <div className="flex items-center gap-2 flex-wrap">
+              {modoReal && mesRef && (
+                <span className="text-[10px] font-bold tracking-wider uppercase bg-blue-900/40 text-blue-300 border border-blue-600/30 px-2 py-1 rounded">
+                  {mesRef}
+                </span>
+              )}
+              {modoReal && (
+                <span className="text-[10px] font-bold tracking-wider uppercase bg-green-900/40 text-green-400 border border-green-600/30 px-2 py-1 rounded">
+                  Base SINESP
+                </span>
+              )}
+            </div>
           </div>
 
           <div className="h-[460px] md:h-[560px]">
@@ -208,7 +313,8 @@ export default function ObservatorioMapa({ config }: { config: ObservatorioConfi
                 Os <strong className="text-white/55">números são oficiais</strong> (SINESP/MJ, total
                 municipal de {mesRef}). A distribuição pelas zonas é uma{' '}
                 <strong className="text-white/55">estimativa territorial ponderada pela população</strong> de
-                cada zona — o SINESP não divulga a localização exata de cada ocorrência.
+                cada zona. O filtro por período do dia aplica distribuição estatística típica de crimes urbanos
+                (SINESP não divulga horário por ocorrência).
               </p>
             </div>
           )}
