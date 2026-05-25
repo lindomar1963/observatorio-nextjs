@@ -21,14 +21,18 @@ interface ItemTransparencia {
 }
 
 const ITENS: ItemTransparencia[] = [
+  // Institucional
   { titulo: 'Resolução de criação — ALEAM nº 003/2023', tipo: 'Documento legal', status: 'Disponível', arquivo: 'resolucao-criacao-003-2023.pdf' },
   { titulo: 'Relatório de atividades 2024', tipo: 'Relatório institucional', status: 'Disponível', arquivo: 'relatorio-atividades-2024.pdf' },
   { titulo: 'Relatório de atividades 2025', tipo: 'Relatório institucional', status: 'Em elaboração' },
   { titulo: 'Orçamento e execução financeira 2025', tipo: 'Financeiro', status: 'Portal ALEAM', href: PORTAL_ALEAM },
   { titulo: 'Contratos e convênios vigentes', tipo: 'Contratações', status: 'Portal ALEAM', href: PORTAL_ALEAM },
   { titulo: 'Plano de trabalho 2026', tipo: 'Planejamento', status: 'Em elaboração' },
-  { titulo: 'Protocolo de cooperação — UFAM', tipo: 'Parceria', status: 'Disponível', arquivo: 'protocolo-cooperacao-ufam.pdf' },
-  { titulo: 'Protocolo de cooperação — SSP-AM', tipo: 'Parceria', status: 'Disponível', arquivo: 'protocolo-cooperacao-ssp-am.pdf' },
+  // Acordos de Cooperação Técnica
+  { titulo: 'ACT — Universidade do Estado do Amazonas (UEA)', tipo: 'Acordo de Cooperação Técnica', status: 'Disponível', arquivo: 'act-uea.pdf' },
+  { titulo: 'ACT — Secretaria de Segurança Pública do AM (SSP-AM)', tipo: 'Acordo de Cooperação Técnica', status: 'Disponível', arquivo: 'act-ssp-am.pdf' },
+  { titulo: 'ACT — Instituto Brasileiro de Segurança Pública (IBSP)', tipo: 'Acordo de Cooperação Técnica', status: 'Disponível', arquivo: 'act-ibsp.pdf' },
+  { titulo: 'ACT — Faculdades Boas Novas', tipo: 'Acordo de Cooperação Técnica', status: 'Disponível', arquivo: 'act-boas-novas.pdf' },
 ]
 
 const statusColor: Record<string, string> = {
