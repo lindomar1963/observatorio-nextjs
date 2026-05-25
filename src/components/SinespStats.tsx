@@ -28,19 +28,26 @@ function CardSkeleton() {
   )
 }
 
-export default function SinespStats() {
+export default function SinespStats({
+  obs,
+  titulo = 'Indicadores Criminais — Manaus',
+}: {
+  obs?: string
+  titulo?: string
+} = {}) {
   const [dados, setDados] = useState<SinespResponse | null>(null)
   const [carregando, setCarregando] = useState(true)
 
   useEffect(() => {
-    fetch('/api/sinesp')
+    const url = obs ? `/api/sinesp?obs=${encodeURIComponent(obs)}` : '/api/sinesp'
+    fetch(url)
       .then((r) => r.json())
       .then((d: SinespResponse) => {
         setDados(d)
         setCarregando(false)
       })
       .catch(() => setCarregando(false))
-  }, [])
+  }, [obs])
 
   // Se falhou completamente, não renderiza nada (não quebra o layout)
   if (!carregando && (!dados || !dados.ok || dados.indicadores.length === 0)) {
@@ -59,7 +66,7 @@ export default function SinespStats() {
               Dados Oficiais · SINESP / MJ
             </p>
             <h2 className="text-white text-sm font-bold tracking-wide">
-              Indicadores Criminais — Manaus
+              {titulo}
               {!carregando && (
                 <span className="text-white/40 font-normal ml-2">({mesRef})</span>
               )}

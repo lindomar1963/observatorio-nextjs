@@ -1,5 +1,6 @@
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
+import NoticiasAoVivo from '@/components/NoticiasAoVivo'
 import { getNoticias } from '@/lib/queries'
 import type { Noticia } from '@/lib/types'
 
@@ -19,6 +20,7 @@ const catColor: Record<string, string> = {
 }
 
 const PROXIMOS_EVENTOS = [
+  { titulo: '4º Seminário de Segurança Inovadora', data: '28 e 29 · Mai · 2026', local: 'Auditório Belarmino Lins — ALEAM · Manaus', destaque: true },
   { titulo: 'Seminário Regional — Calha do Médio Amazonas', data: '12 jun 2026', local: 'Itacoatiara, AM' },
   { titulo: 'Lançamento do Boletim Trimestral — 2º Tri 2026', data: '30 jun 2026', local: 'Online / ALEAM' },
   { titulo: 'Capacitação em Segurança Comunitária para Gestores Municipais', data: '14 jul 2026', local: 'Manaus, AM' },
@@ -43,6 +45,8 @@ export default async function NoticiasPage() {
         </div>
       </section>
 
+      <NoticiasAoVivo />
+
       {destaques.length > 0 && (
         <section className="bg-gradient-to-b from-obs-navy to-[#0F2A45] px-4 md:px-8 py-10">
           <div className="max-w-5xl mx-auto">
@@ -65,7 +69,7 @@ export default async function NoticiasPage() {
 
       <section className="bg-[#0F2A45] px-4 md:px-8 py-10 border-t border-white/10">
         <div className="max-w-5xl mx-auto">
-          <h2 className="text-white/50 text-xs font-bold tracking-widest uppercase mb-6">Todas as publicações</h2>
+          <h2 className="text-white/50 text-xs font-bold tracking-widest uppercase mb-6">Publicações do Observatório</h2>
           <div className="space-y-4">
             {noticias.map((n: Noticia) => (
               <div key={n.id} className="border border-white/10 bg-white/5 p-5 hover:border-white/20 transition-colors">
@@ -86,14 +90,35 @@ export default async function NoticiasPage() {
           <h2 className="font-display text-xl font-bold text-white mb-6">Próximos eventos</h2>
           <div className="space-y-3">
             {PROXIMOS_EVENTOS.map((e, i) => (
-              <div key={i} className="flex flex-col md:flex-row md:items-center gap-3 border border-white/10 p-4">
-                <div className="flex-shrink-0 bg-obs-gold/20 border border-obs-gold/30 text-obs-gold text-xs font-bold px-3 py-2 text-center min-w-[100px]">
+              <div
+                key={i}
+                className={`flex flex-col md:flex-row md:items-center gap-3 p-4 ${
+                  (e as { destaque?: boolean }).destaque
+                    ? 'border border-obs-gold/40 bg-obs-gold/5'
+                    : 'border border-white/10'
+                }`}
+              >
+                <div
+                  className={`flex-shrink-0 text-xs font-bold px-3 py-2 text-center min-w-[120px] ${
+                    (e as { destaque?: boolean }).destaque
+                      ? 'bg-obs-gold text-obs-navy'
+                      : 'bg-obs-gold/20 border border-obs-gold/30 text-obs-gold'
+                  }`}
+                >
                   {e.data}
                 </div>
-                <div>
-                  <p className="text-white font-semibold text-sm">{e.titulo}</p>
+                <div className="flex-1">
+                  <p className={`font-semibold text-sm ${(e as { destaque?: boolean }).destaque ? 'text-obs-gold' : 'text-white'}`}>{e.titulo}</p>
                   <p className="text-white/40 text-xs">{e.local}</p>
                 </div>
+                {(e as { destaque?: boolean }).destaque && (
+                  <a
+                    href="/seminario"
+                    className="flex-shrink-0 bg-obs-gold text-obs-navy text-xs font-bold px-4 py-2 hover:bg-yellow-500 transition-colors whitespace-nowrap"
+                  >
+                    Ver programa →
+                  </a>
+                )}
               </div>
             ))}
           </div>

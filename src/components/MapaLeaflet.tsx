@@ -6,7 +6,6 @@ import {
   MANAUS_CENTRO,
   MANAUS_ZOOM,
   corPorTipo,
-  type Ocorrencia,
   type ZonaInfo,
 } from '@/lib/ocorrencias'
 
@@ -14,13 +13,26 @@ interface ZonaConcentracao extends ZonaInfo {
   total: number
 }
 
+interface PontoMapa {
+  id: number
+  tipo: string
+  zona: string
+  bairro: string
+  lat: number
+  lng: number
+  data: string
+}
+
 export default function MapaLeaflet({
   ocorrencias,
   zonas,
+  corResolver,
 }: {
-  ocorrencias: Ocorrencia[]
+  ocorrencias: PontoMapa[]
   zonas: ZonaConcentracao[]
+  corResolver?: (tipo: string) => string
 }) {
+  const cores = corResolver ?? ((t: string) => corPorTipo(t as never))
   const maxZona = Math.max(1, ...zonas.map((z) => z.total))
 
   return (
@@ -58,7 +70,7 @@ export default function MapaLeaflet({
 
       {/* Ocorrências individuais */}
       {ocorrencias.map((o) => {
-        const cor = corPorTipo(o.tipo)
+        const cor = cores(o.tipo)
         return (
           <CircleMarker
             key={o.id}
