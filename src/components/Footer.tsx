@@ -24,15 +24,12 @@ export default function Footer() {
     {
       title: 'Observatórios',
       links: [
-        { href: '/mapa',                            label: 'Segurança Pública' },
-        { href: '/observatorio-da-mulher',          label: 'Da Mulher' },
-        { href: '/observatorio-da-crianca',         label: 'Da Criança' },
-        { href: '/observatorio-do-idoso',           label: 'Do Idoso' },
-        { href: '/observatorio-roubos-furtos',      label: 'Roubos e Furtos' },
-        { href: '/observatorio-acidentes-transito', label: 'Acidentes de Trânsito' },
-        { href: '/observatorio-violencia-juvenil',  label: 'Violência Juvenil' },
-        { href: '/observatorio-crimes-digitais',    label: 'Crimes Digitais' },
-        { href: '/observatorio-crimes-ambientais',  label: 'Crimes Ambientais' },
+        { href: '/mapa',                           label: 'Segurança Pública' },
+        { href: '/observatorio-da-mulher',         label: 'Da Mulher' },
+        { href: '/observatorio-da-crianca',        label: 'Da Criança' },
+        { href: '/observatorio-do-idoso',          label: 'Do Idoso' },
+        { href: '/observatorio-roubos-furtos',     label: 'Roubos e Furtos' },
+        { href: '/observatorio-crimes-ambientais', label: 'Crimes Ambientais' },
       ],
     },
     {
@@ -56,25 +53,27 @@ export default function Footer() {
   ]
 
   return (
-    <footer role="contentinfo" className="bg-obs-navy">
+    <footer role="contentinfo" className="bg-obs-navy border-t border-obs-border">
       <div className="px-4 md:px-8 py-10 grid md:grid-cols-3 lg:grid-cols-5 gap-8">
         {/* Marca */}
         <div className="md:col-span-1">
-          <div className="flex items-center gap-2 mb-4">
+          <div className="flex items-center gap-2.5 mb-4">
             <div
               aria-hidden="true"
               style={{
-                width: 24, height: 28, background: '#C9963B',
+                width: 24, height: 28,
+                background: 'linear-gradient(135deg, #22D3EE 0%, #8B5CF6 100%)',
                 clipPath: 'polygon(50% 0%,100% 15%,100% 60%,50% 100%,0% 60%,0% 15%)',
                 flexShrink: 0,
+                filter: 'drop-shadow(0 0 6px rgba(34,211,238,0.6))',
               }}
             />
             <div className="text-white text-xs font-semibold leading-tight">
               OBSERVATÓRIO<br />
-              <span className="text-obs-gold">SEGURANÇA PÚBLICA · AM</span>
+              <span className="text-obs-cyan">SEGURANÇA PÚBLICA · AM</span>
             </div>
           </div>
-          <p className="text-white/40 text-xs leading-relaxed">
+          <p className="text-white/35 text-xs leading-relaxed">
             Vinculado à Comissão de Segurança Pública, Acesso à Justiça e
             Defesa Social da Assembleia Legislativa do Estado do Amazonas.
           </p>
@@ -83,7 +82,7 @@ export default function Footer() {
         {/* Links */}
         {cols.map((col) => (
           <nav key={col.title} aria-label={col.title}>
-            <h3 className="text-white/80 text-xs font-bold tracking-widest uppercase mb-4">
+            <h3 className="text-obs-cyan text-[10px] font-bold tracking-widest uppercase mb-4">
               {col.title}
             </h3>
             <ul className="space-y-2">
@@ -94,14 +93,14 @@ export default function Footer() {
                       href={l.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-white/40 text-xs hover:text-obs-gold transition-colors"
+                      className="text-white/35 text-xs hover:text-obs-cyan transition-colors"
                     >
                       {l.label}
                     </a>
                   ) : (
                     <Link
                       href={l.href}
-                      className="text-white/40 text-xs hover:text-obs-gold transition-colors"
+                      className="text-white/35 text-xs hover:text-obs-cyan transition-colors"
                     >
                       {l.label}
                     </Link>
@@ -114,8 +113,8 @@ export default function Footer() {
       </div>
 
       {/* Rodapé inferior */}
-      <div className="border-t border-white/10 px-4 md:px-8 py-4 flex flex-col md:flex-row justify-between items-center gap-2">
-        <p className="text-white/25 text-xs">
+      <div className="border-t border-obs-border px-4 md:px-8 py-4 flex flex-col md:flex-row justify-between items-center gap-2">
+        <p className="text-white/20 text-xs">
           © {new Date().getFullYear()} Observatório de Segurança Pública do Amazonas — ALEAM · Manaus, AM
         </p>
         <nav aria-label="Links legais" className="flex gap-4">
@@ -124,7 +123,7 @@ export default function Footer() {
             { href: '/termos', label: 'Termos de Uso' },
             { href: '/lgpd', label: 'LGPD' },
           ].map((l) => (
-            <Link key={l.href} href={l.href} className="text-white/25 text-xs hover:text-white/50 transition-colors">
+            <Link key={l.href} href={l.href} className="text-white/20 text-xs hover:text-white/50 transition-colors">
               {l.label}
             </Link>
           ))}

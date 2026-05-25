@@ -17,11 +17,11 @@ const parceiros = [
 
 export default function Parceiros() {
   return (
-    <section className="px-4 md:px-8 py-10 bg-gray-50" aria-labelledby="parc-title">
+    <section className="px-4 md:px-8 py-10 bg-obs-panel border-t border-obs-border" aria-labelledby="parc-title">
       <div className="max-w-5xl mx-auto">
         <div className="mb-6">
           <p className="text-obs-gold text-xs font-bold tracking-widest uppercase mb-1">Rede Institucional</p>
-          <h2 id="parc-title" className="font-display text-xl font-bold text-obs-navy">
+          <h2 id="parc-title" className="font-display text-xl font-bold text-white">
             Parceiros do Observatório
           </h2>
         </div>
@@ -32,7 +32,7 @@ export default function Parceiros() {
                 href={p.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="block bg-white border border-gray-200 px-4 py-2 text-xs font-semibold text-gray-600 hover:border-obs-blue/40 hover:text-obs-blue hover:shadow-sm transition-all"
+                className="block neon-card px-4 py-2 text-xs font-semibold text-white/50 hover:border-obs-cyan/40 hover:text-obs-cyan transition-all rounded-sm"
                 aria-label={`Visitar site: ${p.nome}`}
               >
                 {p.nome} ↗

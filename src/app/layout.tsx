@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   },
   robots: { index: true, follow: true },
   viewport: 'width=device-width, initial-scale=1',
-  themeColor: '#0A1628',
+  themeColor: '#060A14',
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

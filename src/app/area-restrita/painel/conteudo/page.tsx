@@ -156,12 +156,12 @@ export default function ConteudoPage() {
         </div>
       </section>
 
-      <section className="bg-gradient-to-b from-obs-navy to-[#0F2A45] px-4 md:px-8 py-10 min-h-[60vh]">
+      <section className="bg-obs-navy px-4 md:px-8 py-10 min-h-[60vh]">
         <div className="max-w-5xl mx-auto">
 
           {activeTab === 'noticias' && (
             <div className="space-y-8">
-              <div className="border border-white/10 bg-white/5 p-6">
+              <div className="border border-obs-border bg-obs-card p-6">
                 <h2 className="text-white font-semibold text-sm mb-5">Nova Notícia</h2>
                 <form onSubmit={handleNoticiaSubmit} className="space-y-4">
                   <div>
@@ -199,7 +199,7 @@ export default function ConteudoPage() {
                 {noticias.length === 0 ? <p className="text-white/30 text-xs">Nenhuma notícia cadastrada.</p> : (
                   <div className="space-y-2">
                     {noticias.map((n) => (
-                      <div key={n.id} className="border border-white/10 bg-white/5 px-4 py-3 flex items-center gap-3">
+                      <div key={n.id} className="border border-obs-border bg-obs-card px-4 py-3 flex items-center gap-3">
                         <div className="flex-1 min-w-0">
                           <div className="flex items-center gap-2 mb-0.5">
                             <span className="text-white/70 text-xs font-bold border border-white/20 px-1.5 py-0.5">{n.categoria}</span>
@@ -219,7 +219,7 @@ export default function ConteudoPage() {
 
           {activeTab === 'relatorios' && (
             <div className="space-y-8">
-              <div className="border border-white/10 bg-white/5 p-6">
+              <div className="border border-obs-border bg-obs-card p-6">
                 <h2 className="text-white font-semibold text-sm mb-5">Novo Relatório</h2>
                 <form onSubmit={handleRelatorioSubmit} className="space-y-4">
                   <div>
@@ -255,7 +255,7 @@ export default function ConteudoPage() {
                 {relatorios.length === 0 ? <p className="text-white/30 text-xs">Nenhum relatório cadastrado.</p> : (
                   <div className="space-y-2">
                     {relatorios.map((r) => (
-                      <div key={r.id} className="border border-white/10 bg-white/5 px-4 py-3 flex items-center gap-3">
+                      <div key={r.id} className="border border-obs-border bg-obs-card px-4 py-3 flex items-center gap-3">
                         <div className="flex-1 min-w-0">
                           <div className="flex items-center gap-2 mb-0.5">
                             <span className="text-white/70 text-xs font-bold border border-white/20 px-1.5 py-0.5">{r.categoria}</span>

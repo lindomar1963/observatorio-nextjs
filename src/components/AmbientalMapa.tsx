@@ -65,8 +65,8 @@ export default function AmbientalMapa() {
   }, [dados])
 
   return (
-    <section className="bg-[#0F2A45]">
-      <div className="flex flex-wrap items-center justify-between gap-3 px-5 py-3 bg-obs-navy border-b border-white/10">
+    <section className="bg-obs-panel">
+      <div className="flex flex-wrap items-center justify-between gap-3 px-5 py-3 bg-obs-navy border-b border-obs-border">
         <p className="text-white text-sm">
           <span className="font-bold text-obs-gold">
             {carregando ? '…' : (dados?.totalFocos ?? 0).toLocaleString('pt-BR')}
@@ -76,7 +76,7 @@ export default function AmbientalMapa() {
           </span>
         </p>
         {ehReal ? (
-          <span className="text-[10px] font-bold tracking-wider uppercase bg-green-900/40 text-green-400 border border-green-600/30 px-2 py-1 rounded">
+          <span className="text-[10px] font-bold tracking-wider uppercase bg-obs-lime/10 text-obs-lime border border-obs-lime/30 px-2 py-1 rounded">
             Dados reais · INPE (geolocalizado)
           </span>
         ) : (
@@ -98,9 +98,9 @@ export default function AmbientalMapa() {
       </div>
 
       {ehReal && topMunicipios.length > 0 && (
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-px bg-white/10">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-px bg-obs-border">
           {topMunicipios.map(([mun, qtd]) => (
-            <div key={mun} className="bg-obs-navy p-3">
+            <div key={mun} className="bg-obs-panel p-3">
               <p className="text-white/40 text-[10px] font-bold tracking-wider uppercase truncate" title={mun}>
                 {mun}
               </p>
@@ -110,7 +110,7 @@ export default function AmbientalMapa() {
         </div>
       )}
 
-      <div className="px-5 py-3 bg-obs-navy border-t border-white/10">
+      <div className="px-5 py-3 bg-obs-navy border-t border-obs-border">
         <p className="text-white/35 text-[11px] leading-relaxed">
           {ehReal ? (
             <>

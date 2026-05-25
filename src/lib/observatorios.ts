@@ -122,8 +122,6 @@ export function amostrarMarcadores(
         lat: z.centro[0] + jLat,
         lng: z.centro[1] + jLng,
         data: '',
-        status: STATUS_CICLO[seed % STATUS_CICLO.length],
-        hora: (seed * 3) % 24,
       })
     }
   }
@@ -257,52 +255,52 @@ export const OBSERVATORIOS: Record<string, ObservatorioConfig> = {
     tagline: 'Segurança viária · Manaus',
     descricao:
       'Monitoramento dos acidentes e crimes de trânsito em Manaus — sinistros fatais, embriaguez ' +
-      'ao volante, atropelamentos e lesões — com indicadores do SINESP e dados de segurança viária.',
+      'ao volante, atropelamentos e lesões — com indicadores do SINESP.',
     fonte: 'sinesp',
     fonteLabel: 'SINESP / Ministério da Justiça',
     tipos: [
-      { tipo: 'Sinistro Fatal',        cor: '#EF4444', sinesp: ['morte no trânsito', 'morte no transito', 'morte em acidente', 'acidente de trânsito', 'acidente de transito', 'morte por acidente'] },
-      { tipo: 'Embriaguez ao Volante', cor: '#8B5CF6', sinesp: ['embriaguez'] },
-      { tipo: 'Atropelamento',         cor: '#F59E0B', sinesp: ['atropelamento'] },
-      { tipo: 'Lesão no Trânsito',     cor: '#06B6D4', sinesp: [] },
+      { tipo: 'Sinistro Fatal',             cor: '#EF4444', sinesp: ['homicídio culposo', 'homicidio culposo', 'acidente fatal', 'sinistro'] },
+      { tipo: 'Embriaguez ao Volante',      cor: '#F97316', sinesp: ['embriaguez', 'bafômetro', 'bafometro'] },
+      { tipo: 'Atropelamento / Lesão',      cor: '#FBBF24', sinesp: ['lesão culposa', 'lesao culposa', 'atropelamento'] },
+      { tipo: 'Fuga após Acidente',         cor: '#3B82F6', sinesp: ['fuga', 'omissão de socorro', 'omissao de socorro'] },
     ],
-    demo: gerarDemo(['Sinistro Fatal', 'Embriaguez ao Volante', 'Atropelamento', 'Lesão no Trânsito']),
+    demo: gerarDemo(['Sinistro Fatal', 'Embriaguez ao Volante', 'Atropelamento / Lesão', 'Fuga após Acidente']),
   },
 
   juvenil: {
     slug: 'observatorio-violencia-juvenil',
     nome: 'Observatório de Violência Juvenil',
-    tagline: 'Juventude e prevenção · Manaus',
+    tagline: 'Proteção à juventude · Manaus',
     descricao:
       'Monitoramento da violência que atinge e envolve jovens em Manaus — homicídios juvenis, ' +
       'lesões, atos infracionais e envolvimento com o tráfico — com indicadores do SINESP.',
     fonte: 'sinesp',
     fonteLabel: 'SINESP / Ministério da Justiça',
     tipos: [
-      { tipo: 'Homicídio Juvenil',        cor: '#EF4444', sinesp: ['homicídio doloso', 'homicidio doloso'] },
-      { tipo: 'Ato Infracional',          cor: '#F97316', sinesp: [] },
-      { tipo: 'Lesão Corporal',           cor: '#EAB308', sinesp: ['lesão corporal', 'lesao corporal'] },
-      { tipo: 'Envolvimento com Tráfico', cor: '#3B82F6', sinesp: ['tráfico de drogas', 'trafico de drogas'] },
+      { tipo: 'Homicídio Juvenil',          cor: '#EF4444', sinesp: ['homicídio doloso', 'homicidio doloso', 'cvli'] },
+      { tipo: 'Lesão Corporal',             cor: '#F97316', sinesp: ['lesão corporal', 'lesao corporal'] },
+      { tipo: 'Ato Infracional',            cor: '#8B5CF6', sinesp: ['ato infracional', 'menor infrator'] },
+      { tipo: 'Tráfico / Apreensão',        cor: '#A3E635', sinesp: ['tráfico', 'trafico', 'drogas', 'entorpecente'] },
     ],
-    demo: gerarDemo(['Homicídio Juvenil', 'Ato Infracional', 'Lesão Corporal', 'Envolvimento com Tráfico']),
+    demo: gerarDemo(['Homicídio Juvenil', 'Lesão Corporal', 'Ato Infracional', 'Tráfico / Apreensão']),
   },
 
   digitais: {
     slug: 'observatorio-crimes-digitais',
     nome: 'Observatório de Crimes Digitais',
-    tagline: 'Segurança no mundo online · Manaus',
+    tagline: 'Segurança no ambiente digital · Manaus',
     descricao:
-      'Monitoramento dos crimes digitais que mais afetam a população — estelionato online, ' +
-      'fraude bancária, golpes do PIX e invasão de dispositivos — com indicadores do SINESP.',
+      'Monitoramento dos crimes digitais que mais afetam a população em Manaus — estelionato ' +
+      'online, fraude bancária, golpes do PIX e invasão de dispositivos — com indicadores do SINESP.',
     fonte: 'sinesp',
     fonteLabel: 'SINESP / Ministério da Justiça',
     tipos: [
-      { tipo: 'Estelionato / Golpe Online', cor: '#EF4444', sinesp: ['estelionato'] },
-      { tipo: 'Fraude Bancária / Cartão',   cor: '#8B5CF6', sinesp: ['fraude'] },
-      { tipo: 'Golpe do PIX',               cor: '#F59E0B', sinesp: [] },
-      { tipo: 'Invasão de Dispositivo',     cor: '#06B6D4', sinesp: ['invasão de dispositivo', 'invasao de dispositivo'] },
+      { tipo: 'Estelionato Online',          cor: '#EC4899', sinesp: ['estelionato', 'fraude'] },
+      { tipo: 'Golpe do PIX / Bancário',     cor: '#FBBF24', sinesp: ['pix', 'banco', 'bancário', 'bancario'] },
+      { tipo: 'Invasão de Dispositivo',      cor: '#22D3EE', sinesp: ['invasão', 'invasao', 'dispositivo', 'hacker'] },
+      { tipo: 'Extorsão / Sextorsão',        cor: '#F97316', sinesp: ['extorsão', 'extorsao', 'chantagem'] },
     ],
-    demo: gerarDemo(['Estelionato / Golpe Online', 'Fraude Bancária / Cartão', 'Golpe do PIX', 'Invasão de Dispositivo']),
+    demo: gerarDemo(['Estelionato Online', 'Golpe do PIX / Bancário', 'Invasão de Dispositivo', 'Extorsão / Sextorsão']),
   },
 }
 

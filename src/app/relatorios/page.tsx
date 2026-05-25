@@ -41,7 +41,7 @@ export default async function RelatoriosPage() {
         </div>
       </section>
 
-      <section className="bg-gradient-to-b from-obs-navy to-[#0F2A45] px-4 md:px-8 py-4">
+      <section className="bg-obs-navy px-4 md:px-8 py-4">
         <div className="max-w-5xl mx-auto flex flex-wrap gap-2">
           <span className="text-white/40 text-xs font-semibold tracking-wider uppercase self-center mr-2">Filtrar por:</span>
           {CATEGORIAS.map((c) => (
@@ -52,11 +52,11 @@ export default async function RelatoriosPage() {
         </div>
       </section>
 
-      <section className="bg-[#0F2A45] px-4 md:px-8 py-12">
+      <section className="bg-obs-panel px-4 md:px-8 py-12">
         <div className="max-w-5xl mx-auto">
           <div className="space-y-4">
             {relatorios.map((r: Relatorio) => (
-              <div key={r.id} className="border border-white/10 bg-white/5 p-5 hover:border-obs-gold/30 transition-colors">
+              <div key={r.id} className="border border-obs-border bg-obs-card p-5 hover:border-obs-cyan/30 transition-colors">
                 <div className="flex flex-wrap items-start gap-3 mb-3">
                   <span className={`text-xs font-bold px-2 py-0.5 border ${catColor(r.categoria)}`}>
                     {r.categoria}

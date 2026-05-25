@@ -135,10 +135,10 @@ export default function IndicadoresPage() {
         </div>
       </section>
 
-      <section className="bg-gradient-to-b from-obs-navy to-[#0F2A45] px-4 md:px-8 py-10">
+      <section className="bg-obs-navy px-4 md:px-8 py-10">
         <div className="max-w-4xl mx-auto space-y-10">
 
-          <div className="border border-white/10 bg-white/5 p-6">
+          <div className="border border-obs-border bg-obs-card p-6">
             <h2 className="text-white font-semibold text-sm mb-6">Novo registro de indicadores</h2>
             <form onSubmit={handleSubmit} className="space-y-6">
 
@@ -224,7 +224,7 @@ export default function IndicadoresPage() {
             {historico.length === 0 ? <p className="text-white/30 text-xs">Nenhum registro encontrado.</p> : (
               <div className="space-y-2">
                 {historico.map((item) => (
-                  <div key={item.id} className="border border-white/10 bg-white/5 px-4 py-3">
+                  <div key={item.id} className="border border-obs-border bg-obs-card px-4 py-3">
                     <div className="flex items-center justify-between mb-1">
                       <span className="text-obs-gold text-xs font-bold">{new Date(item.data).toLocaleDateString('pt-BR')}</span>
                       <span className="text-white/30 text-xs">{item.fonte}</span>

@@ -26,7 +26,7 @@ export default function ImprensaPage() {
           </p>
         </div>
       </section>
-      <section className="bg-gradient-to-b from-obs-navy to-[#0F2A45] px-4 md:px-8 py-12">
+      <section className="bg-obs-navy px-4 md:px-8 py-12">
         <div className="max-w-4xl mx-auto grid md:grid-cols-2 gap-8">
           <div>
             <h2 className="font-display text-xl font-bold text-white mb-6">Contatos de imprensa</h2>

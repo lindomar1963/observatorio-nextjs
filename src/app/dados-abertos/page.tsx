@@ -64,12 +64,12 @@ export default function DadosAbertosPage() {
         </div>
       </section>
 
-      <section className="bg-gradient-to-b from-obs-navy to-[#0F2A45] px-4 md:px-8 py-12">
+      <section className="bg-obs-navy px-4 md:px-8 py-12">
         <div className="max-w-4xl mx-auto">
           <h2 className="font-display text-xl font-bold text-white mb-6">Datasets do Observatório</h2>
           <div className="space-y-3">
             {DATASETS.map((d, i) => (
-              <div key={i} className="border border-white/10 bg-white/5 p-4">
+              <div key={i} className="border border-obs-border bg-obs-card p-4">
                 <div className="flex flex-col md:flex-row md:items-center gap-2">
                   <div className="flex-1">
                     <p className="text-white/85 text-sm font-medium mb-1">{d.nome}</p>
@@ -93,7 +93,7 @@ export default function DadosAbertosPage() {
         </div>
       </section>
 
-      <section className="bg-[#0F2A45] px-4 md:px-8 py-12 border-t border-white/10">
+      <section className="bg-obs-panel px-4 md:px-8 py-12 border-t border-white/10">
         <div className="max-w-4xl mx-auto">
           <h2 className="font-display text-xl font-bold text-white mb-2">Fontes externas de dados públicos</h2>
           <p className="text-white/50 text-sm mb-8">
@@ -102,7 +102,7 @@ export default function DadosAbertosPage() {
           </p>
           <div className="space-y-3">
             {FONTES_EXTERNAS.map((f, i) => (
-              <div key={i} className="border border-white/10 bg-white/5 p-4 hover:border-obs-gold/30 transition-colors">
+              <div key={i} className="border border-obs-border bg-obs-card p-4 hover:border-obs-cyan/30 transition-colors">
                 <div className="flex items-start gap-4">
                   <div className="flex-1">
                     <p className="text-white/85 text-sm font-semibold mb-1">{f.nome}</p>

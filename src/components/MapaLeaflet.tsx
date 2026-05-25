@@ -51,7 +51,7 @@ export default function MapaLeaflet({
       center={center}
       zoom={zoom}
       scrollWheelZoom={false}
-      style={{ height: '100%', width: '100%', background: '#0A1628' }}
+      style={{ height: '100%', width: '100%', background: '#060A14' }}
     >
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
@@ -68,10 +68,10 @@ export default function MapaLeaflet({
               center={z.centro}
               radius={900 + (z.total / maxZona) * 2600}
               pathOptions={{
-                color: '#C9963B',
+                color: '#22D3EE',
                 weight: 1,
-                fillColor: '#C9963B',
-                fillOpacity: 0.12 + (z.total / maxZona) * 0.18,
+                fillColor: '#22D3EE',
+                fillOpacity: 0.10 + (z.total / maxZona) * 0.18,
               }}
             >
               <Tooltip direction="center" permanent className="zona-tooltip">
@@ -108,44 +108,35 @@ export default function MapaLeaflet({
           />
         ))}
 
-      {/* Ocorrências individuais (modo pontos) */}
-      {!heatmap &&
-        ocorrencias.map((o) => {
-          const cor = cores(o.tipo)
-          return (
-            <CircleMarker
-              key={o.id}
-              center={[o.lat, o.lng]}
-              radius={raioPonto}
-              pathOptions={{ color: cor, weight: 1, fillColor: cor, fillOpacity: 0.85 }}
-            >
-              <Popup>
-                <div style={{ fontSize: 13, lineHeight: 1.5 }}>
-                  <strong>{o.tipo}</strong>
-                  <br />
-                  {o.bairro}
-                  {o.zona ? ` · Zona ${o.zona}` : ''}
-                  {o.descricao && (
-                    <>
-                      <br />
-                      <span style={{ color: '#334155' }}>{o.descricao}</span>
-                    </>
-                  )}
-                  {(o.data || o.status) && (
-                    <>
-                      <br />
-                      <span style={{ color: '#64748B' }}>
-                        {o.data ? new Date(o.data + 'T00:00:00').toLocaleDateString('pt-BR') : ''}
-                        {o.data && typeof o.hora === 'number' ? ` · ${String(o.hora).padStart(2, '0')}h` : ''}
-                        {o.status ? ` · ${o.status}` : ''}
-                      </span>
-                    </>
-                  )}
-                </div>
-              </Popup>
-            </CircleMarker>
-          )
-        })}
+      {/* Ocorrências individuais */}
+      {ocorrencias.map((o) => {
+        const cor = cores(o.tipo)
+        return (
+          <CircleMarker
+            key={o.id}
+            center={[o.lat, o.lng]}
+            radius={raioPonto}
+            pathOptions={{ color: cor, weight: 1, fillColor: cor, fillOpacity: 0.85 }}
+          >
+            <Popup>
+              <div style={{ fontSize: 13, lineHeight: 1.5 }}>
+                <strong>{o.tipo}</strong>
+                <br />
+                {o.bairro}
+                {o.zona ? ` · Zona ${o.zona}` : ''}
+                {o.data && (
+                  <>
+                    <br />
+                    <span style={{ color: '#64748B' }}>
+                      {new Date(o.data + 'T00:00:00').toLocaleDateString('pt-BR')}
+                    </span>
+                  </>
+                )}
+              </div>
+            </Popup>
+          </CircleMarker>
+        )
+      })}
     </MapContainer>
   )
 }

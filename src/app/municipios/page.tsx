@@ -109,7 +109,7 @@ export default function MunicipiosPage() {
         </div>
       </section>
 
-      <section className="bg-gradient-to-b from-obs-navy to-[#0F2A45] px-4 md:px-8 py-8">
+      <section className="bg-obs-navy px-4 md:px-8 py-8">
         <div className="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-4">
           {(['Alto', 'Médio', 'Baixo', 'Em análise'] as Risco[]).map((r) => (
             <div key={r} className={`border p-4 ${riscoColor[r]}`}>
@@ -123,7 +123,7 @@ export default function MunicipiosPage() {
       {REGIOES.map((regiao) => {
         const municipiosRegiao = MUNICIPIOS.filter((m) => m.regiao === regiao)
         return (
-          <section key={regiao} className="bg-[#0F2A45] px-4 md:px-8 py-8 border-t border-white/10">
+          <section key={regiao} className="bg-obs-panel px-4 md:px-8 py-8 border-t border-white/10">
             <div className="max-w-5xl mx-auto">
               <h2 className="text-obs-gold text-xs font-bold tracking-widest uppercase mb-4">
                 Calha do {regiao} · {municipiosRegiao.length} municípios
@@ -139,7 +139,7 @@ export default function MunicipiosPage() {
                   </thead>
                   <tbody>
                     {municipiosRegiao.map((m, i) => (
-                      <tr key={i} className="border-b border-white/5 hover:bg-white/5 transition-colors">
+                      <tr key={i} className="border-b border-obs-border/50 hover:bg-white/5 transition-colors">
                         <td className="py-2.5 pr-8 text-white/80 font-medium">{m.nome}</td>
                         <td className="py-2.5 pr-8 text-right text-white/50 text-xs">{m.populacao}</td>
                         <td className="py-2.5">

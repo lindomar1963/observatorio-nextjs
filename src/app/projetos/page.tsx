@@ -57,10 +57,10 @@ export default function ProjetosPage() {
           </p>
         </div>
       </section>
-      <section className="bg-gradient-to-b from-obs-navy to-[#0F2A45] px-4 md:px-8 py-12">
+      <section className="bg-obs-navy px-4 md:px-8 py-12">
         <div className="max-w-4xl mx-auto space-y-5">
           {PROJETOS.map((p, i) => (
-            <div key={i} className="border border-white/10 bg-white/5 p-5">
+            <div key={i} className="border border-obs-border bg-obs-card p-5">
               <div className="flex flex-wrap gap-2 mb-3">
                 <span className={`text-xs font-bold px-2 py-0.5 border ${statusColor[p.status] || 'bg-white/10 text-white/40'}`}>
                   {p.status}

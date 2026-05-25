@@ -52,7 +52,7 @@ export default function ContatoPage() {
         </div>
       </section>
 
-      <section className="bg-gradient-to-b from-obs-navy to-[#0F2A45] px-4 md:px-8 py-12">
+      <section className="bg-obs-navy px-4 md:px-8 py-12">
         <div className="max-w-4xl mx-auto grid md:grid-cols-2 gap-6">
           {CANAIS.map((c, i) => (
             <div key={i} className="border border-white/10 p-6">
@@ -64,7 +64,7 @@ export default function ContatoPage() {
         </div>
       </section>
 
-      <section className="bg-[#0F2A45] px-4 md:px-8 py-12 border-t border-white/10">
+      <section className="bg-obs-panel px-4 md:px-8 py-12 border-t border-white/10">
         <div className="max-w-4xl mx-auto">
           <h2 className="font-display text-xl font-bold text-white mb-2">Para qual finalidade você precisa de contato?</h2>
           <p className="text-white/50 text-sm mb-8">Orientações específicas por tipo de demanda.</p>
