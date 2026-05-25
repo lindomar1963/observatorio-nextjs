@@ -248,6 +248,60 @@ export const OBSERVATORIOS: Record<string, ObservatorioConfig> = {
     ],
     demo: gerarDemo(['Roubo a Pedestre', 'Roubo de Celular/Eletrônico', 'Furto', 'Roubo / Furto de Veículo']),
   },
+
+  transito: {
+    slug: 'observatorio-acidentes-transito',
+    nome: 'Observatório de Acidentes de Trânsito',
+    tagline: 'Segurança viária · Manaus',
+    descricao:
+      'Monitoramento dos acidentes e crimes de trânsito em Manaus — sinistros fatais, embriaguez ' +
+      'ao volante, atropelamentos e lesões — com indicadores do SINESP.',
+    fonte: 'sinesp',
+    fonteLabel: 'SINESP / Ministério da Justiça',
+    tipos: [
+      { tipo: 'Sinistro Fatal',             cor: '#EF4444', sinesp: ['homicídio culposo', 'homicidio culposo', 'acidente fatal', 'sinistro'] },
+      { tipo: 'Embriaguez ao Volante',      cor: '#F97316', sinesp: ['embriaguez', 'bafômetro', 'bafometro'] },
+      { tipo: 'Atropelamento / Lesão',      cor: '#FBBF24', sinesp: ['lesão culposa', 'lesao culposa', 'atropelamento'] },
+      { tipo: 'Fuga após Acidente',         cor: '#3B82F6', sinesp: ['fuga', 'omissão de socorro', 'omissao de socorro'] },
+    ],
+    demo: gerarDemo(['Sinistro Fatal', 'Embriaguez ao Volante', 'Atropelamento / Lesão', 'Fuga após Acidente']),
+  },
+
+  juvenil: {
+    slug: 'observatorio-violencia-juvenil',
+    nome: 'Observatório de Violência Juvenil',
+    tagline: 'Proteção à juventude · Manaus',
+    descricao:
+      'Monitoramento da violência que atinge e envolve jovens em Manaus — homicídios juvenis, ' +
+      'lesões, atos infracionais e envolvimento com o tráfico — com indicadores do SINESP.',
+    fonte: 'sinesp',
+    fonteLabel: 'SINESP / Ministério da Justiça',
+    tipos: [
+      { tipo: 'Homicídio Juvenil',          cor: '#EF4444', sinesp: ['homicídio doloso', 'homicidio doloso', 'cvli'] },
+      { tipo: 'Lesão Corporal',             cor: '#F97316', sinesp: ['lesão corporal', 'lesao corporal'] },
+      { tipo: 'Ato Infracional',            cor: '#8B5CF6', sinesp: ['ato infracional', 'menor infrator'] },
+      { tipo: 'Tráfico / Apreensão',        cor: '#A3E635', sinesp: ['tráfico', 'trafico', 'drogas', 'entorpecente'] },
+    ],
+    demo: gerarDemo(['Homicídio Juvenil', 'Lesão Corporal', 'Ato Infracional', 'Tráfico / Apreensão']),
+  },
+
+  digitais: {
+    slug: 'observatorio-crimes-digitais',
+    nome: 'Observatório de Crimes Digitais',
+    tagline: 'Segurança no ambiente digital · Manaus',
+    descricao:
+      'Monitoramento dos crimes digitais que mais afetam a população em Manaus — estelionato ' +
+      'online, fraude bancária, golpes do PIX e invasão de dispositivos — com indicadores do SINESP.',
+    fonte: 'sinesp',
+    fonteLabel: 'SINESP / Ministério da Justiça',
+    tipos: [
+      { tipo: 'Estelionato Online',          cor: '#EC4899', sinesp: ['estelionato', 'fraude'] },
+      { tipo: 'Golpe do PIX / Bancário',     cor: '#FBBF24', sinesp: ['pix', 'banco', 'bancário', 'bancario'] },
+      { tipo: 'Invasão de Dispositivo',      cor: '#22D3EE', sinesp: ['invasão', 'invasao', 'dispositivo', 'hacker'] },
+      { tipo: 'Extorsão / Sextorsão',        cor: '#F97316', sinesp: ['extorsão', 'extorsao', 'chantagem'] },
+    ],
+    demo: gerarDemo(['Estelionato Online', 'Golpe do PIX / Bancário', 'Invasão de Dispositivo', 'Extorsão / Sextorsão']),
+  },
 }
 
 export function getObservatorio(slug: string): ObservatorioConfig | undefined {

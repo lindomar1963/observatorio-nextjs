@@ -33,6 +33,7 @@ export default function MapaLeaflet({
   center = MANAUS_CENTRO,
   zoom = MANAUS_ZOOM,
   raioPonto = 6,
+  heatmap = false,
 }: {
   ocorrencias: PontoMapa[]
   zonas: ZonaConcentracao[]
@@ -40,6 +41,7 @@ export default function MapaLeaflet({
   center?: [number, number]
   zoom?: number
   raioPonto?: number
+  heatmap?: boolean
 }) {
   const cores = corResolver ?? ((t: string) => corPorTipo(t as never))
   const maxZona = Math.max(1, ...zonas.map((z) => z.total))
@@ -66,10 +68,10 @@ export default function MapaLeaflet({
               center={z.centro}
               radius={900 + (z.total / maxZona) * 2600}
               pathOptions={{
-                color: '#C9963B',
+                color: '#22D3EE',
                 weight: 1,
-                fillColor: '#C9963B',
-                fillOpacity: 0.12 + (z.total / maxZona) * 0.18,
+                fillColor: '#22D3EE',
+                fillOpacity: 0.10 + (z.total / maxZona) * 0.18,
               }}
             >
               <Tooltip direction="center" permanent className="zona-tooltip">
@@ -86,10 +88,9 @@ export default function MapaLeaflet({
             center={[o.lat, o.lng]}
             radius={26}
             pathOptions={{
-              color: '#22D3EE',
-              weight: 1,
-              fillColor: '#22D3EE',
-              fillOpacity: 0.10 + (z.total / maxZona) * 0.18,
+              stroke: false,
+              fillColor: '#F97316',
+              fillOpacity: 0.18,
             }}
           />
         ))}

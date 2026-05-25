@@ -180,7 +180,7 @@ export default function MapaClient() {
             <h2 className="text-white text-sm font-bold tracking-wider uppercase">Filtros Avançados</h2>
             <button
               onClick={limpar}
-              className="text-white/40 hover:text-obs-gold text-[10px] font-bold tracking-wider uppercase transition-colors"
+              className="text-white/40 hover:text-obs-cyan text-[10px] font-bold tracking-wider uppercase transition-colors"
             >
               Limpar
             </button>
@@ -234,13 +234,13 @@ export default function MapaClient() {
           />
 
           {/* Visualização */}
-          <p className="text-obs-gold text-[11px] font-bold tracking-widest uppercase mb-3">Visualização</p>
+          <p className="text-obs-cyan text-[11px] font-bold tracking-widest uppercase mb-3">Visualização</p>
           <label className="flex items-center gap-2.5 cursor-pointer group mb-3">
             <input
               type="checkbox"
               checked={heatmap}
               onChange={(e) => setHeatmap(e.target.checked)}
-              className="accent-obs-gold w-4 h-4"
+              className="accent-obs-cyan w-4 h-4"
             />
             <span className="text-white/70 text-xs group-hover:text-white transition-colors">Visualizar como mapa de calor</span>
           </label>
@@ -248,7 +248,7 @@ export default function MapaClient() {
           <select
             value={limite}
             onChange={(e) => setLimite(Number(e.target.value))}
-            className="w-full bg-[#0F2A45] border border-white/15 text-white/80 text-xs px-2 py-2 mb-6 rounded"
+            className="w-full bg-obs-card border border-obs-border text-white/80 text-xs px-2 py-2 mb-6 rounded"
           >
             {LIMITES_RESULTADO.map((n) => (
               <option key={n} value={n}>{n} ocorrências</option>
@@ -256,7 +256,7 @@ export default function MapaClient() {
           </select>
 
           {/* Legenda */}
-          <p className="text-obs-gold text-[11px] font-bold tracking-widest uppercase mb-3">Legenda</p>
+          <p className="text-obs-cyan text-[11px] font-bold tracking-widest uppercase mb-3">Legenda</p>
           <div className="grid grid-cols-2 gap-1.5 mb-6">
             {TIPOS.map((t) => (
               <div key={t.tipo} className="flex items-center gap-1.5">
