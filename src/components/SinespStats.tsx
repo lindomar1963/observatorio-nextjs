@@ -10,7 +10,7 @@ function Variacao({ v }: { v: number | null }) {
   return (
     <span
       className={`text-[10px] font-bold ml-1 ${
-        neutro ? 'text-white/40' : positivo ? 'text-red-400' : 'text-green-400'
+        neutro ? 'text-white/40' : positivo ? 'text-red-400' : 'text-lime-400'
       }`}
     >
       {positivo ? '▲' : neutro ? '–' : '▼'} {Math.abs(v)}%
@@ -31,9 +31,11 @@ function CardSkeleton() {
 export default function SinespStats({
   obs,
   titulo = 'Indicadores Criminais — Manaus',
+  fallbackIndicadores,
 }: {
   obs?: string
   titulo?: string
+  fallbackIndicadores?: SinespIndicador[]
 } = {}) {
   const [dados, setDados] = useState<SinespResponse | null>(null)
   const [carregando, setCarregando] = useState(true)
@@ -49,15 +51,20 @@ export default function SinespStats({
       .catch(() => setCarregando(false))
   }, [obs])
 
-  // Se falhou completamente, não renderiza nada (não quebra o layout)
-  if (!carregando && (!dados || !dados.ok || dados.indicadores.length === 0)) {
+  // Determina se os dados são reais ou estimados
+  const apiOk = !carregando && dados?.ok && (dados?.indicadores?.length ?? 0) > 0
+  const isEstimativa = !carregando && !apiOk
+
+  // Se não há fallback e a API falhou — não renderiza nada
+  if (isEstimativa && (!fallbackIndicadores || fallbackIndicadores.length === 0)) {
     return null
   }
 
-  const mesRef = dados?.indicadores?.[0]?.mesRef ?? '…'
+  const indicadores = apiOk ? dados!.indicadores : (fallbackIndicadores ?? [])
+  const mesRef = apiOk ? (indicadores[0]?.mesRef ?? '…') : 'Estimativa'
 
   return (
-    <section className="bg-[#0a1e35] border-t border-white/10 px-4 md:px-8 py-6">
+    <section className="bg-[#0a1422] border-t border-white/10 px-4 md:px-8 py-6">
       <div className="max-w-5xl mx-auto">
         {/* Cabeçalho */}
         <div className="flex flex-wrap items-center justify-between gap-2 mb-4">
@@ -72,57 +79,103 @@ export default function SinespStats({
               )}
             </h2>
           </div>
-          <span className="text-[10px] bg-green-900/40 text-green-400 border border-green-600/30 px-2 py-1 font-bold tracking-wider uppercase rounded">
-            Fonte Oficial
-          </span>
+          {carregando ? (
+            <span className="text-[10px] bg-green-900/40 text-green-400 border border-green-600/30 px-2 py-1 font-bold tracking-wider uppercase rounded animate-pulse">
+              Fonte Oficial
+            </span>
+          ) : apiOk ? (
+            <span className="text-[10px] bg-green-900/40 text-green-400 border border-green-600/30 px-2 py-1 font-bold tracking-wider uppercase rounded">
+              Fonte Oficial
+            </span>
+          ) : (
+            <span className="text-[10px] bg-amber-900/40 text-amber-400 border border-amber-600/30 px-2 py-1 font-bold tracking-wider uppercase rounded">
+              ⚠ Estimativa
+            </span>
+          )}
         </div>
+
+        {/* Aviso de estimativa */}
+        {isEstimativa && (
+          <div className="mb-4 flex items-start gap-2 bg-amber-900/20 border border-amber-700/30 rounded px-3 py-2">
+            <span className="text-amber-400 text-sm mt-0.5 flex-shrink-0">⚠</span>
+            <p className="text-amber-300/80 text-[11px] leading-snug">
+              Base SINESP temporariamente indisponível — os números abaixo são estimativas
+              baseadas em médias históricas regionais. Os dados oficiais serão exibidos assim
+              que a fonte for restabelecida.
+            </p>
+          </div>
+        )}
 
         {/* Cards */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
           {carregando
             ? Array.from({ length: 4 }).map((_, i) => <CardSkeleton key={i} />)
-            : dados!.indicadores.map((ind: SinespIndicador) => (
+            : indicadores.map((ind: SinespIndicador) => (
                 <div
                   key={ind.tipo}
-                  className="bg-obs-navy border border-white/10 p-4 hover:border-white/20 transition-colors"
+                  className={`border p-4 hover:border-white/20 transition-colors ${
+                    isEstimativa
+                      ? 'bg-obs-navy border-amber-800/30'
+                      : 'bg-obs-navy border-white/10'
+                  }`}
                 >
                   <div className="flex items-center gap-2 mb-2">
                     <span
-                      className="w-2.5 h-2.5 rounded-full flex-shrink-0"
+                      className={`w-2.5 h-2.5 rounded-full flex-shrink-0 ${isEstimativa ? 'opacity-60' : ''}`}
                       style={{ background: ind.cor }}
                     />
                     <p className="text-white/50 text-[10px] font-bold tracking-wider uppercase leading-tight">
                       {ind.tipo}
                     </p>
                   </div>
-                  <p className="text-white text-2xl font-bold">
-                    {ind.total.toLocaleString('pt-BR')}
-                    <Variacao v={ind.variacao} />
+                  <p className={`text-2xl font-bold ${isEstimativa ? 'text-white/70' : 'text-white'}`}>
+                    {isEstimativa ? '~' : ''}{ind.total.toLocaleString('pt-BR')}
+                    {!isEstimativa && <Variacao v={ind.variacao} />}
                   </p>
-                  <p className="text-white/30 text-[10px] mt-1">ocorrências em {ind.mesRef}</p>
+                  <p className="text-white/30 text-[10px] mt-1">
+                    {isEstimativa ? 'estimativa mensal' : `ocorrências em ${ind.mesRef}`}
+                  </p>
                 </div>
               ))}
         </div>
 
         {/* Rodapé de fonte */}
-        {!carregando && dados?.ok && (
+        {!carregando && (
           <p className="text-white/25 text-[10px] mt-4">
-            Fonte:{' '}
-            <a
-              href="https://dados.mj.gov.br/dataset/sistema-nacional-de-estatisticas-de-seguranca-publica"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="underline hover:text-white/50 transition-colors"
-            >
-              {dados.fonte}
-            </a>
-            {' · '}Atualização mensal · Nível municipal (Manaus)
-            {dados.indicadores[0]?.variacao !== null && (
-              <span>
-                {' · '}
-                <span className="text-green-400">▼ queda</span> /{' '}
-                <span className="text-red-400">▲ alta</span> vs. mês anterior
-              </span>
+            {apiOk ? (
+              <>
+                Fonte:{' '}
+                <a
+                  href="https://dados.mj.gov.br/dataset/sistema-nacional-de-estatisticas-de-seguranca-publica"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline hover:text-white/50 transition-colors"
+                >
+                  {dados!.fonte}
+                </a>
+                {' · '}Atualização mensal · Nível municipal (Manaus)
+                {indicadores[0]?.variacao !== null && (
+                  <span>
+                    {' · '}
+                    <span className="text-lime-400">▼ queda</span> /{' '}
+                    <span className="text-red-400">▲ alta</span> vs. mês anterior
+                  </span>
+                )}
+              </>
+            ) : (
+              <>
+                <span className="text-amber-500/60">⚠ Estimativa</span>
+                {' · '}Os dados reais serão exibidos automaticamente quando a base{' '}
+                <a
+                  href="https://dados.mj.gov.br/dataset/sistema-nacional-de-estatisticas-de-seguranca-publica"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline hover:text-white/50 transition-colors"
+                >
+                  SINESP / Ministério da Justiça
+                </a>{' '}
+                estiver disponível.
+              </>
             )}
           </p>
         )}
