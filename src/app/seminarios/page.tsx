@@ -50,12 +50,12 @@ export default function SeminariosPage() {
           </p>
         </div>
       </section>
-      <section className="bg-gradient-to-b from-obs-navy to-[#0F2A45] px-4 md:px-8 py-12">
+      <section className="bg-obs-navy px-4 md:px-8 py-12">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-white/50 text-xs font-bold tracking-widest uppercase mb-6">Próximos eventos</h2>
           <div className="space-y-5">
             {EVENTOS.map((e, i) => (
-              <div key={i} className="border border-white/10 bg-white/5 p-5">
+              <div key={i} className="border border-obs-border bg-obs-card p-5">
                 <div className="flex flex-wrap gap-2 mb-3">
                   <span className="bg-obs-gold/20 text-obs-gold border border-obs-gold/30 text-xs font-bold px-2 py-0.5">{e.status}</span>
                   <span className="text-white/40 text-xs self-center">{e.data} · {e.local}</span>
@@ -83,7 +83,7 @@ export default function SeminariosPage() {
           </div>
         </div>
       </section>
-      <section className="bg-[#0A1628] px-4 md:px-8 py-10 border-t border-white/10">
+      <section className="bg-obs-navy px-4 md:px-8 py-10 border-t border-white/10">
         <div className="max-w-4xl mx-auto">
           <p className="text-white/55 text-sm mb-4">
             Para propor parcerias em capacitações ou solicitar realização de evento em seu município, entre em contato.

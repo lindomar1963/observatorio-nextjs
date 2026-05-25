@@ -48,7 +48,7 @@ export default async function NoticiasPage() {
       <NoticiasAoVivo />
 
       {destaques.length > 0 && (
-        <section className="bg-gradient-to-b from-obs-navy to-[#0F2A45] px-4 md:px-8 py-10">
+        <section className="bg-obs-navy px-4 md:px-8 py-10">
           <div className="max-w-5xl mx-auto">
             <h2 className="text-white/50 text-xs font-bold tracking-widest uppercase mb-6">Em destaque</h2>
             <div className="grid md:grid-cols-2 gap-5">
@@ -67,12 +67,12 @@ export default async function NoticiasPage() {
         </section>
       )}
 
-      <section className="bg-[#0F2A45] px-4 md:px-8 py-10 border-t border-white/10">
+      <section className="bg-obs-panel px-4 md:px-8 py-10 border-t border-white/10">
         <div className="max-w-5xl mx-auto">
           <h2 className="text-white/50 text-xs font-bold tracking-widest uppercase mb-6">Publicações do Observatório</h2>
           <div className="space-y-4">
             {noticias.map((n: Noticia) => (
-              <div key={n.id} className="border border-white/10 bg-white/5 p-5 hover:border-white/20 transition-colors">
+              <div key={n.id} className="border border-obs-border bg-obs-card p-5 hover:border-obs-cyan/30 transition-colors">
                 <div className="flex items-center gap-2 mb-2">
                   <span className={`text-xs font-bold px-2 py-0.5 border ${catColor[n.categoria] ?? 'bg-white/10 text-white/60 border-white/20'}`}>{n.categoria}</span>
                   <span className="text-white/30 text-xs">{new Date(n.data_publicacao).toLocaleDateString('pt-BR')}</span>

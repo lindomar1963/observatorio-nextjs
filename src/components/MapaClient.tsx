@@ -94,15 +94,15 @@ export default function MapaClient() {
   }
 
   return (
-    <section className="bg-[#0F2A45]">
+    <section className="bg-obs-navy">
       <div className="grid grid-cols-1 lg:grid-cols-[300px_1fr]">
         {/* Filtros Avançados */}
-        <aside className="bg-obs-navy border-b lg:border-b-0 lg:border-r border-white/10 p-5">
+        <aside className="bg-obs-panel border-b lg:border-b-0 lg:border-r border-obs-border p-5 overflow-y-auto max-h-[800px]">
           <div className="flex items-center justify-between mb-5">
             <h2 className="text-white text-sm font-bold tracking-wider uppercase">Filtros Avançados</h2>
           </div>
 
-          <p className="text-obs-gold text-[11px] font-bold tracking-widest uppercase mb-3">Tipo de ocorrência</p>
+          <p className="text-obs-cyan text-[11px] font-bold tracking-widest uppercase mb-3">Tipo de ocorrência</p>
           <div className="space-y-2 mb-6">
             {TIPOS.map((t) => (
               <label key={t.tipo} className="flex items-center gap-2.5 cursor-pointer group">
@@ -110,15 +110,15 @@ export default function MapaClient() {
                   type="checkbox"
                   checked={tipos.has(t.tipo)}
                   onChange={() => toggleTipo(t.tipo)}
-                  className="accent-obs-gold w-4 h-4"
+                  className="accent-obs-cyan w-4 h-4"
                 />
                 <span className="w-2.5 h-2.5 rounded-full flex-shrink-0" style={{ background: t.cor }} />
-                <span className="text-white/70 text-xs group-hover:text-white transition-colors">{t.tipo}</span>
+                <span className="text-white/60 text-xs group-hover:text-white transition-colors">{t.tipo}</span>
               </label>
             ))}
           </div>
 
-          <p className="text-obs-gold text-[11px] font-bold tracking-widest uppercase mb-3">Zona de Manaus</p>
+          <p className="text-obs-cyan text-[11px] font-bold tracking-widest uppercase mb-3">Zona de Manaus</p>
           <div className="space-y-2 mb-6">
             {ZONAS.map((z) => (
               <label key={z.zona} className="flex items-center gap-2.5 cursor-pointer group">
@@ -126,32 +126,32 @@ export default function MapaClient() {
                   type="checkbox"
                   checked={zonas.has(z.zona)}
                   onChange={() => toggleZona(z.zona)}
-                  className="accent-obs-gold w-4 h-4"
+                  className="accent-obs-cyan w-4 h-4"
                 />
-                <span className="text-white/70 text-xs group-hover:text-white transition-colors">Zona {z.zona}</span>
+                <span className="text-white/60 text-xs group-hover:text-white transition-colors">Zona {z.zona}</span>
               </label>
             ))}
           </div>
 
-          <p className="text-obs-gold text-[11px] font-bold tracking-widest uppercase mb-3">Período</p>
-          <label className="block text-white/50 text-[11px] mb-1">Data início</label>
+          <p className="text-obs-cyan text-[11px] font-bold tracking-widest uppercase mb-3">Período</p>
+          <label className="block text-white/40 text-[11px] mb-1">Data início</label>
           <input
             type="date"
             value={dataInicio}
             onChange={(e) => setDataInicio(e.target.value)}
-            className="w-full bg-[#0F2A45] border border-white/15 text-white/80 text-xs px-2 py-2 mb-3 rounded"
+            className="w-full bg-obs-card border border-obs-border text-white/80 text-xs px-2 py-2 mb-3 rounded"
           />
-          <label className="block text-white/50 text-[11px] mb-1">Data fim</label>
+          <label className="block text-white/40 text-[11px] mb-1">Data fim</label>
           <input
             type="date"
             value={dataFim}
             onChange={(e) => setDataFim(e.target.value)}
-            className="w-full bg-[#0F2A45] border border-white/15 text-white/80 text-xs px-2 py-2 mb-5 rounded"
+            className="w-full bg-obs-card border border-obs-border text-white/80 text-xs px-2 py-2 mb-5 rounded"
           />
 
           <button
             onClick={limpar}
-            className="w-full border border-white/20 text-white/70 hover:text-white hover:border-white/40 text-xs font-bold tracking-wider uppercase py-2.5 transition-colors"
+            className="w-full border border-obs-cyan/30 text-obs-cyan/70 hover:text-obs-cyan hover:border-obs-cyan/60 text-xs font-bold tracking-wider uppercase py-2.5 rounded transition-colors"
           >
             Limpar filtros
           </button>
@@ -159,10 +159,10 @@ export default function MapaClient() {
 
         {/* Mapa + resumo */}
         <div className="flex flex-col">
-          <div className="flex flex-wrap items-center justify-between gap-3 px-5 py-3 bg-obs-navy border-b border-white/10">
+          <div className="flex flex-wrap items-center justify-between gap-3 px-5 py-3 bg-obs-panel border-b border-obs-border">
             <p className="text-white text-sm">
-              <span className="font-bold text-obs-gold">{filtradas.length}</span>
-              <span className="text-white/60"> ocorrências exibidas</span>
+              <span className="font-bold text-obs-cyan">{filtradas.length}</span>
+              <span className="text-white/50"> ocorrências exibidas</span>
             </p>
           </div>
 
@@ -171,21 +171,21 @@ export default function MapaClient() {
           </div>
 
           {/* Resumo por zona */}
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-px bg-white/10">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-px bg-obs-border">
             {zonasConcentracao.map((z) => (
-              <div key={z.zona} className="bg-obs-navy p-3">
-                <p className="text-white/40 text-[10px] font-bold tracking-wider uppercase">Zona {z.zona}</p>
-                <p className="text-white text-xl font-bold">{z.total}</p>
+              <div key={z.zona} className="bg-obs-panel p-3">
+                <p className="text-obs-gray text-[10px] font-bold tracking-wider uppercase">Zona {z.zona}</p>
+                <p className="text-obs-cyan text-xl font-bold">{z.total}</p>
               </div>
             ))}
           </div>
 
           {/* Resumo por tipo */}
-          <div className="flex flex-wrap gap-x-5 gap-y-2 px-5 py-4 bg-[#0F2A45] border-t border-white/10">
+          <div className="flex flex-wrap gap-x-5 gap-y-2 px-5 py-4 bg-obs-card border-t border-obs-border">
             {porTipo.map((t) => (
               <div key={t.tipo} className="flex items-center gap-2">
                 <span className="w-2.5 h-2.5 rounded-full" style={{ background: t.cor }} />
-                <span className="text-white/70 text-xs">
+                <span className="text-white/50 text-xs">
                   {t.tipo} <span className="text-white font-bold">{t.total}</span>
                 </span>
               </div>

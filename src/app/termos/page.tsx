@@ -43,7 +43,7 @@ export default function TermosPage() {
           <p className="text-white/40 text-xs">Última atualização: maio de 2026</p>
         </div>
       </section>
-      <section className="bg-gradient-to-b from-obs-navy to-[#0F2A45] px-4 md:px-8 py-12">
+      <section className="bg-obs-navy px-4 md:px-8 py-12">
         <div className="max-w-3xl mx-auto space-y-8">
           {SECOES.map((s, i) => (
             <div key={i}>

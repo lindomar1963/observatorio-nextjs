@@ -112,14 +112,14 @@ export default function PainelPage() {
       </section>
 
       {/* Módulos */}
-      <section className="bg-gradient-to-b from-obs-navy to-[#0F2A45] px-4 md:px-8 py-12">
+      <section className="bg-obs-navy px-4 md:px-8 py-12">
         <div className="max-w-5xl mx-auto">
           <p className="text-white/40 text-xs mb-6">
             Os módulos abaixo serão ativados progressivamente conforme o Observatório entra em operação plena.
           </p>
           <div className="grid md:grid-cols-2 gap-4">
             {MODULOS.map((m) => (
-              <div key={m.titulo} className="border border-white/10 bg-white/5 p-6">
+              <div key={m.titulo} className="border border-obs-border bg-obs-card p-6">
                 <div className="flex items-start gap-4">
                   <span className="text-2xl flex-shrink-0">{m.icone}</span>
                   <div className="flex-1">
@@ -135,7 +135,7 @@ export default function PainelPage() {
       </section>
 
       {/* Info de acesso */}
-      <section className="bg-[#0A1628] px-4 md:px-8 py-10 border-t border-white/10">
+      <section className="bg-obs-navy px-4 md:px-8 py-10 border-t border-white/10">
         <div className="max-w-5xl mx-auto">
           <div className="border border-obs-gold/20 bg-obs-gold/5 p-5">
             <p className="text-obs-gold text-xs font-bold tracking-widest uppercase mb-2">

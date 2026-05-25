@@ -88,12 +88,12 @@ export default function BibliotecaPage() {
       </section>
 
       {ACERVO.map((secao) => (
-        <section key={secao.categoria} className="bg-gradient-to-b from-obs-navy to-[#0F2A45] px-4 md:px-8 py-10 border-t border-white/10">
+        <section key={secao.categoria} className="bg-obs-navy px-4 md:px-8 py-10 border-t border-white/10">
           <div className="max-w-5xl mx-auto">
             <h2 className="text-white font-display text-xl font-bold mb-6">{secao.categoria}</h2>
             <div className="space-y-3">
               {secao.itens.map((item, i) => (
-                <div key={i} className="flex items-start gap-4 border border-white/10 bg-white/5 p-4 hover:border-obs-gold/30 transition-colors">
+                <div key={i} className="flex items-start gap-4 border border-obs-border bg-obs-card p-4 hover:border-obs-cyan/30 transition-colors">
                   <div className="flex-1">
                     <p className="text-white/80 text-sm font-medium leading-snug mb-2">{item.titulo}</p>
                     <div className="flex gap-2">
@@ -120,7 +120,7 @@ export default function BibliotecaPage() {
         </section>
       ))}
 
-      <section className="bg-[#0A1628] px-4 md:px-8 py-12 border-t border-white/10">
+      <section className="bg-obs-navy px-4 md:px-8 py-12 border-t border-white/10">
         <div className="max-w-5xl mx-auto">
           <h2 className="font-display text-xl font-bold text-white mb-4">Sugerir material</h2>
           <p className="text-white/55 text-sm leading-relaxed max-w-xl mb-6">

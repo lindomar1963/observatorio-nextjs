@@ -30,12 +30,12 @@ export default function LgpdPage() {
           </p>
         </div>
       </section>
-      <section className="bg-gradient-to-b from-obs-navy to-[#0F2A45] px-4 md:px-8 py-12">
+      <section className="bg-obs-navy px-4 md:px-8 py-12">
         <div className="max-w-3xl mx-auto">
           <h2 className="font-display text-xl font-bold text-white mb-6">Seus direitos como titular</h2>
           <div className="grid md:grid-cols-2 gap-4">
             {DIREITOS.map((d, i) => (
-              <div key={i} className="border border-white/10 bg-white/5 p-4">
+              <div key={i} className="border border-obs-border bg-obs-card p-4">
                 <h3 className="text-obs-gold text-xs font-bold tracking-widest uppercase mb-2">{d.titulo}</h3>
                 <p className="text-white/60 text-xs leading-relaxed">{d.descricao}</p>
               </div>

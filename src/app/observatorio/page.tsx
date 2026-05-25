@@ -48,7 +48,7 @@ export default function ObservatorioPage() {
         </div>
       </section>
 
-      <section className="bg-gradient-to-b from-obs-navy to-[#0F2A45] px-4 md:px-8 py-16">
+      <section className="bg-obs-navy px-4 md:px-8 py-16">
         <div className="max-w-4xl mx-auto grid md:grid-cols-3 gap-6">
           {[
             { label: 'Missão', text: 'Produzir e disseminar conhecimento técnico-científico sobre segurança pública no Amazonas, contribuindo para a formulação de políticas públicas eficazes e a redução da violência no estado.' },
@@ -63,7 +63,7 @@ export default function ObservatorioPage() {
         </div>
       </section>
 
-      <section className="bg-[#0F2A45] px-4 md:px-8 py-16">
+      <section className="bg-obs-panel px-4 md:px-8 py-16">
         <div className="max-w-4xl mx-auto">
           <h2 className="font-display text-2xl font-bold text-white mb-2">Pilares de atuação</h2>
           <p className="text-white/50 text-sm mb-10">Quatro eixos estruturantes orientam o trabalho do Observatório.</p>
@@ -99,7 +99,7 @@ export default function ObservatorioPage() {
         </div>
       </section>
 
-      <section className="bg-gradient-to-b from-obs-navy to-[#0A1628] px-4 md:px-8 py-16">
+      <section className="bg-gradient-to-b from-obs-navy to-[#060A14] px-4 md:px-8 py-16">
         <div className="max-w-4xl mx-auto">
           <h2 className="font-display text-2xl font-bold text-white mb-10">Histórico</h2>
           <div className="space-y-0">
@@ -144,7 +144,7 @@ export default function ObservatorioPage() {
         </div>
       </section>
 
-      <section className="bg-[#0A1628] px-4 md:px-8 py-16 border-t border-white/10">
+      <section className="bg-obs-navy px-4 md:px-8 py-16 border-t border-white/10">
         <div className="max-w-4xl mx-auto">
           <h2 className="font-display text-2xl font-bold text-white mb-2">Parceiros institucionais</h2>
           <p className="text-white/50 text-sm mb-8">Organismos com protocolo de cooperação técnica ativo.</p>

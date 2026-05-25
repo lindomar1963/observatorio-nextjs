@@ -37,11 +37,11 @@ export default function TransparenciaPage() {
           </p>
         </div>
       </section>
-      <section className="bg-gradient-to-b from-obs-navy to-[#0F2A45] px-4 md:px-8 py-12">
+      <section className="bg-obs-navy px-4 md:px-8 py-12">
         <div className="max-w-4xl mx-auto">
           <div className="space-y-3">
             {ITENS.map((item, i) => (
-              <div key={i} className="flex flex-col md:flex-row md:items-center gap-2 border border-white/10 bg-white/5 p-4">
+              <div key={i} className="flex flex-col md:flex-row md:items-center gap-2 border border-obs-border bg-obs-card p-4">
                 <div className="flex-1">
                   <p className="text-white/85 text-sm font-medium">{item.titulo}</p>
                   <p className="text-white/35 text-xs">{item.tipo}</p>

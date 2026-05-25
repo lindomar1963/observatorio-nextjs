@@ -121,12 +121,12 @@ export default function ObservatorioMapa({ config }: { config: ObservatorioConfi
   }
 
   return (
-    <section className="bg-[#0F2A45]">
+    <section className="bg-obs-navy">
       <div className="grid grid-cols-1 lg:grid-cols-[300px_1fr]">
-        <aside className="bg-obs-navy border-b lg:border-b-0 lg:border-r border-white/10 p-5">
+        <aside className="bg-obs-panel border-b lg:border-b-0 lg:border-r border-obs-border p-5 overflow-y-auto max-h-[800px]">
           <h2 className="text-white text-sm font-bold tracking-wider uppercase mb-5">Filtros</h2>
 
-          <p className="text-obs-gold text-[11px] font-bold tracking-widest uppercase mb-3">Tipo de ocorrência</p>
+          <p className="text-obs-cyan text-[11px] font-bold tracking-widest uppercase mb-3">Tipo de ocorrência</p>
           <div className="space-y-2 mb-6">
             {config.tipos.map((t) => (
               <label key={t.tipo} className="flex items-center gap-2.5 cursor-pointer group">
@@ -134,15 +134,15 @@ export default function ObservatorioMapa({ config }: { config: ObservatorioConfi
                   type="checkbox"
                   checked={tipos.has(t.tipo)}
                   onChange={() => toggle(tipos, t.tipo, setTipos)}
-                  className="accent-obs-gold w-4 h-4"
+                  className="accent-obs-cyan w-4 h-4"
                 />
                 <span className="w-2.5 h-2.5 rounded-full flex-shrink-0" style={{ background: t.cor }} />
-                <span className="text-white/70 text-xs group-hover:text-white transition-colors">{t.tipo}</span>
+                <span className="text-white/60 text-xs group-hover:text-white transition-colors">{t.tipo}</span>
               </label>
             ))}
           </div>
 
-          <p className="text-obs-gold text-[11px] font-bold tracking-widest uppercase mb-3">Zona de Manaus</p>
+          <p className="text-obs-cyan text-[11px] font-bold tracking-widest uppercase mb-3">Zona de Manaus</p>
           <div className="space-y-2 mb-6">
             {ZONAS.map((z) => (
               <label key={z.zona} className="flex items-center gap-2.5 cursor-pointer group">
@@ -150,29 +150,29 @@ export default function ObservatorioMapa({ config }: { config: ObservatorioConfi
                   type="checkbox"
                   checked={zonas.has(z.zona)}
                   onChange={() => toggle(zonas, z.zona, setZonas)}
-                  className="accent-obs-gold w-4 h-4"
+                  className="accent-obs-cyan w-4 h-4"
                 />
-                <span className="text-white/70 text-xs group-hover:text-white transition-colors">Zona {z.zona}</span>
+                <span className="text-white/60 text-xs group-hover:text-white transition-colors">Zona {z.zona}</span>
               </label>
             ))}
           </div>
 
           <button
             onClick={limpar}
-            className="w-full border border-white/20 text-white/70 hover:text-white hover:border-white/40 text-xs font-bold tracking-wider uppercase py-2.5 transition-colors"
+            className="w-full border border-obs-cyan/30 text-obs-cyan/70 hover:text-obs-cyan hover:border-obs-cyan/60 text-xs font-bold tracking-wider uppercase py-2.5 rounded transition-colors"
           >
             Limpar filtros
           </button>
         </aside>
 
         <div className="flex flex-col">
-          <div className="flex flex-wrap items-center justify-between gap-3 px-5 py-3 bg-obs-navy border-b border-white/10">
+          <div className="flex flex-wrap items-center justify-between gap-3 px-5 py-3 bg-obs-panel border-b border-obs-border">
             <p className="text-white text-sm">
-              <span className="font-bold text-obs-gold">{carregando ? '…' : totalExibido.toLocaleString('pt-BR')}</span>
-              <span className="text-white/60"> ocorrências{modoReal && mesRef ? ` em ${mesRef}` : ''}</span>
+              <span className="font-bold text-obs-cyan">{carregando ? '…' : totalExibido.toLocaleString('pt-BR')}</span>
+              <span className="text-white/50"> ocorrências{modoReal && mesRef ? ` em ${mesRef}` : ''}</span>
             </p>
             {modoReal && (
-              <span className="text-[10px] font-bold tracking-wider uppercase bg-green-900/40 text-green-400 border border-green-600/30 px-2 py-1 rounded">
+              <span className="text-[10px] font-bold tracking-wider uppercase bg-obs-lime/10 text-obs-lime border border-obs-lime/30 px-2 py-1 rounded">
                 Estimativa territorial · base SINESP
               </span>
             )}
@@ -182,20 +182,20 @@ export default function ObservatorioMapa({ config }: { config: ObservatorioConfi
             <MapaLeaflet ocorrencias={marcadoresFiltrados} zonas={zonasConcentracao} corResolver={corResolver} />
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-px bg-white/10">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-px bg-obs-border">
             {zonasConcentracao.map((z) => (
-              <div key={z.zona} className="bg-obs-navy p-3">
-                <p className="text-white/40 text-[10px] font-bold tracking-wider uppercase">Zona {z.zona}</p>
-                <p className="text-white text-xl font-bold">{z.total.toLocaleString('pt-BR')}</p>
+              <div key={z.zona} className="bg-obs-panel p-3">
+                <p className="text-obs-gray text-[10px] font-bold tracking-wider uppercase">Zona {z.zona}</p>
+                <p className="text-obs-cyan text-xl font-bold">{z.total.toLocaleString('pt-BR')}</p>
               </div>
             ))}
           </div>
 
-          <div className="flex flex-wrap gap-x-5 gap-y-2 px-5 py-4 bg-[#0F2A45] border-t border-white/10">
+          <div className="flex flex-wrap gap-x-5 gap-y-2 px-5 py-4 bg-obs-card border-t border-obs-border">
             {porTipo.map((t) => (
               <div key={t.tipo} className="flex items-center gap-2">
                 <span className="w-2.5 h-2.5 rounded-full" style={{ background: t.cor }} />
-                <span className="text-white/70 text-xs">
+                <span className="text-white/50 text-xs">
                   {t.tipo} <span className="text-white font-bold">{t.total.toLocaleString('pt-BR')}</span>
                 </span>
               </div>
@@ -203,11 +203,11 @@ export default function ObservatorioMapa({ config }: { config: ObservatorioConfi
           </div>
 
           {modoReal && (
-            <div className="px-5 py-3 bg-obs-navy border-t border-white/10">
-              <p className="text-white/35 text-[11px] leading-relaxed">
-                Os <strong className="text-white/55">números são oficiais</strong> (SINESP/MJ, total
+            <div className="px-5 py-3 bg-obs-navy border-t border-obs-border">
+              <p className="text-white/30 text-[11px] leading-relaxed">
+                Os <strong className="text-white/50">números são oficiais</strong> (SINESP/MJ, total
                 municipal de {mesRef}). A distribuição pelas zonas é uma{' '}
-                <strong className="text-white/55">estimativa territorial ponderada pela população</strong> de
+                <strong className="text-white/50">estimativa territorial ponderada pela população</strong> de
                 cada zona — o SINESP não divulga a localização exata de cada ocorrência.
               </p>
             </div>

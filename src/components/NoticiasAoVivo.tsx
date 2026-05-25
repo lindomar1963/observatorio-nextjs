@@ -7,7 +7,7 @@ const catColor: Record<string, string> = {
   'Comandante Dan': 'bg-obs-gold/20 text-obs-gold border-obs-gold/30',
   'Segurança Pública': 'bg-blue-500/20 text-blue-400 border-blue-500/30',
   Manaus: 'bg-cyan-500/20 text-cyan-400 border-cyan-500/30',
-  Polícia: 'bg-green-500/20 text-green-400 border-green-500/30',
+  Polícia: 'bg-obs-lime/20 text-obs-lime border-obs-lime/30',
   Drogas: 'bg-red-500/20 text-red-400 border-red-500/30',
   ALEAM: 'bg-purple-500/20 text-purple-400 border-purple-500/30',
 }
@@ -25,7 +25,7 @@ function tempoRelativo(iso: string): string {
 
 function Skeleton() {
   return (
-    <div className="border border-white/10 bg-white/5 p-5 animate-pulse">
+    <div className="border border-obs-border bg-obs-card p-5 animate-pulse">
       <div className="h-3 w-24 bg-white/10 rounded mb-3" />
       <div className="h-4 w-full bg-white/10 rounded mb-2" />
       <div className="h-4 w-2/3 bg-white/10 rounded" />
@@ -65,7 +65,7 @@ export default function NoticiasAoVivo() {
   const outras = lista.filter((n) => n.categoria !== 'Comandante Dan')
 
   return (
-    <section className="bg-[#0F2A45] px-4 md:px-8 py-12 border-t border-white/10">
+    <section className="bg-obs-panel px-4 md:px-8 py-12 border-t border-obs-border">
       <div className="max-w-5xl mx-auto">
         <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
           <div>
@@ -74,8 +74,8 @@ export default function NoticiasAoVivo() {
             </p>
             <h2 className="text-white text-lg font-bold">Notícias em tempo real</h2>
           </div>
-          <span className="flex items-center gap-1.5 text-[10px] font-bold tracking-wider uppercase text-green-400">
-            <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" /> Ao vivo
+          <span className="flex items-center gap-1.5 text-[10px] font-bold tracking-wider uppercase text-obs-lime">
+            <span className="w-2 h-2 rounded-full bg-obs-lime animate-pulse" /> Ao vivo
           </span>
         </div>
 
@@ -88,8 +88,8 @@ export default function NoticiasAoVivo() {
                 onClick={() => setFiltro(c)}
                 className={`text-[11px] font-bold tracking-wider uppercase px-3 py-1.5 border transition-colors ${
                   filtro === c
-                    ? 'bg-obs-gold text-obs-navy border-obs-gold'
-                    : 'text-white/50 border-white/15 hover:border-white/40 hover:text-white'
+                    ? 'bg-obs-cyan text-obs-navy border-obs-cyan'
+                    : 'text-white/50 border-obs-border hover:border-obs-cyan/40 hover:text-white'
                 }`}
               >
                 {c}
@@ -150,7 +150,7 @@ function NoticiaCard({ n, destaque }: { n: NoticiaExterna; destaque?: boolean })
       className={`block border p-5 transition-colors group ${
         destaque
           ? 'border-obs-gold/30 bg-obs-gold/5 hover:border-obs-gold/60'
-          : 'border-white/10 bg-white/5 hover:border-white/25'
+          : 'border-obs-border bg-obs-card hover:border-obs-cyan/25'
       }`}
     >
       <div className="flex items-center gap-2 mb-2 flex-wrap">

@@ -75,10 +75,10 @@ export default async function PaineisPage() {
         </div>
       </section>
 
-      <section className="bg-gradient-to-b from-obs-navy to-[#0F2A45] px-4 md:px-8 py-12">
+      <section className="bg-obs-navy px-4 md:px-8 py-12">
         <div className="max-w-5xl mx-auto grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {cards.map((c, i) => (
-            <div key={i} className="border border-white/10 bg-white/5 p-5">
+            <div key={i} className="border border-obs-border bg-obs-card p-5">
               <p className="text-white/50 text-xs font-semibold tracking-wider uppercase mb-3 leading-tight">{c.label}</p>
               <p className="text-white font-bold text-3xl mb-1">{c.valor}</p>
               <p className="text-white/40 text-xs mb-3">{c.unidade}</p>
@@ -93,7 +93,7 @@ export default async function PaineisPage() {
         </div>
       </section>
 
-      <section className="bg-[#0F2A45] px-4 md:px-8 py-16">
+      <section className="bg-obs-panel px-4 md:px-8 py-16">
         <div className="max-w-5xl mx-auto">
           <h2 className="font-display text-2xl font-bold text-white mb-2">Municípios em destaque</h2>
           <p className="text-white/50 text-sm mb-8">Classificação de risco baseada em taxa de CVLI por 100 mil habitantes.</p>
@@ -108,7 +108,7 @@ export default async function PaineisPage() {
               </thead>
               <tbody>
                 {dados.municipios_destaque.map((m: MunicipioDestaque, i: number) => (
-                  <tr key={i} className="border-b border-white/5">
+                  <tr key={i} className="border-b border-obs-border/50">
                     <td className="py-3 pr-6 text-white font-medium">{m.nome}</td>
                     <td className="py-3 pr-6 text-right text-white/80">{m.cvli.toLocaleString('pt-BR')}</td>
                     <td className="py-3">
@@ -146,7 +146,7 @@ export default async function PaineisPage() {
         </div>
       </section>
 
-      <section className="bg-[#0A1628] px-4 md:px-8 py-16 border-t border-white/10">
+      <section className="bg-obs-navy px-4 md:px-8 py-16 border-t border-white/10">
         <div className="max-w-5xl mx-auto">
           <h2 className="font-display text-2xl font-bold text-white mb-2">Fontes de dados</h2>
           <p className="text-white/50 text-sm mb-8">Organismos que alimentam o sistema de monitoramento do Observatório.</p>
@@ -194,7 +194,7 @@ export default async function PaineisPage() {
                 tag: 'FEDERAL',
               },
             ].map((p) => (
-              <div key={p.nome} className="border border-white/10 bg-white/5 p-5 hover:border-obs-gold/30 transition-colors">
+              <div key={p.nome} className="border border-obs-border bg-obs-card p-5 hover:border-obs-cyan/30 transition-colors">
                 <div className="flex items-start justify-between gap-3 mb-3">
                   <h3 className="text-white font-semibold text-sm leading-snug">{p.nome}</h3>
                   <span className="text-obs-gold text-xs font-bold tracking-wider flex-shrink-0">{p.tag}</span>

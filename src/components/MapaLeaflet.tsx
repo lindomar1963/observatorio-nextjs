@@ -46,7 +46,7 @@ export default function MapaLeaflet({
       center={center}
       zoom={zoom}
       scrollWheelZoom={false}
-      style={{ height: '100%', width: '100%', background: '#0A1628' }}
+      style={{ height: '100%', width: '100%', background: '#060A14' }}
     >
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
@@ -62,10 +62,10 @@ export default function MapaLeaflet({
             center={z.centro}
             radius={900 + (z.total / maxZona) * 2600}
             pathOptions={{
-              color: '#C9963B',
+              color: '#22D3EE',
               weight: 1,
-              fillColor: '#C9963B',
-              fillOpacity: 0.12 + (z.total / maxZona) * 0.18,
+              fillColor: '#22D3EE',
+              fillOpacity: 0.10 + (z.total / maxZona) * 0.18,
             }}
           >
             <Tooltip direction="center" permanent className="zona-tooltip">

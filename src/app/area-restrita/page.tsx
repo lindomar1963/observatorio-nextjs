@@ -113,7 +113,7 @@ export default function PainelPage() {
         </div>
       </section>
 
-      <section className="bg-gradient-to-b from-obs-navy to-[#0F2A45] px-4 md:px-8 py-12">
+      <section className="bg-obs-navy px-4 md:px-8 py-12">
         <div className="max-w-5xl mx-auto">
           <p className="text-white/40 text-xs mb-6">
             Os módulos abaixo serão ativados progressivamente conforme o Observatório entra em operação plena.
@@ -137,14 +137,14 @@ export default function PainelPage() {
                   <Link
                     key={m.titulo}
                     href={m.href}
-                    className="border border-white/10 bg-white/5 p-6 hover:border-obs-gold/40 cursor-pointer transition-colors block"
+                    className="border border-obs-border bg-obs-card p-6 hover:border-obs-cyan/40 cursor-pointer transition-colors block"
                   >
                     {cardContent}
                   </Link>
                 )
               }
               return (
-                <div key={m.titulo} className="border border-white/10 bg-white/5 p-6">
+                <div key={m.titulo} className="border border-obs-border bg-obs-card p-6">
                   {cardContent}
                 </div>
               )
@@ -153,7 +153,7 @@ export default function PainelPage() {
         </div>
       </section>
 
-      <section className="bg-[#0A1628] px-4 md:px-8 py-10 border-t border-white/10">
+      <section className="bg-obs-navy px-4 md:px-8 py-10 border-t border-white/10">
         <div className="max-w-5xl mx-auto">
           <div className="border border-obs-gold/20 bg-obs-gold/5 p-5">
             <p className="text-obs-gold text-xs font-bold tracking-widest uppercase mb-2">

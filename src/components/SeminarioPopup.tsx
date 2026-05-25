@@ -38,8 +38,8 @@ export default function SeminarioPopup() {
           right: '1.5rem',
           zIndex: 9999,
           width: 'min(340px, calc(100vw - 2rem))',
-          background: '#0A1628',
-          border: '1px solid rgba(46,155,214,0.40)',
+          background: '#060A14',
+          border: '1px solid rgba(34,211,238,0.40)',
           borderRadius: '8px',
           boxShadow: '0 16px 56px rgba(0,0,0,0.65)',
           overflow: 'hidden',
@@ -52,7 +52,7 @@ export default function SeminarioPopup() {
         {/* Linha de destaque no topo */}
         <div style={{
           height: '3px',
-          background: 'linear-gradient(90deg, #2E9BD6, #C9963B)',
+          background: 'linear-gradient(90deg, #22D3EE, #FBBF24)',
         }} />
 
         {/* Imagem do banner */}
@@ -75,7 +75,7 @@ export default function SeminarioPopup() {
         }}>
           <div>
             <p style={{
-              color: '#2E9BD6',
+              color: '#22D3EE',
               fontSize: '0.6rem',
               fontFamily: 'monospace',
               letterSpacing: '0.18em',
@@ -99,8 +99,8 @@ export default function SeminarioPopup() {
             onClick={() => setDismissed(true)}
             style={{
               flexShrink: 0,
-              background: '#C9963B',
-              color: '#0A1628',
+              background: '#FBBF24',
+              color: '#060A14',
               fontWeight: 800,
               fontSize: '0.7rem',
               letterSpacing: '0.06em',
