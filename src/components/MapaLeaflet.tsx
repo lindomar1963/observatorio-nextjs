@@ -21,6 +21,9 @@ interface PontoMapa {
   lat: number
   lng: number
   data: string
+  status?: string
+  descricao?: string
+  hora?: number
 }
 
 export default function MapaLeaflet({
@@ -53,25 +56,55 @@ export default function MapaLeaflet({
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
 
-      {/* Concentração por zona de Manaus */}
-      {zonas
-        .filter((z) => z.total > 0)
-        .map((z) => (
-          <Circle
-            key={z.zona}
-            center={z.centro}
-            radius={900 + (z.total / maxZona) * 2600}
+      {/* Concentração por zona de Manaus (oculta no modo heatmap) */}
+      {!heatmap &&
+        zonas
+          .filter((z) => z.total > 0)
+          .map((z) => (
+            <Circle
+              key={z.zona}
+              center={z.centro}
+              radius={900 + (z.total / maxZona) * 2600}
+              pathOptions={{
+                color: '#C9963B',
+                weight: 1,
+                fillColor: '#C9963B',
+                fillOpacity: 0.12 + (z.total / maxZona) * 0.18,
+              }}
+            >
+              <Tooltip direction="center" permanent className="zona-tooltip">
+                {`${z.zona} · ${z.total}`}
+              </Tooltip>
+            </Circle>
+          ))}
+
+      {/* Modo HEATMAP: glow radial sobreposto cria sensação de densidade */}
+      {heatmap &&
+        ocorrencias.map((o) => (
+          <CircleMarker
+            key={`heat-${o.id}`}
+            center={[o.lat, o.lng]}
+            radius={26}
             pathOptions={{
               color: '#22D3EE',
               weight: 1,
               fillColor: '#22D3EE',
               fillOpacity: 0.10 + (z.total / maxZona) * 0.18,
             }}
-          >
-            <Tooltip direction="center" permanent className="zona-tooltip">
-              {`${z.zona} · ${z.total}`}
-            </Tooltip>
-          </Circle>
+          />
+        ))}
+      {heatmap &&
+        ocorrencias.map((o) => (
+          <CircleMarker
+            key={`heat-core-${o.id}`}
+            center={[o.lat, o.lng]}
+            radius={11}
+            pathOptions={{
+              stroke: false,
+              fillColor: '#FBBF24',
+              fillOpacity: 0.35,
+            }}
+          />
         ))}
 
       {/* Ocorrências individuais */}

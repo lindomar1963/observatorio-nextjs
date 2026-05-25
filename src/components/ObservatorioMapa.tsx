@@ -115,6 +115,22 @@ export default function ObservatorioMapa({ config }: { config: ObservatorioConfi
     setter(next)
   }
 
+  function togglePeriodo(p: PeriodoDia) {
+    setPeriodos((prev) => {
+      const next = new Set(prev)
+      next.has(p) ? next.delete(p) : next.add(p)
+      return next
+    })
+  }
+
+  function toggleStatus(s: StatusInvestigacao) {
+    setStatusSel((prev) => {
+      const next = new Set(prev)
+      next.has(s) ? next.delete(s) : next.add(s)
+      return next
+    })
+  }
+
   function limpar() {
     setTipos(new Set(TODOS_TIPOS))
     setZonas(new Set(TODAS_ZONAS))
