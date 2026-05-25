@@ -25,7 +25,23 @@ export interface OcorrenciaTematica {
   lat: number
   lng: number
   data: string
+  status?: string
+  hora?: number
 }
+
+/**
+ * Distribuição estatística estimada de status de investigação. O SINESP divulga
+ * apenas totais agregados, sem o andamento processual de cada caso — esta é uma
+ * proporção típica usada para fins de visualização do filtro.
+ */
+export const STATUS_PESO: Record<string, number> = {
+  Aberto: 0.35,
+  'Em Andamento': 0.30,
+  Encerrado: 0.25,
+  Arquivado: 0.10,
+}
+
+const STATUS_CICLO = ['Aberto', 'Em Andamento', 'Encerrado', 'Arquivado'] as const
 
 export interface ObservatorioConfig {
   slug: string
@@ -106,6 +122,8 @@ export function amostrarMarcadores(
         lat: z.centro[0] + jLat,
         lng: z.centro[1] + jLng,
         data: '',
+        status: STATUS_CICLO[seed % STATUS_CICLO.length],
+        hora: (seed * 3) % 24,
       })
     }
   }
