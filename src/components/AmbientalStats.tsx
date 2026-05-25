@@ -30,7 +30,7 @@ export default function AmbientalStats() {
               Monitoramento ambiental · INPE
             </p>
             <h2 className="text-white text-sm font-bold tracking-wide">
-              Indicadores Ambientais — Região de Manaus
+              Indicadores Ambientais — Amazonas
             </h2>
           </div>
           <span
@@ -40,38 +40,44 @@ export default function AmbientalStats() {
                 : 'bg-green-900/40 text-green-400 border-green-600/30'
             }`}
           >
-            {ehDemo ? 'Dados de demonstração' : 'Fonte oficial'}
+            {ehDemo ? 'Sem dados recentes' : 'Dados reais · INPE'}
           </span>
         </div>
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-          {(dados?.indicadores ?? []).map((ind) => (
-            <div key={ind.tipo} className="bg-obs-navy border border-white/10 p-4">
-              <div className="flex items-center gap-2 mb-2">
-                <span className="w-2.5 h-2.5 rounded-full flex-shrink-0" style={{ background: ind.cor }} />
-                <p className="text-white/50 text-[10px] font-bold tracking-wider uppercase leading-tight">
-                  {ind.tipo}
+          {(dados?.indicadores ?? []).map((ind) => {
+            // Só "Queimada / Foco de Calor" tem dado real do INPE; os demais aguardam fonte.
+            const temReal = !ehDemo && ind.total > 0
+            return (
+              <div key={ind.tipo} className="bg-obs-navy border border-white/10 p-4">
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="w-2.5 h-2.5 rounded-full flex-shrink-0" style={{ background: ind.cor }} />
+                  <p className="text-white/50 text-[10px] font-bold tracking-wider uppercase leading-tight">
+                    {ind.tipo}
+                  </p>
+                </div>
+                <p className="text-white text-2xl font-bold">
+                  {temReal ? ind.total.toLocaleString('pt-BR') : '—'}
                 </p>
+                <p className="text-white/30 text-[10px] mt-1">{ind.periodo}</p>
               </div>
-              <p className="text-white text-2xl font-bold">
-                {ehDemo ? '—' : ind.total.toLocaleString('pt-BR')}
-              </p>
-              <p className="text-white/30 text-[10px] mt-1">{ind.periodo}</p>
-            </div>
-          ))}
+            )
+          })}
         </div>
 
         <p className="text-white/25 text-[10px] mt-4">
-          Fonte pretendida:{' '}
+          Fonte:{' '}
           <a
-            href="https://queimadas.dgi.inpe.br/queimadas/portal"
+            href="https://terrabrasilis.dpi.inpe.br/queimadas/portal/"
             target="_blank"
             rel="noopener noreferrer"
             className="underline hover:text-white/50 transition-colors"
           >
             {dados?.fonte ?? 'INPE'}
           </a>
-          {ehDemo && ' · A integração com os dados oficiais do INPE será validada em produção.'}
+          {ehDemo
+            ? ' · Não foi possível obter os focos de calor recentes do INPE no momento.'
+            : ' · Focos de calor geolocalizados, atualizados diariamente. Desmatamento (PRODES) e demais categorias em integração.'}
         </p>
       </div>
     </section>

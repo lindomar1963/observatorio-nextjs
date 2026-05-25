@@ -1,11 +1,14 @@
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
 import ObservatorioMapa from '@/components/ObservatorioMapa'
+import AmbientalMapa from '@/components/AmbientalMapa'
 import SinespStats from '@/components/SinespStats'
 import AmbientalStats from '@/components/AmbientalStats'
 import type { ObservatorioConfig } from '@/lib/observatorios'
 
 export default function ObservatorioLayout({ config }: { config: ObservatorioConfig }) {
+  const ehAmbiental = config.fonte === 'ambiental'
+
   return (
     <main>
       <Nav />
@@ -18,20 +21,28 @@ export default function ObservatorioLayout({ config }: { config: ObservatorioCon
         </div>
       </section>
 
-      <ObservatorioMapa config={config} />
+      {ehAmbiental ? <AmbientalMapa /> : <ObservatorioMapa config={config} />}
 
       {config.fonte === 'sinesp' && (
         <SinespStats obs={config.slug} titulo={`${config.nome} — Manaus`} />
       )}
-      {config.fonte === 'ambiental' && <AmbientalStats />}
+      {ehAmbiental && <AmbientalStats />}
 
       <section className="bg-obs-navy px-4 md:px-8 py-8 border-t border-white/10">
         <div className="max-w-5xl mx-auto">
-          <p className="text-white/30 text-xs">
-            Os pontos no mapa representam uma distribuição ilustrativa por zona de Manaus; os
-            números oficiais aparecem no painel de indicadores acima ({config.fonteLabel}).
-            Cartografia base: OpenStreetMap.
-          </p>
+          {ehAmbiental ? (
+            <p className="text-white/30 text-xs">
+              Os pontos no mapa são focos de calor reais e geolocalizados detectados por satélite (INPE /
+              Programa Queimadas). Dados de desmatamento (PRODES) e outras categorias serão integrados conforme
+              disponibilidade das fontes oficiais. Cartografia base: OpenStreetMap.
+            </p>
+          ) : (
+            <p className="text-white/30 text-xs">
+              Os números de cada indicador são oficiais ({config.fonteLabel}, total municipal de Manaus). A
+              distribuição pelas zonas no mapa é uma estimativa territorial ponderada pela população — a fonte
+              oficial não divulga a localização exata de cada ocorrência. Cartografia base: OpenStreetMap.
+            </p>
+          )}
         </div>
       </section>
 

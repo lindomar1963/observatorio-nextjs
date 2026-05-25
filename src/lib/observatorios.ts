@@ -39,6 +39,79 @@ export interface ObservatorioConfig {
   demo: OcorrenciaTematica[]
 }
 
+/**
+ * Peso populacional aproximado de cada zona de Manaus (soma = 1).
+ * Base: distribuição populacional por zona administrativa de Manaus (IBGE 2022
+ * e dados da Prefeitura). Usado para estimar a distribuição territorial dos
+ * totais oficiais agregados do SINESP — que NÃO divulga a localização de cada
+ * ocorrência. É, portanto, uma estimativa territorial, não a localização real.
+ */
+export const PESO_ZONA: Record<ZonaManaus, number> = {
+  Norte: 0.30,
+  Leste: 0.27,
+  Oeste: 0.13,
+  Sul: 0.11,
+  'Centro-Sul': 0.10,
+  'Centro-Oeste': 0.09,
+}
+
+export interface CelulaEstimativa {
+  tipo: string
+  zona: ZonaManaus
+  total: number
+}
+
+/**
+ * Distribui os totais oficiais (por tipo) pelas zonas de Manaus conforme o
+ * peso populacional. Retorna a contagem estimada por tipo × zona.
+ */
+export function estimarPorZona(
+  indicadores: { tipo: string; total: number }[]
+): CelulaEstimativa[] {
+  const out: CelulaEstimativa[] = []
+  for (const ind of indicadores) {
+    for (const z of ZONAS) {
+      out.push({ tipo: ind.tipo, zona: z.zona, total: Math.round(ind.total * PESO_ZONA[z.zona]) })
+    }
+  }
+  return out
+}
+
+/**
+ * Gera uma amostra de marcadores para o mapa a partir da estimativa por zona.
+ * Os marcadores são limitados (cap) por célula para não poluir o mapa — os
+ * números reais aparecem nos totais por zona e no painel de indicadores.
+ */
+export function amostrarMarcadores(
+  estimativa: CelulaEstimativa[],
+  maxPorCelula = 10
+): OcorrenciaTematica[] {
+  const out: OcorrenciaTematica[] = []
+  let id = 1
+  for (const cel of estimativa) {
+    if (cel.total <= 0) continue
+    const z = ZONAS.find((zz) => zz.zona === cel.zona)
+    if (!z) continue
+    const qtd = Math.min(cel.total, maxPorCelula)
+    for (let i = 0; i < qtd; i++) {
+      const bairro = z.bairros[i % z.bairros.length]
+      const seed = cel.tipo.length * 7 + i * 13
+      const jLat = ((seed % 20) - 10) / 1000
+      const jLng = (((seed * 11) % 20) - 10) / 1000
+      out.push({
+        id: id++,
+        tipo: cel.tipo,
+        zona: cel.zona,
+        bairro,
+        lat: z.centro[0] + jLat,
+        lng: z.centro[1] + jLng,
+        data: '',
+      })
+    }
+  }
+  return out
+}
+
 /** Gera ocorrências de demonstração distribuídas pelas zonas de Manaus. */
 function gerarDemo(tipos: string[]): OcorrenciaTematica[] {
   const out: OcorrenciaTematica[] = []
