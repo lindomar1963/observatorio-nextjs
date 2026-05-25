@@ -1,6 +1,7 @@
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
 import MapaClient from '@/components/MapaClient'
+import SinespStats from '@/components/SinespStats'
 
 export const metadata = {
   title: 'Mapa Interativo de Manaus — Observatório de Segurança Pública',
@@ -26,6 +27,8 @@ export default function MapaPage() {
       </section>
 
       <MapaClient />
+
+      <SinespStats />
 
       <section className="bg-obs-navy px-4 md:px-8 py-8 border-t border-white/10">
         <div className="max-w-5xl mx-auto">
