@@ -27,18 +27,24 @@ export default function MapaLeaflet({
   ocorrencias,
   zonas,
   corResolver,
+  center = MANAUS_CENTRO,
+  zoom = MANAUS_ZOOM,
+  raioPonto = 6,
 }: {
   ocorrencias: PontoMapa[]
   zonas: ZonaConcentracao[]
   corResolver?: (tipo: string) => string
+  center?: [number, number]
+  zoom?: number
+  raioPonto?: number
 }) {
   const cores = corResolver ?? ((t: string) => corPorTipo(t as never))
   const maxZona = Math.max(1, ...zonas.map((z) => z.total))
 
   return (
     <MapContainer
-      center={MANAUS_CENTRO}
-      zoom={MANAUS_ZOOM}
+      center={center}
+      zoom={zoom}
       scrollWheelZoom
       style={{ height: '100%', width: '100%', background: '#0A1628' }}
     >
@@ -75,18 +81,23 @@ export default function MapaLeaflet({
           <CircleMarker
             key={o.id}
             center={[o.lat, o.lng]}
-            radius={6}
+            radius={raioPonto}
             pathOptions={{ color: cor, weight: 1, fillColor: cor, fillOpacity: 0.85 }}
           >
             <Popup>
               <div style={{ fontSize: 13, lineHeight: 1.5 }}>
                 <strong>{o.tipo}</strong>
                 <br />
-                {o.bairro} · Zona {o.zona}
-                <br />
-                <span style={{ color: '#64748B' }}>
-                  {new Date(o.data + 'T00:00:00').toLocaleDateString('pt-BR')}
-                </span>
+                {o.bairro}
+                {o.zona ? ` · Zona ${o.zona}` : ''}
+                {o.data && (
+                  <>
+                    <br />
+                    <span style={{ color: '#64748B' }}>
+                      {new Date(o.data + 'T00:00:00').toLocaleDateString('pt-BR')}
+                    </span>
+                  </>
+                )}
               </div>
             </Popup>
           </CircleMarker>
