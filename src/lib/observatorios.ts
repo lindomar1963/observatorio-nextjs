@@ -153,10 +153,10 @@ export const OBSERVATORIOS: Record<string, ObservatorioConfig> = {
     fonte: 'sinesp',
     fonteLabel: 'SINESP / Ministério da Justiça',
     tipos: [
-      { tipo: 'Feminicídio', cor: '#BE123C', sinesp: ['feminicídio', 'feminicidio'] },
-      { tipo: 'Estupro', cor: '#DC2626', sinesp: ['estupro'] },
-      { tipo: 'Violência Doméstica', cor: '#A21CAF', sinesp: ['lesão corporal', 'lesao corporal', 'violência doméstica', 'violencia domestica'] },
-      { tipo: 'Ameaça', cor: '#EA580C', sinesp: ['ameaça', 'ameaca'] },
+      { tipo: 'Feminicídio',        cor: '#EF4444', sinesp: ['feminicídio', 'feminicidio'] },
+      { tipo: 'Estupro',            cor: '#8B5CF6', sinesp: ['estupro'] },
+      { tipo: 'Violência Doméstica',cor: '#06B6D4', sinesp: ['lesão corporal', 'lesao corporal', 'violência doméstica', 'violencia domestica'] },
+      { tipo: 'Ameaça',             cor: '#F59E0B', sinesp: ['ameaça', 'ameaca'] },
     ],
     demo: gerarDemo(['Feminicídio', 'Estupro', 'Violência Doméstica', 'Ameaça']),
   },
@@ -171,10 +171,10 @@ export const OBSERVATORIOS: Record<string, ObservatorioConfig> = {
     fonte: 'sinesp',
     fonteLabel: 'SINESP / Ministério da Justiça',
     tipos: [
-      { tipo: 'Estupro de Vulnerável', cor: '#BE123C', sinesp: ['estupro de vulnerável', 'estupro de vulneravel', 'estupro'] },
-      { tipo: 'Violência contra Criança', cor: '#DC2626', sinesp: ['lesão corporal', 'lesao corporal'] },
-      { tipo: 'Trabalho Infantil', cor: '#EA580C', sinesp: [] },
-      { tipo: 'Negligência / Abandono', cor: '#CA8A04', sinesp: [] },
+      { tipo: 'Estupro de Vulnerável',    cor: '#EF4444', sinesp: ['estupro de vulnerável', 'estupro de vulneravel', 'estupro'] },
+      { tipo: 'Violência contra Criança', cor: '#F97316', sinesp: ['lesão corporal', 'lesao corporal'] },
+      { tipo: 'Trabalho Infantil',        cor: '#22C55E', sinesp: [] },
+      { tipo: 'Negligência / Abandono',   cor: '#3B82F6', sinesp: [] },
     ],
     demo: gerarDemo(['Estupro de Vulnerável', 'Violência contra Criança', 'Trabalho Infantil', 'Negligência / Abandono']),
   },
@@ -189,12 +189,48 @@ export const OBSERVATORIOS: Record<string, ObservatorioConfig> = {
     fonte: 'ambiental',
     fonteLabel: 'INPE / Programa Queimadas',
     tipos: [
-      { tipo: 'Queimada / Foco de Calor', cor: '#EA580C', sinesp: [] },
-      { tipo: 'Desmatamento', cor: '#BE123C', sinesp: [] },
-      { tipo: 'Garimpo Ilegal', cor: '#CA8A04', sinesp: [] },
-      { tipo: 'Pesca / Caça Ilegal', cor: '#0891B2', sinesp: [] },
+      { tipo: 'Queimada / Foco de Calor', cor: '#F97316', sinesp: [] }, // laranja fogo
+      { tipo: 'Desmatamento',             cor: '#22C55E', sinesp: [] }, // verde floresta
+      { tipo: 'Garimpo Ilegal',           cor: '#EAB308', sinesp: [] }, // ouro
+      { tipo: 'Pesca / Caça Ilegal',      cor: '#3B82F6', sinesp: [] }, // azul água
     ],
     demo: gerarDemo(['Queimada / Foco de Calor', 'Desmatamento', 'Garimpo Ilegal', 'Pesca / Caça Ilegal']),
+  },
+
+  idoso: {
+    slug: 'observatorio-do-idoso',
+    nome: 'Observatório do Idoso',
+    tagline: 'Proteção à pessoa idosa · Manaus',
+    descricao:
+      'Monitoramento dos crimes contra a pessoa idosa em Manaus — violência física, estelionato, ' +
+      'abandono e ameaça — com base nos indicadores oficiais do SINESP e no Estatuto do Idoso (Lei 10.741/2003).',
+    fonte: 'sinesp',
+    fonteLabel: 'SINESP / Ministério da Justiça',
+    tipos: [
+      { tipo: 'Violência Física',        cor: '#EF4444', sinesp: ['lesão corporal', 'lesao corporal'] },
+      { tipo: 'Estelionato / Fraude',    cor: '#8B5CF6', sinesp: ['estelionato'] },
+      { tipo: 'Abandono / Maus-tratos',  cor: '#EAB308', sinesp: ['abandono de incapaz', 'maus tratos', 'maus-tratos'] },
+      { tipo: 'Ameaça',                  cor: '#22C55E', sinesp: ['ameaça', 'ameaca'] },
+    ],
+    demo: gerarDemo(['Violência Física', 'Estelionato / Fraude', 'Abandono / Maus-tratos', 'Ameaça']),
+  },
+
+  celulares: {
+    slug: 'observatorio-roubos-furtos',
+    nome: 'Observatório de Roubos e Furtos',
+    tagline: 'Patrimônio e segurança nas ruas · Manaus',
+    descricao:
+      'Monitoramento de roubos e furtos em Manaus — celulares, pedestres, veículos — ' +
+      'um dos crimes de maior impacto no cotidiano da população, com indicadores do SINESP.',
+    fonte: 'sinesp',
+    fonteLabel: 'SINESP / Ministério da Justiça',
+    tipos: [
+      { tipo: 'Roubo a Pedestre',        cor: '#EF4444', sinesp: ['roubo a transeunte', 'roubo a pedestre'] },
+      { tipo: 'Roubo de Celular/Eletrônico', cor: '#F97316', sinesp: ['celular', 'aparelho celular', 'eletronico', 'eletrônico'] },
+      { tipo: 'Furto',                   cor: '#EAB308', sinesp: ['furto'] },
+      { tipo: 'Roubo / Furto de Veículo',cor: '#3B82F6', sinesp: ['roubo de veículo', 'roubo de moto', 'furto de veículo'] },
+    ],
+    demo: gerarDemo(['Roubo a Pedestre', 'Roubo de Celular/Eletrônico', 'Furto', 'Roubo / Furto de Veículo']),
   },
 }
 

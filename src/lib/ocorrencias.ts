@@ -27,11 +27,11 @@ export interface Ocorrencia {
 
 // Foco do mapa: crime organizado e tráfico de drogas em Manaus.
 export const TIPOS: { tipo: TipoOcorrencia; cor: string }[] = [
-  { tipo: 'Tráfico de Drogas', cor: '#DC2626' },
-  { tipo: 'Crime Organizado', cor: '#7C3AED' },
-  { tipo: 'Apreensão de Drogas', cor: '#EA580C' },
-  { tipo: 'Apreensão de Armas', cor: '#2563EB' },
-  { tipo: 'Homicídio Faccional', cor: '#BE123C' },
+  { tipo: 'Tráfico de Drogas',   cor: '#EF4444' }, // vermelho vivo
+  { tipo: 'Crime Organizado',    cor: '#8B5CF6' }, // violeta
+  { tipo: 'Apreensão de Drogas', cor: '#F59E0B' }, // âmbar
+  { tipo: 'Apreensão de Armas',  cor: '#06B6D4' }, // ciano
+  { tipo: 'Homicídio Faccional', cor: '#EC4899' }, // rosa/magenta
 ]
 
 export function corPorTipo(t: TipoOcorrencia): string {
