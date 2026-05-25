@@ -45,7 +45,7 @@ export default function MapaLeaflet({
     <MapContainer
       center={center}
       zoom={zoom}
-      scrollWheelZoom
+      scrollWheelZoom={false}
       style={{ height: '100%', width: '100%', background: '#0A1628' }}
     >
       <TileLayer
