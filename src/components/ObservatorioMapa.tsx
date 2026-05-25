@@ -171,13 +171,9 @@ export default function ObservatorioMapa({ config }: { config: ObservatorioConfi
               <span className="font-bold text-obs-gold">{carregando ? '…' : totalExibido.toLocaleString('pt-BR')}</span>
               <span className="text-white/60"> ocorrências{modoReal && mesRef ? ` em ${mesRef}` : ''}</span>
             </p>
-            {modoReal ? (
+            {modoReal && (
               <span className="text-[10px] font-bold tracking-wider uppercase bg-green-900/40 text-green-400 border border-green-600/30 px-2 py-1 rounded">
                 Estimativa territorial · base SINESP
-              </span>
-            ) : (
-              <span className="text-[10px] font-bold tracking-wider uppercase bg-yellow-500/15 text-yellow-400 border border-yellow-500/30 px-2 py-1 rounded">
-                Distribuição ilustrativa
               </span>
             )}
           </div>

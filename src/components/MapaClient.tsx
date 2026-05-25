@@ -25,8 +25,6 @@ const TODAS_ZONAS = ZONAS.map((z) => z.zona)
 
 export default function MapaClient() {
   const [ocorrencias, setOcorrencias] = useState<Ocorrencia[]>([])
-  const [demo, setDemo] = useState(true)
-  const [carregando, setCarregando] = useState(true)
 
   const [tipos, setTipos] = useState<Set<TipoOcorrencia>>(new Set(TODOS_TIPOS))
   const [zonas, setZonas] = useState<Set<ZonaManaus>>(new Set(TODAS_ZONAS))
@@ -38,8 +36,6 @@ export default function MapaClient() {
     getOcorrencias().then((r) => {
       if (!ativo) return
       setOcorrencias(r.data)
-      setDemo(r.demo)
-      setCarregando(false)
     })
     return () => {
       ativo = false
@@ -168,11 +164,6 @@ export default function MapaClient() {
               <span className="font-bold text-obs-gold">{filtradas.length}</span>
               <span className="text-white/60"> ocorrências exibidas</span>
             </p>
-            {demo && !carregando && (
-              <span className="text-[10px] font-bold tracking-wider uppercase bg-yellow-500/15 text-yellow-400 border border-yellow-500/30 px-2 py-1 rounded">
-                Dados de demonstração
-              </span>
-            )}
           </div>
 
           <div className="h-[460px] md:h-[560px]">
