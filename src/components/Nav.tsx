@@ -2,19 +2,29 @@
 import { useState } from 'react'
 import Link from 'next/link'
 
+const OBSERVATORIOS = [
+  { href: '/mapa', label: 'Segurança Pública' },
+  { href: '/observatorio-da-mulher', label: 'Observatório da Mulher' },
+  { href: '/observatorio-da-crianca', label: 'Observatório da Criança' },
+  { href: '/observatorio-crimes-ambientais', label: 'Crimes Ambientais' },
+]
+
 export default function Nav() {
   const [open, setOpen] = useState(false)
+
+  const linkCls =
+    'text-white/60 hover:text-obs-gold text-xs font-semibold tracking-widest transition-colors duration-200 uppercase'
+
   const links = [
     { href: '/', label: 'Início' },
     { href: '/observatorio', label: 'O Observatório' },
     { href: '/paineis', label: 'Painéis' },
-    { href: '/mapa', label: 'Mapa' },
     { href: '/municipios', label: 'Municípios' },
     { href: '/relatorios', label: 'Relatórios' },
-    { href: '/biblioteca', label: 'Biblioteca' },
     { href: '/noticias', label: 'Notícias' },
     { href: '/contato', label: 'Contato' },
   ]
+
   return (
     <header role="banner">
       <nav
@@ -38,17 +48,36 @@ export default function Nav() {
         </Link>
 
         {/* Desktop links */}
-        <div className="hidden md:flex items-center gap-6" role="list">
-          {links.map(l => (
-            <Link
-              key={l.href}
-              href={l.href}
-              role="listitem"
-              className="text-white/60 hover:text-obs-gold text-xs font-semibold tracking-widest transition-colors duration-200 uppercase"
-            >
-              {l.label}
-            </Link>
-          ))}
+        <div className="hidden md:flex items-center gap-6">
+          <Link href="/" className={linkCls}>Início</Link>
+          <Link href="/observatorio" className={linkCls}>O Observatório</Link>
+          <Link href="/paineis" className={linkCls}>Painéis</Link>
+
+          {/* Dropdown Observatórios */}
+          <div className="relative group">
+            <button className={`${linkCls} flex items-center gap-1`} aria-haspopup="true">
+              Observatórios
+              <span aria-hidden="true" className="text-[8px]">▼</span>
+            </button>
+            <div className="absolute left-0 top-full pt-3 hidden group-hover:block z-50">
+              <div className="bg-obs-navy border border-white/10 min-w-[230px] shadow-2xl">
+                {OBSERVATORIOS.map((o) => (
+                  <Link
+                    key={o.href}
+                    href={o.href}
+                    className="block px-4 py-3 text-white/70 hover:text-obs-gold hover:bg-white/5 text-xs font-semibold border-b border-white/5 last:border-0 transition-colors"
+                  >
+                    {o.label}
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <Link href="/municipios" className={linkCls}>Municípios</Link>
+          <Link href="/relatorios" className={linkCls}>Relatórios</Link>
+          <Link href="/noticias" className={linkCls}>Notícias</Link>
+          <Link href="/contato" className={linkCls}>Contato</Link>
         </div>
 
         <Link
@@ -86,9 +115,22 @@ export default function Nav() {
               {l.label}
             </Link>
           ))}
+
+          <p className="px-6 pt-4 pb-1 text-obs-gold text-[10px] font-bold tracking-widest uppercase">Observatórios</p>
+          {OBSERVATORIOS.map((o) => (
+            <Link
+              key={o.href}
+              href={o.href}
+              className="block text-white/60 hover:text-obs-gold px-8 py-2.5 text-sm font-semibold border-b border-white/5"
+              onClick={() => setOpen(false)}
+            >
+              {o.label}
+            </Link>
+          ))}
+
           <Link
             href="/area-restrita"
-            className="block bg-obs-gold text-obs-navy text-center py-3 text-sm font-bold"
+            className="block bg-obs-gold text-obs-navy text-center py-3 text-sm font-bold mt-2"
             onClick={() => setOpen(false)}
           >
             ÁREA RESTRITA

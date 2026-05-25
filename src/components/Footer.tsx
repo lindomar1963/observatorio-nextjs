@@ -22,11 +22,20 @@ export default function Footer() {
       ],
     },
     {
+      title: 'Observatórios',
+      links: [
+        { href: '/mapa', label: 'Segurança Pública' },
+        { href: '/observatorio-da-mulher', label: 'Da Mulher' },
+        { href: '/observatorio-da-crianca', label: 'Da Criança' },
+        { href: '/observatorio-crimes-ambientais', label: 'Crimes Ambientais' },
+      ],
+    },
+    {
       title: 'Conteúdo',
       links: [
         { href: '/paineis', label: 'Painéis e mapas' },
         { href: '/relatorios', label: 'Relatórios' },
-        { href: '/biblioteca', label: 'Biblioteca' },
+        { href: '/noticias', label: 'Notícias' },
         { href: '/municipios', label: 'Municípios' },
       ],
     },
@@ -43,7 +52,7 @@ export default function Footer() {
 
   return (
     <footer role="contentinfo" className="bg-obs-navy">
-      <div className="px-4 md:px-8 py-10 grid md:grid-cols-4 gap-8">
+      <div className="px-4 md:px-8 py-10 grid md:grid-cols-3 lg:grid-cols-5 gap-8">
         {/* Marca */}
         <div className="md:col-span-1">
           <div className="flex items-center gap-2 mb-4">

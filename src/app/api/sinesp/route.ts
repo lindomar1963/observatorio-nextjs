@@ -7,37 +7,43 @@
  * Cache: 12 horas (os dados são atualizados mensalmente)
  */
 
-import { NextResponse } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
 import * as XLSX from 'xlsx'
+import { OBSERVATORIOS } from '@/lib/observatorios'
 
 export const revalidate = 43200 // 12 horas
+export const maxDuration = 60
 
 const SINESP_URL =
   'http://dados.mj.gov.br/dataset/210b9ae2-21fc-4986-89c6-2006eb4db247/resource/03af7ce2-174e-4ebd-b085-384503cfb40f/download/indicadoressegurancapublicamunic.xlsx'
 
-/** Mapeamento de naturezas do SINESP para os tipos do Observatório */
-const MAPA_TIPOS: Array<{ chaves: string[]; tipo: string; cor: string }> = [
-  {
-    chaves: ['tráfico de drogas', 'trafico de drogas', 'tráfico'],
-    tipo: 'Tráfico de Drogas',
-    cor: '#DC2626',
-  },
-  {
-    chaves: ['apreensão de cocaína', 'apreensao de cocaina', 'apreensão de maconha', 'apreensao de maconha', 'apreensão de crack', 'apreensao de crack'],
-    tipo: 'Apreensão de Drogas',
-    cor: '#EA580C',
-  },
-  {
-    chaves: ['apreensão de arma', 'apreensao de arma', 'arma de fogo'],
-    tipo: 'Apreensão de Armas',
-    cor: '#2563EB',
-  },
-  {
-    chaves: ['homicídio doloso', 'homicidio doloso', 'latrocínio', 'latrocinio'],
-    tipo: 'Homicídio Faccional',
-    cor: '#BE123C',
-  },
+interface MapaTipo {
+  chaves: string[]
+  tipo: string
+  cor: string
+}
+
+/** Mapeamento padrão (segurança pública — crime organizado e tráfico) */
+const MAPA_PADRAO: MapaTipo[] = [
+  { chaves: ['tráfico de drogas', 'trafico de drogas', 'tráfico'], tipo: 'Tráfico de Drogas', cor: '#DC2626' },
+  { chaves: ['apreensão de cocaína', 'apreensao de cocaina', 'apreensão de maconha', 'apreensao de maconha', 'apreensão de crack', 'apreensao de crack'], tipo: 'Apreensão de Drogas', cor: '#EA580C' },
+  { chaves: ['apreensão de arma', 'apreensao de arma', 'arma de fogo'], tipo: 'Apreensão de Armas', cor: '#2563EB' },
+  { chaves: ['homicídio doloso', 'homicidio doloso', 'latrocínio', 'latrocinio'], tipo: 'Homicídio Faccional', cor: '#BE123C' },
 ]
+
+/** Seleciona o mapeamento conforme o parâmetro ?obs= */
+function getMapa(obs: string | null): MapaTipo[] {
+  if (obs) {
+    const config = Object.values(OBSERVATORIOS).find((o) => o.slug.includes(obs) || o.slug === `observatorio-da-${obs}`)
+    if (config) {
+      const mapa = config.tipos
+        .filter((t) => t.sinesp.length > 0)
+        .map((t) => ({ chaves: t.sinesp, tipo: t.tipo, cor: t.cor }))
+      if (mapa.length > 0) return mapa
+    }
+  }
+  return MAPA_PADRAO
+}
 
 function getCol(row: Record<string, unknown>, ...nomes: string[]): string {
   for (const nome of nomes) {
@@ -73,17 +79,22 @@ export interface SinespResponse {
   erro?: string
 }
 
-export async function GET(): Promise<NextResponse<SinespResponse>> {
+export async function GET(req: NextRequest): Promise<NextResponse<SinespResponse>> {
+  const obs = req.nextUrl.searchParams.get('obs')
+  const MAPA_TIPOS = getMapa(obs)
   try {
+    const ctrl = new AbortController()
+    const timeout = setTimeout(() => ctrl.abort(), 45000)
     const res = await fetch(SINESP_URL, {
       headers: {
         'User-Agent':
           'Mozilla/5.0 (compatible; ObservatorioSegurancaAM/1.0; +https://observatoriodeseguranca.site)',
         Accept: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,*/*',
       },
+      signal: ctrl.signal,
       // Não usar cache do Next.js para o fetch interno; o revalidate do route já controla
       cache: 'no-store',
-    })
+    }).finally(() => clearTimeout(timeout))
 
     if (!res.ok) {
       throw new Error(`SINESP retornou HTTP ${res.status}`)
