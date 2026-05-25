@@ -1,5 +1,6 @@
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
+import NoticiasAoVivo from '@/components/NoticiasAoVivo'
 import { getNoticias } from '@/lib/queries'
 import type { Noticia } from '@/lib/types'
 
@@ -43,6 +44,8 @@ export default async function NoticiasPage() {
         </div>
       </section>
 
+      <NoticiasAoVivo />
+
       {destaques.length > 0 && (
         <section className="bg-gradient-to-b from-obs-navy to-[#0F2A45] px-4 md:px-8 py-10">
           <div className="max-w-5xl mx-auto">
@@ -65,7 +68,7 @@ export default async function NoticiasPage() {
 
       <section className="bg-[#0F2A45] px-4 md:px-8 py-10 border-t border-white/10">
         <div className="max-w-5xl mx-auto">
-          <h2 className="text-white/50 text-xs font-bold tracking-widest uppercase mb-6">Todas as publicações</h2>
+          <h2 className="text-white/50 text-xs font-bold tracking-widest uppercase mb-6">Publicações do Observatório</h2>
           <div className="space-y-4">
             {noticias.map((n: Noticia) => (
               <div key={n.id} className="border border-white/10 bg-white/5 p-5 hover:border-white/20 transition-colors">
