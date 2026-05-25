@@ -8,6 +8,7 @@ export default function Nav() {
     { href: '/', label: 'Início' },
     { href: '/observatorio', label: 'O Observatório' },
     { href: '/paineis', label: 'Painéis' },
+    { href: '/mapa', label: 'Mapa' },
     { href: '/municipios', label: 'Municípios' },
     { href: '/relatorios', label: 'Relatórios' },
     { href: '/biblioteca', label: 'Biblioteca' },

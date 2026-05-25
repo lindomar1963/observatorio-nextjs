@@ -40,3 +40,15 @@ body {
     --obs-blue: #003366;
   }
 }
+
+/* Rótulos de zona no mapa interativo */
+.zona-tooltip.leaflet-tooltip {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  color: #C9963B;
+  font-weight: 700;
+  font-size: 12px;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.9);
+}
+.zona-tooltip.leaflet-tooltip::before { display: none; }
