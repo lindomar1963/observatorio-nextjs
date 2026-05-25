@@ -3,9 +3,11 @@ import { useState } from 'react'
 import Link from 'next/link'
 
 const OBSERVATORIOS = [
-  { href: '/mapa', label: 'Segurança Pública' },
-  { href: '/observatorio-da-mulher', label: 'Observatório da Mulher' },
-  { href: '/observatorio-da-crianca', label: 'Observatório da Criança' },
+  { href: '/mapa',                           label: 'Segurança Pública' },
+  { href: '/observatorio-da-mulher',         label: 'Da Mulher' },
+  { href: '/observatorio-da-crianca',        label: 'Da Criança' },
+  { href: '/observatorio-do-idoso',          label: 'Do Idoso' },
+  { href: '/observatorio-roubos-furtos',     label: 'Roubos e Furtos' },
   { href: '/observatorio-crimes-ambientais', label: 'Crimes Ambientais' },
 ]
 
