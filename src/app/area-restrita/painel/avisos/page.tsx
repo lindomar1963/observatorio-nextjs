@@ -23,6 +23,8 @@ export default function AvisosPage() {
   const [submitting, setSubmitting] = useState(false)
   const [msg, setMsg] = useState<{ type: 'success' | 'error'; text: string } | null>(null)
   const [lista, setLista] = useState<AvisoRow[]>([])
+  const [erroLista, setErroLista] = useState<string | null>(null)
+  const [editId, setEditId] = useState<number | null>(null)
 
   const [form, setForm] = useState({
     texto: '',
@@ -44,12 +46,36 @@ export default function AvisosPage() {
 
   async function fetchLista() {
     if (!supabaseBrowser) return
-    const { data } = await supabaseBrowser
+    const { data, error } = await supabaseBrowser
       .from('avisos_ticker')
       .select('*')
       .order('ordem', { ascending: true })
       .order('created_at', { ascending: false })
-    setLista((data as AvisoRow[]) ?? [])
+    if (error) {
+      setErroLista(error.message)
+      setLista([])
+    } else {
+      setErroLista(null)
+      setLista((data as AvisoRow[]) ?? [])
+    }
+  }
+
+  function iniciarEdicao(item: AvisoRow) {
+    setEditId(item.id)
+    setForm({
+      texto: item.texto,
+      link: item.link ?? '',
+      data_expira: item.data_expira ?? '',
+      ordem: String(item.ordem),
+    })
+    setMsg(null)
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+
+  function cancelarEdicao() {
+    setEditId(null)
+    setForm({ texto: '', link: '', data_expira: '', ordem: '0' })
+    setMsg(null)
   }
 
   async function handleSubmit(e: React.FormEvent) {
@@ -63,15 +89,18 @@ export default function AvisosPage() {
       link: form.link.trim() || null,
       data_expira: form.data_expira || null,
       ordem: window.parseInt(form.ordem, 10) || 0,
-      ativo: true,
     }
 
-    const { error } = await supabaseBrowser.from('avisos_ticker').insert([payload])
+    const { error } = editId != null
+      ? await supabaseBrowser.from('avisos_ticker').update(payload).eq('id', editId)
+      : await supabaseBrowser.from('avisos_ticker').insert([{ ...payload, ativo: true }])
+
     if (error) {
       setMsg({ type: 'error', text: `Erro: ${error.message}` })
     } else {
-      setMsg({ type: 'success', text: 'Aviso publicado no ticker!' })
+      setMsg({ type: 'success', text: editId != null ? 'Aviso atualizado!' : 'Aviso publicado no ticker!' })
       setForm({ texto: '', link: '', data_expira: '', ordem: '0' })
+      setEditId(null)
       fetchLista()
     }
     setSubmitting(false)
@@ -120,8 +149,10 @@ export default function AvisosPage() {
       <section className="bg-obs-navy px-4 md:px-8 py-10">
         <div className="max-w-4xl mx-auto space-y-10">
 
-          <div className="border border-obs-border bg-obs-card p-6">
-            <h2 className="text-white font-semibold text-sm mb-6">Novo aviso</h2>
+          <div className={`border bg-obs-card p-6 ${editId != null ? 'border-obs-gold/60' : 'border-obs-border'}`}>
+            <h2 className="text-white font-semibold text-sm mb-6">
+              {editId != null ? 'Editar aviso' : 'Novo aviso'}
+            </h2>
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
                 <label className="block text-white/60 text-xs mb-1">Texto do aviso *</label>
@@ -146,12 +177,22 @@ export default function AvisosPage() {
 
               {msg && <div className={`text-xs px-3 py-2 border ${msg.type === 'success' ? 'border-green-500/30 bg-green-500/10 text-green-400' : 'border-red-500/30 bg-red-500/10 text-red-400'}`}>{msg.text}</div>}
 
-              <button type="submit" disabled={submitting} className="border border-obs-gold/40 bg-obs-gold/10 text-obs-gold text-xs font-bold tracking-widest uppercase px-6 py-2.5 hover:bg-obs-gold/20 transition-colors disabled:opacity-50">{submitting ? 'Salvando...' : 'Publicar Aviso'}</button>
+              <div className="flex items-center gap-3">
+                <button type="submit" disabled={submitting} className="border border-obs-gold/40 bg-obs-gold/10 text-obs-gold text-xs font-bold tracking-widest uppercase px-6 py-2.5 hover:bg-obs-gold/20 transition-colors disabled:opacity-50">{submitting ? 'Salvando...' : editId != null ? 'Salvar Alterações' : 'Publicar Aviso'}</button>
+                {editId != null && (
+                  <button type="button" onClick={cancelarEdicao} className="border border-white/20 text-white/50 text-xs font-bold tracking-widest uppercase px-6 py-2.5 hover:border-white/40 hover:text-white/80 transition-colors">Cancelar</button>
+                )}
+              </div>
             </form>
           </div>
 
           <div>
             <h2 className="text-white/50 text-xs font-bold tracking-widest uppercase mb-4">Avisos cadastrados</h2>
+            {erroLista && (
+              <p className="text-red-400 text-xs border border-red-500/30 bg-red-500/10 px-3 py-2 mb-3">
+                Não foi possível carregar a lista: {erroLista}
+              </p>
+            )}
             {lista.length === 0 ? <p className="text-white/30 text-xs">Nenhum aviso cadastrado. Os avisos padrão de fallback serão exibidos.</p> : (
               <div className="space-y-2">
                 {lista.map((item) => {
@@ -174,6 +215,9 @@ export default function AvisosPage() {
                           </div>
                         </div>
                         <div className="flex gap-2 flex-shrink-0">
+                          <button onClick={() => iniciarEdicao(item)} className="text-[10px] font-bold tracking-wider uppercase border border-obs-gold/30 text-obs-gold/80 px-2 py-1 hover:border-obs-gold/60 hover:text-obs-gold transition-colors">
+                            Editar
+                          </button>
                           <button onClick={() => toggleAtivo(item)} className="text-[10px] font-bold tracking-wider uppercase border border-white/20 text-white/50 px-2 py-1 hover:border-white/40 hover:text-white/80 transition-colors">
                             {item.ativo ? 'Desativar' : 'Ativar'}
                           </button>
