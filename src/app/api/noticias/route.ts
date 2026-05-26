@@ -1,7 +1,7 @@
 /**
  * API route: /api/noticias
- * Busca notícias sobre segurança pública no Amazonas e sobre o
- * Deputado Comandante Dan automaticamente via Google Notícias (RSS).
+ * Busca notícias sobre segurança pública no Amazonas diretamente do
+ * site da ALEAM e via Google Notícias (RSS).
  *
  * Sem chave de API, sem custo. Cache de 30 minutos.
  */
@@ -11,15 +11,18 @@ import { XMLParser } from 'fast-xml-parser'
 
 export const revalidate = 1800 // 30 minutos
 
-/** Buscas executadas no Google Notícias. A ordem define a prioridade de categoria. */
+/** Buscas executadas no Google Notícias. A ordem define a prioridade de categoria.
+ *  As entradas de ALEAM usam site:aleam.am.leg.br para trazer conteúdo diretamente
+ *  do portal oficial da Assembleia Legislativa do Amazonas.
+ */
 const BUSCAS: { q: string; categoria: string }[] = [
-  { q: '"Comandante Dan" Amazonas', categoria: 'Comandante Dan' },
-  { q: 'Comandante Dan segurança pública', categoria: 'Comandante Dan' },
+  { q: 'site:aleam.am.leg.br segurança pública', categoria: 'ALEAM' },
+  { q: 'site:aleam.am.leg.br violência crime', categoria: 'ALEAM' },
+  { q: '"Assembleia Legislativa do Amazonas" segurança pública', categoria: 'ALEAM' },
   { q: 'segurança pública Amazonas', categoria: 'Segurança Pública' },
   { q: 'violência Manaus', categoria: 'Manaus' },
   { q: 'polícia Amazonas operação', categoria: 'Polícia' },
   { q: 'tráfico de drogas Amazonas apreensão', categoria: 'Drogas' },
-  { q: 'ALEAM segurança pública', categoria: 'ALEAM' },
 ]
 
 export interface NoticiaExterna {
