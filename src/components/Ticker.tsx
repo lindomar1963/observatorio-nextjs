@@ -1,3 +1,6 @@
+'use client'
+
+import { useEffect, useState } from 'react'
 import type { AvisoTicker, Relatorio } from '@/lib/types'
 
 export default function Ticker({
@@ -11,6 +14,19 @@ export default function Ticker({
   relatorioRecente?: Relatorio | null
   avisos?: AvisoTicker[]
 }) {
+  // Inicia com os avisos vindos do servidor e atualiza com dados frescos
+  // (sem cache) para refletir inserções recentes feitas no painel.
+  const [avisosAtuais, setAvisosAtuais] = useState<AvisoTicker[]>(avisos)
+
+  useEffect(() => {
+    fetch('/api/avisos', { cache: 'no-store' })
+      .then((r) => r.json())
+      .then((d: { avisos: AvisoTicker[] }) => {
+        if (Array.isArray(d.avisos)) setAvisosAtuais(d.avisos)
+      })
+      .catch(() => {})
+  }, [])
+
   const hora = new Date(atualizado_em).toLocaleString('pt-BR', {
     timeZone: 'America/Manaus',
     day: '2-digit', month: '2-digit', year: 'numeric',
@@ -26,7 +42,7 @@ export default function Ticker({
       link: relatorioRecente.arquivo_url,
     })
   }
-  for (const a of avisos) {
+  for (const a of avisosAtuais) {
     itens.push({ texto: a.texto, link: a.link })
   }
 
@@ -43,7 +59,7 @@ export default function Ticker({
       <p className="text-white/80 text-xs whitespace-nowrap">
         {itens.map((item, i) => (
           <span key={i}>
-            {i > 0 && <span className="text-white/40">{'  ·  '}</span>}
+            {i > 0 && <span className="text-white/40">{'  ·  '}</span>}
             {item.link ? (
               <a
                 href={item.link}
