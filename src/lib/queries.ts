@@ -1,5 +1,5 @@
 import { supabase } from './supabase'
-import type { DadosDiarios, Indicadores, Noticia, Relatorio, MunicipioDestaque } from './types'
+import type { DadosDiarios, Indicadores, Noticia, Relatorio, MunicipioDestaque, AvisoTicker } from './types'
 
 // Dados fixos usados como fallback quando o banco está vazio
 const FALLBACK: DadosDiarios = {
@@ -27,7 +27,13 @@ const FALLBACK: DadosDiarios = {
     { nome: 'Itacoatiara', cvli: 74, risco: 'Médio' },
   ],
   tendencia_mensal: [155, 138, 162, 144, 151, 133, 147, 139, 158, 141, 136, 123],
+  avisos: [],
 }
+
+// Avisos exibidos quando o banco está vazio (sem datas vencidas)
+const FALLBACK_AVISOS: AvisoTicker[] = [
+  { id: 1, texto: 'Portal em operação · Indicadores oficiais de SSP-AM e SINESP', link: null, data_expira: null, ativo: true, ordem: 1 },
+]
 
 export async function getIndicadores(): Promise<Indicadores> {
   try {
@@ -112,12 +118,30 @@ export async function getNoticias(limit = 20): Promise<Noticia[]> {
   }
 }
 
+export async function getAvisosTicker(): Promise<AvisoTicker[]> {
+  try {
+    if (!supabase) return FALLBACK_AVISOS
+    const hoje = new Date().toISOString().split('T')[0]
+    const { data, error } = await supabase
+      .from('avisos_ticker')
+      .select('*')
+      .eq('ativo', true)
+      .or(`data_expira.is.null,data_expira.gte.${hoje}`)
+      .order('ordem', { ascending: true })
+    if (error || !data || data.length === 0) return FALLBACK_AVISOS
+    return data as AvisoTicker[]
+  } catch {
+    return FALLBACK_AVISOS
+  }
+}
+
 export async function getDadosDiarios(): Promise<DadosDiarios> {
-  const [indicadores, relatorios, municipios_destaque, tendencia_mensal] = await Promise.all([
+  const [indicadores, relatorios, municipios_destaque, tendencia_mensal, avisos] = await Promise.all([
     getIndicadores(),
     getRelatorios(),
     getMunicipiosDestaque(),
     getTendenciaMensal(),
+    getAvisosTicker(),
   ])
-  return { indicadores, relatorios, municipios_destaque, tendencia_mensal }
+  return { indicadores, relatorios, municipios_destaque, tendencia_mensal, avisos }
 }

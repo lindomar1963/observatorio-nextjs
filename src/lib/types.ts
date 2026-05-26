@@ -39,9 +39,21 @@ export interface MunicipioDestaque {
   risco: 'Alto' | 'Médio' | 'Baixo'
 }
 
+export interface AvisoTicker {
+  id: number
+  texto: string
+  link: string | null
+  /** Se preenchido, o aviso some automaticamente após esta data (YYYY-MM-DD) */
+  data_expira: string | null
+  ativo: boolean
+  ordem: number
+  created_at?: string
+}
+
 export interface DadosDiarios {
   indicadores: Indicadores
   relatorios: Relatorio[]
   municipios_destaque: MunicipioDestaque[]
   tendencia_mensal: number[]
+  avisos: AvisoTicker[]
 }

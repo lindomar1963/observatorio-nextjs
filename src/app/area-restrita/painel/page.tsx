@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
 import { supabaseBrowser } from '@/lib/supabase-browser'
@@ -12,18 +13,20 @@ const MODULOS = [
     titulo: 'Indicadores de Segurança',
     descricao: 'Acesso aos dados brutos de CVLI, roubos e violência doméstica por município.',
     icone: '📊',
-    status: 'Em desenvolvimento',
+    status: 'Ativo',
+    href: '/area-restrita/painel/indicadores',
+  },
+  {
+    titulo: 'Avisos do Ticker',
+    descricao: 'Mensagens da faixa de "Atualização" no topo do site, com expiração automática.',
+    icone: '📢',
+    status: 'Ativo',
+    href: '/area-restrita/painel/avisos',
   },
   {
     titulo: 'Relatórios Internos',
     descricao: 'Notas técnicas e relatórios preliminares antes da publicação pública.',
     icone: '📋',
-    status: 'Em desenvolvimento',
-  },
-  {
-    titulo: 'Gestão de Conteúdo',
-    descricao: 'Publicação de notícias, relatórios e atualizações no portal.',
-    icone: '✏️',
     status: 'Em desenvolvimento',
   },
   {
@@ -118,18 +121,30 @@ export default function PainelPage() {
             Os módulos abaixo serão ativados progressivamente conforme o Observatório entra em operação plena.
           </p>
           <div className="grid md:grid-cols-2 gap-4">
-            {MODULOS.map((m) => (
-              <div key={m.titulo} className="border border-obs-border bg-obs-card p-6">
+            {MODULOS.map((m) => {
+              const ativo = 'href' in m && m.href
+              const conteudo = (
                 <div className="flex items-start gap-4">
                   <span className="text-2xl flex-shrink-0">{m.icone}</span>
                   <div className="flex-1">
-                    <h3 className="text-white font-semibold text-sm mb-1">{m.titulo}</h3>
+                    <h3 className={`font-semibold text-sm mb-1 ${ativo ? 'text-white group-hover:text-obs-cyan transition-colors' : 'text-white'}`}>{m.titulo}</h3>
                     <p className="text-white/50 text-xs leading-relaxed mb-3">{m.descricao}</p>
-                    <span className="text-yellow-400 text-xs font-bold">{m.status}</span>
+                    <span className={`text-xs font-bold ${ativo ? 'text-green-400' : 'text-yellow-400'}`}>
+                      {m.status}{ativo ? ' →' : ''}
+                    </span>
                   </div>
                 </div>
-              </div>
-            ))}
+              )
+              return ativo ? (
+                <Link key={m.titulo} href={m.href!} className="group border border-obs-border bg-obs-card p-6 hover:border-obs-cyan/40 transition-colors">
+                  {conteudo}
+                </Link>
+              ) : (
+                <div key={m.titulo} className="border border-obs-border bg-obs-card p-6">
+                  {conteudo}
+                </div>
+              )
+            })}
           </div>
         </div>
       </section>
