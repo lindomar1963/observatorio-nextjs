@@ -32,6 +32,7 @@ export default function SeminarioPopup() {
         role="dialog"
         aria-modal="false"
         aria-label="4º Seminário de Segurança Inovadora"
+        className="seminario-popup-float"
         style={{
           position: 'fixed',
           bottom: '1.5rem',
