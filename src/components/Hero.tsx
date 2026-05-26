@@ -2,12 +2,21 @@ import Link from 'next/link'
 import type { Indicadores } from '@/lib/types'
 
 export default function Hero({ indicadores }: { indicadores: Indicadores }) {
+  const fmt = (n: number) => n.toLocaleString('pt-BR')
+  const varStr = (v: number) =>
+    `${v < 0 ? '↓' : '↑'} ${Math.abs(v).toLocaleString('pt-BR', { minimumFractionDigits: 1, maximumFractionDigits: 1 })}% · 12 meses`
+
   const cards = [
-    { num: String(indicadores.municipios_monitorados), label: 'Municípios monitorados', sub: '100% do estado',   color: '#22D3EE' },
-    { num: String(indicadores.municipios_com_plano > 0 ? indicadores.municipios_com_plano : 48), label: 'Relatórios publicados', sub: '+12 em 2026', color: '#A3E635' },
-    { num: '18', label: 'Parceiros institucionais', sub: 'SSPs, UFAM, UEA, MPE',       color: '#8B5CF6' },
-    { num: '9',  label: 'Políticas influenciadas',   sub: 'desde a criação',             color: '#EC4899' },
+    { num: fmt(indicadores.municipios_monitorados), label: 'Municípios monitorados', sub: 'Cobertura de 100% do estado', color: '#22D3EE' },
+    { num: fmt(indicadores.cvli_12m),               label: 'CVLI · últimos 12 meses', sub: varStr(indicadores.cvli_variacao), color: '#A3E635' },
+    { num: fmt(indicadores.roubos_ano),             label: 'Roubos · últimos 12 meses', sub: varStr(indicadores.roubos_variacao), color: '#8B5CF6' },
+    { num: fmt(indicadores.violencia_domestica_ano),label: 'Violência doméstica · 12 meses', sub: varStr(indicadores.violencia_domestica_variacao), color: '#EC4899' },
   ]
+
+  const hexToRgb = (hex: string) => {
+    const h = hex.replace('#', '')
+    return `${parseInt(h.slice(0, 2), 16)},${parseInt(h.slice(2, 4), 16)},${parseInt(h.slice(4, 6), 16)}`
+  }
 
   return (
     <section
@@ -87,19 +96,25 @@ export default function Hero({ indicadores }: { indicadores: Indicadores }) {
         </div>
 
         {/* Cards de indicadores */}
-        <div className="grid grid-cols-2 gap-3" aria-label="Indicadores institucionais">
-          {cards.map((s, i) => (
-            <div
-              key={i}
-              className="neon-card p-4 relative overflow-hidden rounded-sm"
-              style={{ borderLeft: `3px solid ${s.color}`, boxShadow: `0 0 14px rgba(${s.color === '#22D3EE' ? '34,211,238' : s.color === '#A3E635' ? '163,230,53' : s.color === '#8B5CF6' ? '139,92,246' : '236,72,153'},0.18)` }}
-              aria-label={`${s.num} ${s.label}`}
-            >
-              <div className="font-display text-3xl font-bold text-white leading-none">{s.num}</div>
-              <div className="text-white/45 text-xs mt-1 leading-snug">{s.label}</div>
-              <div className="text-xs font-semibold mt-2" style={{ color: s.color }}>↑ {s.sub}</div>
-            </div>
-          ))}
+        <div>
+          <div className="grid grid-cols-2 gap-3" aria-label="Indicadores oficiais">
+            {cards.map((s, i) => (
+              <div
+                key={i}
+                className="neon-card p-4 relative overflow-hidden rounded-sm"
+                style={{ borderLeft: `3px solid ${s.color}`, boxShadow: `0 0 14px rgba(${hexToRgb(s.color)},0.18)` }}
+                aria-label={`${s.num} ${s.label}`}
+              >
+                <div className="font-display text-3xl font-bold text-white leading-none">{s.num}</div>
+                <div className="text-white/45 text-xs mt-1 leading-snug">{s.label}</div>
+                <div className="text-xs font-semibold mt-2" style={{ color: s.color }}>{s.sub}</div>
+              </div>
+            ))}
+          </div>
+          <p className="text-white/30 text-[10px] mt-3">
+            Fonte: {indicadores.fonte} · atualizado em{' '}
+            {new Date(indicadores.atualizado_em).toLocaleDateString('pt-BR')}
+          </p>
         </div>
       </div>
     </section>
