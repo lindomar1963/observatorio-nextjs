@@ -197,7 +197,7 @@ export default function HeroCarousel() {
         }}
       />
 
-      {/* Conteúdo: texto à esquerda + card do seminário à direita */}
+      {/* Conteúdo: card do seminário à esquerda + texto à direita */}
       <div
         style={{
           position: 'relative',
@@ -209,9 +209,80 @@ export default function HeroCarousel() {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
-          gap: '2rem',
+          gap: '2.5rem',
         }}
       >
+        {/* Card do Seminário — lado esquerdo, visível apenas no desktop */}
+        <div
+          className="seminario-lateral-card"
+          style={{
+            flexShrink: 0,
+            width: '320px',
+            background: 'rgba(6,10,20,0.82)',
+            border: '1px solid rgba(34,211,238,0.38)',
+            borderRadius: '8px',
+            overflow: 'hidden',
+            backdropFilter: 'blur(14px)',
+            boxShadow: '0 12px 40px rgba(0,0,0,0.55)',
+          }}
+        >
+          <div style={{ height: '3px', background: 'linear-gradient(90deg,#22D3EE,#FBBF24)' }} />
+          <Link href="/seminario" style={{ display: 'block' }}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/seminario-4.jpg"
+              alt="4º Seminário de Segurança Inovadora"
+              style={{ width: '100%', height: 'auto', display: 'block' }}
+            />
+          </Link>
+          <div style={{
+            padding: '0.85rem 1rem',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            gap: '0.75rem',
+          }}>
+            <div>
+              <p style={{
+                color: '#22D3EE',
+                fontSize: '0.62rem',
+                fontFamily: 'monospace',
+                letterSpacing: '0.18em',
+                textTransform: 'uppercase',
+                marginBottom: '0.2rem',
+              }}>
+                28 e 29 · Maio · 2026
+              </p>
+              <p style={{
+                color: '#fff',
+                fontSize: '0.78rem',
+                fontWeight: 700,
+                lineHeight: 1.3,
+              }}>
+                Inscrições gratuitas abertas
+              </p>
+            </div>
+            <Link
+              href="/seminario"
+              style={{
+                flexShrink: 0,
+                background: '#FBBF24',
+                color: '#060A14',
+                fontWeight: 800,
+                fontSize: '0.7rem',
+                letterSpacing: '0.06em',
+                textTransform: 'uppercase',
+                padding: '0.55rem 1.1rem',
+                textDecoration: 'none',
+                borderRadius: '4px',
+                whiteSpace: 'nowrap',
+              }}
+            >
+              Inscreva-se →
+            </Link>
+          </div>
+        </div>
+
         {/* Texto do slide */}
         <div
           key={`txt-${current}`}
@@ -277,76 +348,6 @@ export default function HeroCarousel() {
           )}
         </div>
 
-        {/* Card do Seminário — espaço lateral direito, visível apenas no desktop */}
-        <div
-          className="seminario-lateral-card"
-          style={{
-            flexShrink: 0,
-            width: '270px',
-            background: 'rgba(6,10,20,0.82)',
-            border: '1px solid rgba(34,211,238,0.38)',
-            borderRadius: '8px',
-            overflow: 'hidden',
-            backdropFilter: 'blur(14px)',
-            boxShadow: '0 12px 40px rgba(0,0,0,0.55)',
-          }}
-        >
-          <div style={{ height: '3px', background: 'linear-gradient(90deg,#22D3EE,#FBBF24)' }} />
-          <Link href="/seminario" style={{ display: 'block' }}>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="/seminario-4.jpg"
-              alt="4º Seminário de Segurança Inovadora"
-              style={{ width: '100%', height: 'auto', display: 'block' }}
-            />
-          </Link>
-          <div style={{
-            padding: '0.8rem 1rem',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            gap: '0.5rem',
-          }}>
-            <div>
-              <p style={{
-                color: '#22D3EE',
-                fontSize: '0.6rem',
-                fontFamily: 'monospace',
-                letterSpacing: '0.15em',
-                textTransform: 'uppercase',
-                marginBottom: '0.2rem',
-              }}>
-                28 e 29 · Maio · 2026
-              </p>
-              <p style={{
-                color: '#fff',
-                fontSize: '0.72rem',
-                fontWeight: 700,
-                lineHeight: 1.3,
-              }}>
-                Inscrições gratuitas abertas
-              </p>
-            </div>
-            <Link
-              href="/seminario"
-              style={{
-                flexShrink: 0,
-                background: '#FBBF24',
-                color: '#060A14',
-                fontWeight: 800,
-                fontSize: '0.65rem',
-                letterSpacing: '0.06em',
-                textTransform: 'uppercase',
-                padding: '0.5rem 0.9rem',
-                textDecoration: 'none',
-                borderRadius: '4px',
-                whiteSpace: 'nowrap',
-              }}
-            >
-              Inscreva-se →
-            </Link>
-          </div>
-        </div>
       </div>
 
       {/* Navegação por pontos */}
