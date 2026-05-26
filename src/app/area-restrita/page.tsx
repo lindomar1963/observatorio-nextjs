@@ -2,86 +2,57 @@
 
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
-import Link from 'next/link'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
 import { supabaseBrowser } from '@/lib/supabase-browser'
-import type { User } from '@supabase/supabase-js'
 
-const MODULOS = [
-  {
-    titulo: 'Indicadores de Segurança',
-    descricao: 'Acesso aos dados brutos de CVLI, roubos e violência doméstica por município.',
-    icone: '📊',
-    status: 'Acessar →',
-    href: '/area-restrita/painel/indicadores',
-  },
-  {
-    titulo: 'Gestão de Conteúdo',
-    descricao: 'Publicação de notícias, relatórios e atualizações no portal.',
-    icone: '✏️',
-    status: 'Acessar →',
-    href: '/area-restrita/painel/conteudo',
-  },
-  {
-    titulo: 'Relatórios Internos',
-    descricao: 'Notas técnicas e relatórios preliminares antes da publicação pública.',
-    icone: '📋',
-    status: 'Em desenvolvimento',
-  },
-  {
-    titulo: 'Usuários e Acessos',
-    descricao: 'Gerenciamento de usuários credenciados ao sistema.',
-    icone: '👥',
-    status: 'Em desenvolvimento',
-  },
-]
-
-export default function PainelPage() {
+export default function AreaRestritaPage() {
   const router = useRouter()
-  const [user, setUser]       = useState<User | null>(null)
-  const [loading, setLoading] = useState(true)
+  const [email, setEmail]       = useState('')
+  const [senha, setSenha]       = useState('')
+  const [erro, setErro]         = useState('')
+  const [carregando, setCarregando] = useState(true)
+  const [entrando, setEntrando] = useState(false)
 
+  // Se já estiver autenticado, redireciona direto ao painel
   useEffect(() => {
-    async function checkSession() {
-      if (!supabaseBrowser) {
-        router.replace('/area-restrita')
-        return
-      }
-      const { data: { session } } = await supabaseBrowser.auth.getSession()
-      if (!session) {
-        router.replace('/area-restrita')
-        return
-      }
-      setUser(session.user)
-      setLoading(false)
+    if (!supabaseBrowser) {
+      setCarregando(false)
+      return
     }
-    checkSession()
-
-    if (!supabaseBrowser) return
-    const { data: { subscription } } = supabaseBrowser.auth.onAuthStateChange((event, session) => {
-      if (event === 'SIGNED_OUT' || !session) {
-        router.replace('/area-restrita')
+    supabaseBrowser.auth.getSession().then(({ data: { session } }) => {
+      if (session) {
+        router.replace('/area-restrita/painel')
+      } else {
+        setCarregando(false)
       }
     })
-    return () => subscription.unsubscribe()
   }, [router])
 
-  async function handleLogout() {
-    if (!supabaseBrowser) return
-    await supabaseBrowser.auth.signOut()
-    router.replace('/area-restrita')
+  async function handleLogin(e: React.FormEvent) {
+    e.preventDefault()
+    if (!supabaseBrowser) {
+      setErro('Configuração de autenticação indisponível. Verifique as variáveis de ambiente.')
+      return
+    }
+    setEntrando(true)
+    setErro('')
+    const { error } = await supabaseBrowser.auth.signInWithPassword({ email, password: senha })
+    if (error) {
+      setErro('E-mail ou senha incorretos.')
+      setEntrando(false)
+    } else {
+      router.replace('/area-restrita/painel')
+    }
   }
 
-  if (loading) {
+  if (carregando) {
     return (
       <main>
         <Nav />
         <section className="bg-obs-navy min-h-[80vh] flex items-center justify-center">
-          <div className="text-center">
-            <div className="text-obs-gold text-xs font-bold tracking-widest uppercase mb-4 animate-pulse">
-              Verificando credenciais...
-            </div>
+          <div className="text-obs-gold text-xs font-bold tracking-widest uppercase animate-pulse">
+            Verificando credenciais...
           </div>
         </section>
         <Footer />
@@ -93,80 +64,64 @@ export default function PainelPage() {
     <main>
       <Nav />
 
-      <section className="bg-obs-navy px-4 md:px-8 py-10 border-b border-white/10">
-        <div className="max-w-5xl mx-auto flex flex-col md:flex-row md:items-center justify-between gap-4">
-          <div>
-            <p className="text-obs-gold text-xs font-bold tracking-widest uppercase mb-2">
-              Área Restrita · Painel de Controle
-            </p>
-            <h1 className="font-display text-2xl font-bold text-white">
-              Bem-vindo, {user?.email?.split('@')[0]}
-            </h1>
-            <p className="text-white/40 text-xs mt-1">{user?.email}</p>
-          </div>
-          <button
-            onClick={handleLogout}
-            className="border border-white/20 text-white/60 text-xs font-bold tracking-widest uppercase px-5 py-2.5 hover:border-red-500/50 hover:text-red-400 transition-colors self-start md:self-center"
-          >
-            Sair →
-          </button>
-        </div>
-      </section>
-
-      <section className="bg-obs-navy px-4 md:px-8 py-12">
-        <div className="max-w-5xl mx-auto">
-          <p className="text-white/40 text-xs mb-6">
-            Os módulos abaixo serão ativados progressivamente conforme o Observatório entra em operação plena.
+      <section className="bg-obs-navy min-h-[80vh] px-4 py-16 flex items-center justify-center">
+        <div className="w-full max-w-sm">
+          <p className="text-obs-gold text-[10px] font-bold tracking-widest uppercase mb-2 text-center">
+            Observatório de Segurança Pública · ALEAM
           </p>
-          <div className="grid md:grid-cols-2 gap-4">
-            {MODULOS.map((m) => {
-              const cardContent = (
-                <div className="flex items-start gap-4">
-                  <span className="text-2xl flex-shrink-0">{m.icone}</span>
-                  <div className="flex-1">
-                    <h3 className="text-white font-semibold text-sm mb-1">{m.titulo}</h3>
-                    <p className="text-white/50 text-xs leading-relaxed mb-3">{m.descricao}</p>
-                    <span className={`text-xs font-bold ${m.href ? 'text-obs-gold' : 'text-yellow-400'}`}>
-                      {m.status}
-                    </span>
-                  </div>
-                </div>
-              )
-              if (m.href) {
-                return (
-                  <Link
-                    key={m.titulo}
-                    href={m.href}
-                    className="border border-obs-border bg-obs-card p-6 hover:border-obs-cyan/40 cursor-pointer transition-colors block"
-                  >
-                    {cardContent}
-                  </Link>
-                )
-              }
-              return (
-                <div key={m.titulo} className="border border-obs-border bg-obs-card p-6">
-                  {cardContent}
-                </div>
-              )
-            })}
-          </div>
-        </div>
-      </section>
+          <h1 className="font-display text-2xl font-bold text-white text-center mb-8">
+            Área Restrita
+          </h1>
 
-      <section className="bg-obs-navy px-4 md:px-8 py-10 border-t border-white/10">
-        <div className="max-w-5xl mx-auto">
-          <div className="border border-obs-gold/20 bg-obs-gold/5 p-5">
-            <p className="text-obs-gold text-xs font-bold tracking-widest uppercase mb-2">
-              Observatório em implantação
-            </p>
-            <p className="text-white/60 text-sm leading-relaxed">
-              O sistema está em fase de implantação. Para reportar problemas de acesso
-              ou solicitar funcionalidades, entre em contato com a coordenação:
-              <a href="mailto:coordenacao@observatoriodeseguranca.site" className="text-obs-gold ml-1 hover:text-yellow-400 transition-colors">
-                coordenacao@observatoriodeseguranca.site
-              </a>
-            </p>
-          </div>
+          <form onSubmit={handleLogin} className="space-y-4">
+            <div>
+              <label className="block text-white/50 text-xs font-bold tracking-wider uppercase mb-1.5">
+                E-mail
+              </label>
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                autoComplete="email"
+                className="w-full bg-obs-panel border border-obs-border text-white text-sm px-4 py-3 focus:outline-none focus:border-obs-cyan/60 placeholder-white/20"
+                placeholder="seu@email.com"
+              />
+            </div>
+
+            <div>
+              <label className="block text-white/50 text-xs font-bold tracking-wider uppercase mb-1.5">
+                Senha
+              </label>
+              <input
+                type="password"
+                value={senha}
+                onChange={(e) => setSenha(e.target.value)}
+                required
+                autoComplete="current-password"
+                className="w-full bg-obs-panel border border-obs-border text-white text-sm px-4 py-3 focus:outline-none focus:border-obs-cyan/60 placeholder-white/20"
+                placeholder="••••••••"
+              />
+            </div>
+
+            {erro && (
+              <p className="text-red-400 text-xs border border-red-500/30 bg-red-500/10 px-3 py-2">
+                {erro}
+              </p>
+            )}
+
+            <button
+              type="submit"
+              disabled={entrando}
+              className="w-full bg-obs-gold text-obs-navy text-xs font-bold tracking-widest uppercase py-3 hover:bg-yellow-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {entrando ? 'Entrando...' : 'Entrar →'}
+            </button>
+          </form>
+
+          <p className="text-white/25 text-[10px] text-center mt-8">
+            Acesso restrito a usuários credenciados pelo Observatório.
+          </p>
         </div>
       </section>
 
