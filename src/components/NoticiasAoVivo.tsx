@@ -147,10 +147,10 @@ function NoticiaCard({ n, destaque }: { n: NoticiaExterna; destaque?: boolean })
       href={n.link}
       target="_blank"
       rel="noopener noreferrer"
-      className={`block border p-5 transition-colors group ${
+      className={`block border-2 p-5 transition-colors group ${
         destaque
-          ? 'border-purple-500/30 bg-purple-500/5 hover:border-purple-500/60'
-          : 'border-obs-border bg-obs-card hover:border-obs-cyan/25'
+          ? 'border-obs-gold/55 bg-purple-500/10 hover:border-obs-gold'
+          : 'border-obs-gold/30 bg-obs-card hover:border-obs-gold'
       }`}
     >
       <div className="flex items-center gap-2 mb-2 flex-wrap">
@@ -161,12 +161,12 @@ function NoticiaCard({ n, destaque }: { n: NoticiaExterna; destaque?: boolean })
         >
           {n.categoria}
         </span>
-        <span className="text-white/30 text-[10px]">{tempoRelativo(n.data)}</span>
+        <span className="text-white/45 text-[10px]">{tempoRelativo(n.data)}</span>
       </div>
-      <h3 className="text-white font-semibold text-sm leading-snug mb-2 group-hover:text-purple-300 transition-colors">
+      <h3 className="text-white font-semibold text-sm leading-snug mb-2 group-hover:text-obs-gold transition-colors">
         {n.titulo}
       </h3>
-      <p className="text-white/35 text-[11px]">{n.fonte}</p>
+      <p className="text-white/55 text-[11px]">{n.fonte}</p>
     </a>
   )
 }
