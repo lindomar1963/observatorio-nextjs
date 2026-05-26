@@ -89,11 +89,23 @@ export default function HeroCarousel() {
   const s = SLIDES[current]
   const isBanner = s.bg === '/seminario-4.jpg'
   const isExternal = s.cta.href.startsWith('http')
+
+  // Escolhe preto ou branco para o texto do botão conforme o brilho do accent,
+  // garantindo leitura em cores claras (dourado, lima, ciano) e escuras (azul, roxo).
+  const corTextoBotao = (() => {
+    const h = s.accent.replace('#', '')
+    const r = parseInt(h.slice(0, 2), 16)
+    const g = parseInt(h.slice(2, 4), 16)
+    const b = parseInt(h.slice(4, 6), 16)
+    const lum = 0.299 * r + 0.587 * g + 0.114 * b
+    return lum > 150 ? '#0A1322' : '#ffffff'
+  })()
+
   const ctaStyle = {
     display: 'inline-block',
     background: s.accent,
-    color: '#fff',
-    fontWeight: 700,
+    color: corTextoBotao,
+    fontWeight: 800,
     fontSize: '0.78rem',
     letterSpacing: '0.1em',
     textTransform: 'uppercase' as const,
@@ -216,18 +228,20 @@ export default function HeroCarousel() {
           <p style={{
             display: 'inline-flex',
             alignItems: 'center',
-            gap: '0.4rem',
+            gap: '0.45rem',
             fontFamily: 'monospace',
-            fontSize: '0.62rem',
-            letterSpacing: '0.22em',
+            fontSize: '0.82rem',
+            fontWeight: 700,
+            letterSpacing: '0.18em',
             color: s.accent,
             textTransform: 'uppercase',
-            border: `1px solid ${s.accent}45`,
-            background: `${s.accent}18`,
-            padding: '0.3rem 0.8rem',
+            border: `1px solid ${s.accent}66`,
+            background: `${s.accent}26`,
+            padding: '0.4rem 0.95rem',
             borderRadius: '2px',
             marginBottom: '1.1rem',
             backdropFilter: 'blur(4px)',
+            textShadow: '0 1px 6px rgba(0,0,0,0.55)',
           }}>
             ▸ {s.tag}
           </p>
