@@ -4,7 +4,7 @@ import ObservatorioMapa from '@/components/ObservatorioMapa'
 import AmbientalMapa from '@/components/AmbientalMapa'
 import SinespStats from '@/components/SinespStats'
 import AmbientalStats from '@/components/AmbientalStats'
-import { OBSERVATORIO_HERO, type ObservatorioConfig } from '@/lib/observatorios'
+import { OBSERVATORIO_HERO, OBSERVATORIO_HERO_POS, type ObservatorioConfig } from '@/lib/observatorios'
 import type { SinespIndicador } from '@/app/api/sinesp/route'
 
 /**
@@ -38,6 +38,7 @@ export default function ObservatorioLayout({ config }: { config: ObservatorioCon
   const ehAmbiental = config.fonte === 'ambiental'
   const fallbackIndicadores: SinespIndicador[] = config.fonte === 'sinesp' ? gerarFallback(config) : []
   const heroImg = OBSERVATORIO_HERO[config.slug]
+  const heroPos = OBSERVATORIO_HERO_POS[config.slug] ?? 'center'
   const accent = config.tipos[0]?.cor ?? '#22D3EE'
 
   return (
@@ -57,7 +58,7 @@ export default function ObservatorioLayout({ config }: { config: ObservatorioCon
             style={{
               backgroundImage: `url('${heroImg}')`,
               backgroundSize: 'cover',
-              backgroundPosition: 'center',
+              backgroundPosition: heroPos,
               backgroundRepeat: 'no-repeat',
             }}
           />
