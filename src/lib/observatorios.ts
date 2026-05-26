@@ -287,10 +287,10 @@ export const OBSERVATORIOS: Record<string, ObservatorioConfig> = {
 
   digitais: {
     slug: 'observatorio-crimes-digitais',
-    nome: 'Observatório de Crimes Digitais',
+    nome: 'Observatório de Crimes Cibernéticos',
     tagline: 'Segurança no ambiente digital · Manaus',
     descricao:
-      'Monitoramento dos crimes digitais que mais afetam a população em Manaus — estelionato ' +
+      'Monitoramento dos crimes cibernéticos que mais afetam a população em Manaus — estelionato ' +
       'online, fraude bancária, golpes do PIX e invasão de dispositivos — com indicadores do SINESP.',
     fonte: 'sinesp',
     fonteLabel: 'SINESP / Ministério da Justiça',
@@ -319,10 +319,10 @@ const pexels = (id: number) =>
 export const OBSERVATORIO_HERO: Record<string, string> = {
   'observatorio-da-mulher':          pexels(2437901),   // mulher pensativa à janela
   'observatorio-da-crianca':         pexels(13332787),  // criança feliz no colo da mãe
-  'observatorio-crimes-ambientais':  pexels(51951),     // floresta em chamas (queimada)
+  'observatorio-crimes-ambientais':  pexels(4070727),   // floresta em chamas (queimada)
   'observatorio-do-idoso':           pexels(11957449),  // retrato de homem idoso
-  'observatorio-roubos-furtos':      pexels(3109671),   // rua urbana à noite
-  'observatorio-acidentes-transito': pexels(13903104),  // trânsito de carros à noite
+  'observatorio-roubos-furtos':      pexels(26857965),  // Av. Paulista, São Paulo (Brasil)
+  'observatorio-acidentes-transito': pexels(11985980),  // carro acidentado
   'observatorio-violencia-juvenil':  pexels(12430063),  // grupo de jovens
   'observatorio-crimes-digitais':    pexels(5935787),   // hacker / código em laptop
 }
