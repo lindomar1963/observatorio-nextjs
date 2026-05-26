@@ -2,7 +2,6 @@ import Nav from '@/components/Nav'
 import Hero from '@/components/Hero'
 import HeroCarousel from '@/components/HeroCarousel'
 import Ticker from '@/components/Ticker'
-import StatsGrid from '@/components/StatsGrid'
 import DashboardPreview from '@/components/DashboardPreview'
 import RelatoriosRecentes from '@/components/RelatoriosRecentes'
 import Parceiros from '@/components/Parceiros'
@@ -22,7 +21,6 @@ export default async function HomePage() {
       <Ticker avisos={dados.avisos} />
       <HeroCarousel />
       <Hero indicadores={dados.indicadores} />
-      <StatsGrid indicadores={dados.indicadores} />
       <DashboardPreview />
       <RelatoriosRecentes relatorios={dados.relatorios} />
       <Parceiros />
