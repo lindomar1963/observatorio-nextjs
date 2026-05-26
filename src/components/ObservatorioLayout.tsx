@@ -4,7 +4,7 @@ import ObservatorioMapa from '@/components/ObservatorioMapa'
 import AmbientalMapa from '@/components/AmbientalMapa'
 import SinespStats from '@/components/SinespStats'
 import AmbientalStats from '@/components/AmbientalStats'
-import type { ObservatorioConfig } from '@/lib/observatorios'
+import { OBSERVATORIO_HERO, type ObservatorioConfig } from '@/lib/observatorios'
 import type { SinespIndicador } from '@/app/api/sinesp/route'
 
 /**
@@ -37,16 +37,53 @@ function gerarFallback(config: ObservatorioConfig): SinespIndicador[] {
 export default function ObservatorioLayout({ config }: { config: ObservatorioConfig }) {
   const ehAmbiental = config.fonte === 'ambiental'
   const fallbackIndicadores: SinespIndicador[] = config.fonte === 'sinesp' ? gerarFallback(config) : []
+  const heroImg = OBSERVATORIO_HERO[config.slug]
+  const accent = config.tipos[0]?.cor ?? '#22D3EE'
 
   return (
     <main>
       <Nav />
 
-      <section className="bg-obs-navy px-4 md:px-8 py-16">
-        <div className="max-w-5xl mx-auto">
+      <section
+        className="relative px-4 md:px-8 py-16 md:py-20 overflow-hidden"
+        style={{ background: 'var(--obs-navy)' }}
+        aria-labelledby="obs-hero-title"
+      >
+        {/* Foto temática de fundo */}
+        {heroImg && (
+          <div
+            aria-hidden="true"
+            className="absolute inset-0"
+            style={{
+              backgroundImage: `url('${heroImg}')`,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+              backgroundRepeat: 'no-repeat',
+            }}
+          />
+        )}
+        {/* Gradiente azul-marinho: sólido à esquerda (texto legível), foto visível à direita */}
+        {heroImg && (
+          <div
+            aria-hidden="true"
+            className="absolute inset-0"
+            style={{
+              background:
+                'linear-gradient(90deg, #060A14 0%, rgba(6,10,20,0.92) 38%, rgba(6,10,20,0.55) 75%, rgba(6,10,20,0.35) 100%)',
+            }}
+          />
+        )}
+        {/* Linha de destaque na cor do tema */}
+        <div
+          aria-hidden="true"
+          className="absolute top-0 left-0 right-0"
+          style={{ height: 3, background: `linear-gradient(90deg, ${accent}, transparent)` }}
+        />
+
+        <div className="relative max-w-5xl mx-auto">
           <p className="text-obs-gold text-xs font-bold tracking-widest uppercase mb-4">{config.tagline}</p>
-          <h1 className="font-display text-3xl md:text-4xl font-bold text-white mb-4">{config.nome}</h1>
-          <p className="text-white/60 text-sm max-w-xl">{config.descricao}</p>
+          <h1 id="obs-hero-title" className="font-display text-3xl md:text-4xl font-bold text-white mb-4">{config.nome}</h1>
+          <p className="text-white/70 text-sm max-w-xl" style={{ textShadow: '0 1px 8px rgba(0,0,0,0.6)' }}>{config.descricao}</p>
         </div>
       </section>
 

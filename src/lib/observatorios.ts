@@ -304,6 +304,26 @@ export const OBSERVATORIOS: Record<string, ObservatorioConfig> = {
   },
 }
 
+/**
+ * Imagem de capa (hero) de cada observatório, por slug. Renderizada como
+ * background-image no topo da página, sob um gradiente azul-marinho — o mesmo
+ * tratamento do carrossel da home. Se a imagem falhar, o fundo navy aparece
+ * normalmente (degradação graciosa, sem ícone de imagem quebrada).
+ *
+ * As imagens são temáticas (idoso, queimada, trânsito, etc.) e servidas por
+ * palavra-chave, com `lock` fixo para que a mesma foto apareça sempre.
+ */
+export const OBSERVATORIO_HERO: Record<string, string> = {
+  'observatorio-da-mulher':          'https://loremflickr.com/1600/520/woman,portrait?lock=21',
+  'observatorio-da-crianca':         'https://loremflickr.com/1600/520/children,hands?lock=31',
+  'observatorio-crimes-ambientais':  'https://loremflickr.com/1600/520/wildfire,forest?lock=41',
+  'observatorio-do-idoso':           'https://loremflickr.com/1600/520/elderly,senior?lock=51',
+  'observatorio-roubos-furtos':      'https://loremflickr.com/1600/520/city,street,night?lock=61',
+  'observatorio-acidentes-transito': 'https://loremflickr.com/1600/520/car,traffic,accident?lock=71',
+  'observatorio-violencia-juvenil':  'https://loremflickr.com/1600/520/youth,community?lock=81',
+  'observatorio-crimes-digitais':    'https://loremflickr.com/1600/520/cybersecurity,code,laptop?lock=91',
+}
+
 export function getObservatorio(slug: string): ObservatorioConfig | undefined {
   return Object.values(OBSERVATORIOS).find((o) => o.slug === slug)
 }
