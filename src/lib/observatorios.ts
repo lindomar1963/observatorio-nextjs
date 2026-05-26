@@ -310,18 +310,21 @@ export const OBSERVATORIOS: Record<string, ObservatorioConfig> = {
  * tratamento do carrossel da home. Se a imagem falhar, o fundo navy aparece
  * normalmente (degradação graciosa, sem ícone de imagem quebrada).
  *
- * As imagens são temáticas (idoso, queimada, trânsito, etc.) e servidas por
- * palavra-chave, com `lock` fixo para que a mesma foto apareça sempre.
+ * Fotos curadas do Pexels (livres para uso, sem atribuição), escolhidas uma a
+ * uma para combinar com o tema de cada observatório.
  */
+const pexels = (id: number) =>
+  `https://images.pexels.com/photos/${id}/pexels-photo-${id}.jpeg?auto=compress&cs=tinysrgb&w=1600`
+
 export const OBSERVATORIO_HERO: Record<string, string> = {
-  'observatorio-da-mulher':          'https://loremflickr.com/1600/520/woman,portrait?lock=21',
-  'observatorio-da-crianca':         'https://loremflickr.com/1600/520/children,hands?lock=31',
-  'observatorio-crimes-ambientais':  'https://loremflickr.com/1600/520/wildfire,forest?lock=41',
-  'observatorio-do-idoso':           'https://loremflickr.com/1600/520/elderly,senior?lock=51',
-  'observatorio-roubos-furtos':      'https://loremflickr.com/1600/520/city,street,night?lock=61',
-  'observatorio-acidentes-transito': 'https://loremflickr.com/1600/520/car,traffic,accident?lock=71',
-  'observatorio-violencia-juvenil':  'https://loremflickr.com/1600/520/youth,community?lock=81',
-  'observatorio-crimes-digitais':    'https://loremflickr.com/1600/520/cybersecurity,code,laptop?lock=91',
+  'observatorio-da-mulher':          pexels(2437901),   // mulher pensativa à janela
+  'observatorio-da-crianca':         pexels(13332787),  // criança feliz no colo da mãe
+  'observatorio-crimes-ambientais':  pexels(51951),     // floresta em chamas (queimada)
+  'observatorio-do-idoso':           pexels(11957449),  // retrato de homem idoso
+  'observatorio-roubos-furtos':      pexels(3109671),   // rua urbana à noite
+  'observatorio-acidentes-transito': pexels(13903104),  // trânsito de carros à noite
+  'observatorio-violencia-juvenil':  pexels(12430063),  // grupo de jovens
+  'observatorio-crimes-digitais':    pexels(5935787),   // hacker / código em laptop
 }
 
 export function getObservatorio(slug: string): ObservatorioConfig | undefined {
