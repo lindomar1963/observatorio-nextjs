@@ -318,7 +318,7 @@ const pexels = (id: number) =>
 
 export const OBSERVATORIO_HERO: Record<string, string> = {
   'observatorio-da-mulher':          pexels(2437901),   // mulher pensativa à janela
-  'observatorio-da-crianca':         pexels(13332787),  // criança feliz no colo da mãe
+  'observatorio-da-crianca':         pexels(30598347),  // grupo de crianças sorrindo
   'observatorio-crimes-ambientais':  pexels(4070727),   // floresta em chamas (queimada)
   'observatorio-do-idoso':           pexels(11957449),  // retrato de homem idoso
   'observatorio-roubos-furtos':      pexels(26857965),  // Av. Paulista, São Paulo (Brasil)
@@ -329,12 +329,9 @@ export const OBSERVATORIO_HERO: Record<string, string> = {
 
 /**
  * Ponto de foco (background-position) por slug, para fotos cujo assunto não
- * fica no centro. Default 'center'. Ex.: a foto da criança tem os rostos no
- * topo, então alinhamos ao topo para não cortá-los.
+ * fica no centro. Default 'center'.
  */
-export const OBSERVATORIO_HERO_POS: Record<string, string> = {
-  'observatorio-da-crianca': 'center top',
-}
+export const OBSERVATORIO_HERO_POS: Record<string, string> = {}
 
 export function getObservatorio(slug: string): ObservatorioConfig | undefined {
   return Object.values(OBSERVATORIOS).find((o) => o.slug === slug)
