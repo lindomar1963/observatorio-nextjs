@@ -163,7 +163,7 @@ function NoticiaCard({ n, destaque }: { n: NoticiaExterna; destaque?: boolean })
         </span>
         <span className="text-white/45 text-[10px]">{tempoRelativo(n.data)}</span>
       </div>
-      <h3 className="text-white font-semibold text-sm leading-snug mb-2 group-hover:text-obs-gold transition-colors">
+      <h3 className="text-white font-semibold text-sm leading-snug mb-2 group-hover:text-purple-300 transition-colors">
         {n.titulo}
       </h3>
       <p className="text-white/55 text-[11px]">{n.fonte}</p>
