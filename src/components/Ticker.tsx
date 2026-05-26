@@ -1,21 +1,18 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import type { AvisoTicker, Relatorio } from '@/lib/types'
+import type { AvisoTicker } from '@/lib/types'
 
 export default function Ticker({
-  atualizado_em,
-  fonte = 'SSP-AM / SINESP',
-  relatorioRecente,
   avisos = [],
 }: {
-  atualizado_em: string
+  atualizado_em?: string
   fonte?: string
-  relatorioRecente?: Relatorio | null
+  relatorioRecente?: unknown
   avisos?: AvisoTicker[]
 }) {
-  // Inicia com os avisos vindos do servidor e atualiza com dados frescos
-  // (sem cache) para refletir inserções recentes feitas no painel.
+  // Busca avisos frescos do banco (sem cache) a cada carregamento,
+  // para refletir imediatamente o que está na Gestão do Painel.
   const [avisosAtuais, setAvisosAtuais] = useState<AvisoTicker[]>(avisos)
 
   useEffect(() => {
@@ -27,24 +24,7 @@ export default function Ticker({
       .catch(() => {})
   }, [])
 
-  const hora = new Date(atualizado_em).toLocaleString('pt-BR', {
-    timeZone: 'America/Manaus',
-    day: '2-digit', month: '2-digit', year: 'numeric',
-    hour: '2-digit', minute: '2-digit',
-  })
-
-  const itens: { texto: string; link: string | null }[] = [
-    { texto: `Dados atualizados em ${hora} (Manaus) · Fonte: ${fonte}`, link: null },
-  ]
-  if (relatorioRecente) {
-    itens.push({
-      texto: `Novo relatório: ${relatorioRecente.titulo}`,
-      link: relatorioRecente.arquivo_url,
-    })
-  }
-  for (const a of avisosAtuais) {
-    itens.push({ texto: a.texto, link: a.link })
-  }
+  if (avisosAtuais.length === 0) return null
 
   return (
     <div
@@ -57,20 +37,20 @@ export default function Ticker({
         Atualização
       </span>
       <p className="text-white/80 text-xs whitespace-nowrap">
-        {itens.map((item, i) => (
-          <span key={i}>
+        {avisosAtuais.map((a, i) => (
+          <span key={a.id}>
             {i > 0 && <span className="text-white/40">{'  ·  '}</span>}
-            {item.link ? (
+            {a.link ? (
               <a
-                href={item.link}
+                href={a.link}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover:text-white hover:underline transition-colors"
               >
-                {item.texto}
+                {a.texto}
               </a>
             ) : (
-              item.texto
+              a.texto
             )}
           </span>
         ))}
