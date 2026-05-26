@@ -17,7 +17,7 @@ const MODULOS = [
     href: '/area-restrita/painel/indicadores',
   },
   {
-    titulo: 'Avisos do Ticker',
+    titulo: 'Gestão do Painel',
     descricao: 'Mensagens da faixa de "Atualização" no topo do site, com expiração automática.',
     icone: '📢',
     status: 'Ativo',
