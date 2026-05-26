@@ -25,7 +25,7 @@ export default function MapaPage() {
           className="absolute inset-0"
           style={{
             backgroundImage:
-              "url('https://images.pexels.com/photos/31738798/pexels-photo-31738798.jpeg?auto=compress&cs=tinysrgb&w=1600')",
+              "url('https://images.pexels.com/photos/10653886/pexels-photo-10653886.jpeg?auto=compress&cs=tinysrgb&w=1600')",
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             backgroundRepeat: 'no-repeat',

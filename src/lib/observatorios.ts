@@ -318,10 +318,10 @@ const pexels = (id: number) =>
 
 export const OBSERVATORIO_HERO: Record<string, string> = {
   'observatorio-da-mulher':          pexels(2437901),   // mulher pensativa à janela
-  'observatorio-da-crianca':         pexels(30598347),  // grupo de crianças sorrindo
+  'observatorio-da-crianca':         pexels(27093997),  // crianças na escola
   'observatorio-crimes-ambientais':  pexels(4070727),   // floresta em chamas (queimada)
   'observatorio-do-idoso':           pexels(11957449),  // retrato de homem idoso
-  'observatorio-roubos-furtos':      pexels(26857965),  // Av. Paulista, São Paulo (Brasil)
+  'observatorio-roubos-furtos':      pexels(30546987),  // câmera de vigilância em rua urbana
   'observatorio-acidentes-transito': pexels(11985980),  // carro acidentado
   'observatorio-violencia-juvenil':  pexels(12430063),  // grupo de jovens
   'observatorio-crimes-digitais':    pexels(5935787),   // hacker / código em laptop
