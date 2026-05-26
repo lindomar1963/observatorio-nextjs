@@ -327,6 +327,15 @@ export const OBSERVATORIO_HERO: Record<string, string> = {
   'observatorio-crimes-digitais':    pexels(5935787),   // hacker / código em laptop
 }
 
+/**
+ * Ponto de foco (background-position) por slug, para fotos cujo assunto não
+ * fica no centro. Default 'center'. Ex.: a foto da criança tem os rostos no
+ * topo, então alinhamos ao topo para não cortá-los.
+ */
+export const OBSERVATORIO_HERO_POS: Record<string, string> = {
+  'observatorio-da-crianca': 'center top',
+}
+
 export function getObservatorio(slug: string): ObservatorioConfig | undefined {
   return Object.values(OBSERVATORIOS).find((o) => o.slug === slug)
 }
