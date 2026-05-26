@@ -53,13 +53,13 @@ export default async function NoticiasPage() {
             <h2 className="text-white/50 text-xs font-bold tracking-widest uppercase mb-6">Em destaque</h2>
             <div className="grid md:grid-cols-2 gap-5">
               {destaques.map((n: Noticia) => (
-                <div key={n.id} className="border border-obs-gold/30 bg-obs-gold/5 p-5">
+                <div key={n.id} className="border-2 border-obs-gold bg-obs-gold/5 p-5">
                   <div className="flex items-center gap-2 mb-3">
                     <span className={`text-xs font-bold px-2 py-0.5 border ${catColor[n.categoria] ?? 'bg-white/10 text-white/60 border-white/20'}`}>{n.categoria}</span>
-                    <span className="text-white/30 text-xs">{new Date(n.data_publicacao).toLocaleDateString('pt-BR')}</span>
+                    <span className="text-white/45 text-xs">{new Date(n.data_publicacao).toLocaleDateString('pt-BR')}</span>
                   </div>
-                  <h3 className="text-white font-semibold text-base leading-snug mb-2">{n.titulo}</h3>
-                  <p className="text-white/55 text-xs leading-relaxed">{n.resumo}</p>
+                  <h3 className="text-obs-gold font-semibold text-base leading-snug mb-2">{n.titulo}</h3>
+                  <p className="text-white/65 text-xs leading-relaxed">{n.resumo}</p>
                 </div>
               ))}
             </div>
@@ -72,13 +72,13 @@ export default async function NoticiasPage() {
           <h2 className="text-white/50 text-xs font-bold tracking-widest uppercase mb-6">Publicações do Observatório</h2>
           <div className="space-y-4">
             {noticias.map((n: Noticia) => (
-              <div key={n.id} className="border border-obs-border bg-obs-card p-5 hover:border-obs-cyan/30 transition-colors">
+              <div key={n.id} className="border-2 border-obs-gold/35 bg-obs-card p-5 hover:border-obs-gold transition-colors group">
                 <div className="flex items-center gap-2 mb-2">
                   <span className={`text-xs font-bold px-2 py-0.5 border ${catColor[n.categoria] ?? 'bg-white/10 text-white/60 border-white/20'}`}>{n.categoria}</span>
-                  <span className="text-white/30 text-xs">{new Date(n.data_publicacao).toLocaleDateString('pt-BR')}</span>
+                  <span className="text-white/45 text-xs">{new Date(n.data_publicacao).toLocaleDateString('pt-BR')}</span>
                 </div>
-                <h3 className="text-white font-semibold text-sm leading-snug mb-2">{n.titulo}</h3>
-                <p className="text-white/50 text-xs leading-relaxed">{n.resumo}</p>
+                <h3 className="text-white font-semibold text-sm leading-snug mb-2 group-hover:text-obs-gold transition-colors">{n.titulo}</h3>
+                <p className="text-white/60 text-xs leading-relaxed">{n.resumo}</p>
               </div>
             ))}
           </div>
@@ -94,8 +94,8 @@ export default async function NoticiasPage() {
                 key={i}
                 className={`flex flex-col md:flex-row md:items-center gap-3 p-4 ${
                   (e as { destaque?: boolean }).destaque
-                    ? 'border border-obs-gold/40 bg-obs-gold/5'
-                    : 'border border-white/10'
+                    ? 'border-2 border-obs-gold bg-obs-gold/5'
+                    : 'border-2 border-obs-gold/30 hover:border-obs-gold/70 transition-colors'
                 }`}
               >
                 <div
