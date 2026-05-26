@@ -19,12 +19,7 @@ export default async function HomePage() {
     <main id="main-content">
       <a href="#main-content" className="skip-link">Ir para o conteúdo principal</a>
       <Nav />
-      <Ticker
-        atualizado_em={dados.indicadores.atualizado_em}
-        fonte={dados.indicadores.fonte}
-        relatorioRecente={dados.relatorios[0] ?? null}
-        avisos={dados.avisos}
-      />
+      <Ticker avisos={dados.avisos} />
       <HeroCarousel />
       <Hero indicadores={dados.indicadores} />
       <StatsGrid indicadores={dados.indicadores} />
