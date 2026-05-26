@@ -4,12 +4,11 @@ import { useEffect, useState } from 'react'
 import type { NoticiasResponse, NoticiaExterna } from '@/app/api/noticias/route'
 
 const catColor: Record<string, string> = {
-  'Comandante Dan': 'bg-obs-gold/20 text-obs-gold border-obs-gold/30',
-  'Segurança Pública': 'bg-blue-500/20 text-blue-400 border-blue-500/30',
-  Manaus: 'bg-cyan-500/20 text-cyan-400 border-cyan-500/30',
-  Polícia: 'bg-obs-lime/20 text-obs-lime border-obs-lime/30',
-  Drogas: 'bg-red-500/20 text-red-400 border-red-500/30',
-  ALEAM: 'bg-purple-500/20 text-purple-400 border-purple-500/30',
+  'ALEAM':            'bg-purple-500/20 text-purple-400 border-purple-500/30',
+  'Segurança Pública':'bg-blue-500/20 text-blue-400 border-blue-500/30',
+  'Manaus':           'bg-cyan-500/20 text-cyan-400 border-cyan-500/30',
+  'Polícia':          'bg-obs-lime/20 text-obs-lime border-obs-lime/30',
+  'Drogas':           'bg-red-500/20 text-red-400 border-red-500/30',
 }
 
 function tempoRelativo(iso: string): string {
@@ -53,16 +52,17 @@ export default function NoticiasAoVivo() {
     return null
   }
 
+  // ALEAM sempre primeiro nos filtros, demais em ordem de aparecimento
   const categorias = dados
-    ? ['Todas', ...Array.from(new Set(dados.noticias.map((n) => n.categoria)))]
-    : ['Todas']
+    ? ['Todas', 'ALEAM', ...Array.from(new Set(dados.noticias.map((n) => n.categoria))).filter((c) => c !== 'ALEAM')]
+    : ['Todas', 'ALEAM']
 
   const lista: NoticiaExterna[] =
     dados?.noticias.filter((n) => filtro === 'Todas' || n.categoria === filtro) ?? []
 
-  // Destaca primeiro as notícias do Comandante Dan
-  const danList = lista.filter((n) => n.categoria === 'Comandante Dan')
-  const outras = lista.filter((n) => n.categoria !== 'Comandante Dan')
+  // ALEAM em destaque (topo), demais abaixo
+  const aleamList = lista.filter((n) => n.categoria === 'ALEAM')
+  const outras = lista.filter((n) => n.categoria !== 'ALEAM')
 
   return (
     <section className="bg-obs-panel px-4 md:px-8 py-12 border-t border-obs-border">
@@ -79,7 +79,7 @@ export default function NoticiasAoVivo() {
           </span>
         </div>
 
-        {/* Filtros de categoria */}
+        {/* Filtros de categoria — ALEAM primeiro */}
         {!carregando && (
           <div className="flex flex-wrap gap-2 mb-6">
             {categorias.map((c) => (
@@ -106,15 +106,15 @@ export default function NoticiasAoVivo() {
           </div>
         ) : (
           <>
-            {/* Bloco de destaque: Comandante Dan */}
-            {danList.length > 0 && filtro === 'Todas' && (
+            {/* Bloco de destaque: ALEAM */}
+            {aleamList.length > 0 && filtro === 'Todas' && (
               <div className="mb-8">
-                <h3 className="text-obs-gold text-xs font-bold tracking-widest uppercase mb-4">
-                  Deputado Comandante Dan na imprensa
+                <h3 className="text-purple-400 text-xs font-bold tracking-widest uppercase mb-4">
+                  ALEAM — Assembleia Legislativa do Amazonas
                 </h3>
                 <div className="grid md:grid-cols-2 gap-4">
-                  {danList.slice(0, 4).map((n, i) => (
-                    <NoticiaCard key={`dan-${i}`} n={n} destaque />
+                  {aleamList.slice(0, 4).map((n, i) => (
+                    <NoticiaCard key={`aleam-${i}`} n={n} destaque />
                   ))}
                 </div>
               </div>
@@ -131,8 +131,8 @@ export default function NoticiasAoVivo() {
 
         {!carregando && dados?.ok && (
           <p className="text-white/25 text-[10px] mt-8">
-            Fonte: Google Notícias · Busca automática por segurança pública no Amazonas e Deputado
-            Comandante Dan · Atualização a cada 30 min ·{' '}
+            Fonte: Google Notícias · ALEAM (aleam.am.leg.br) e segurança pública no Amazonas ·
+            Atualização a cada 30 min ·{' '}
             {dados.noticias.length} matérias monitoradas
           </p>
         )}
@@ -149,7 +149,7 @@ function NoticiaCard({ n, destaque }: { n: NoticiaExterna; destaque?: boolean })
       rel="noopener noreferrer"
       className={`block border p-5 transition-colors group ${
         destaque
-          ? 'border-obs-gold/30 bg-obs-gold/5 hover:border-obs-gold/60'
+          ? 'border-purple-500/30 bg-purple-500/5 hover:border-purple-500/60'
           : 'border-obs-border bg-obs-card hover:border-obs-cyan/25'
       }`}
     >
@@ -163,7 +163,7 @@ function NoticiaCard({ n, destaque }: { n: NoticiaExterna; destaque?: boolean })
         </span>
         <span className="text-white/30 text-[10px]">{tempoRelativo(n.data)}</span>
       </div>
-      <h3 className="text-white font-semibold text-sm leading-snug mb-2 group-hover:text-obs-gold transition-colors">
+      <h3 className="text-white font-semibold text-sm leading-snug mb-2 group-hover:text-purple-300 transition-colors">
         {n.titulo}
       </h3>
       <p className="text-white/35 text-[11px]">{n.fonte}</p>
