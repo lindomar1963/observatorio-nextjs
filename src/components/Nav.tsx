@@ -9,6 +9,9 @@ const OBSERVATORIOS = [
   { href: '/observatorio-do-idoso',          label: 'Do Idoso' },
   { href: '/observatorio-roubos-furtos',     label: 'Roubos e Furtos' },
   { href: '/observatorio-crimes-ambientais', label: 'Crimes Ambientais' },
+  { href: '/observatorio-acidentes-transito',label: 'Acidentes de Trânsito' },
+  { href: '/observatorio-crimes-digitais',   label: 'Crimes Digitais' },
+  { href: '/observatorio-violencia-juvenil', label: 'Violência Juvenil' },
 ]
 
 export default function Nav() {
