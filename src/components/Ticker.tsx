@@ -1,9 +1,35 @@
-export default function Ticker({ atualizado_em }: { atualizado_em: string }) {
+import type { AvisoTicker, Relatorio } from '@/lib/types'
+
+export default function Ticker({
+  atualizado_em,
+  fonte = 'SSP-AM / SINESP',
+  relatorioRecente,
+  avisos = [],
+}: {
+  atualizado_em: string
+  fonte?: string
+  relatorioRecente?: Relatorio | null
+  avisos?: AvisoTicker[]
+}) {
   const hora = new Date(atualizado_em).toLocaleString('pt-BR', {
     timeZone: 'America/Manaus',
     day: '2-digit', month: '2-digit', year: 'numeric',
     hour: '2-digit', minute: '2-digit',
   })
+
+  const itens: { texto: string; link: string | null }[] = [
+    { texto: `Dados atualizados em ${hora} (Manaus) · Fonte: ${fonte}`, link: null },
+  ]
+  if (relatorioRecente) {
+    itens.push({
+      texto: `Novo relatório: ${relatorioRecente.titulo}`,
+      link: relatorioRecente.arquivo_url,
+    })
+  }
+  for (const a of avisos) {
+    itens.push({ texto: a.texto, link: a.link })
+  }
+
   return (
     <div
       className="bg-obs-blue px-4 md:px-8 flex items-center gap-4 overflow-hidden"
@@ -15,9 +41,23 @@ export default function Ticker({ atualizado_em }: { atualizado_em: string }) {
         Atualização
       </span>
       <p className="text-white/80 text-xs whitespace-nowrap">
-        Dados atualizados em {hora} (Manaus) · Fonte: SSP-AM / SINESP &nbsp;·&nbsp;
-        Novo relatório: Segurança Pública no Interior do Amazonas — 1º Trim. 2026 &nbsp;·&nbsp;
-        Seminário: Violência e Território Amazônico · 22/05/2026 · Auditório ALEAM
+        {itens.map((item, i) => (
+          <span key={i}>
+            {i > 0 && <span className="text-white/40">{'  ·  '}</span>}
+            {item.link ? (
+              <a
+                href={item.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-white hover:underline transition-colors"
+              >
+                {item.texto}
+              </a>
+            ) : (
+              item.texto
+            )}
+          </span>
+        ))}
       </p>
     </div>
   )
