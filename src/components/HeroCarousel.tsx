@@ -5,12 +5,12 @@ import Link from 'next/link'
 
 const SLIDES = [
   {
-    tag: 'SEMINÁRIO 2026',
-    title: '4º Seminário de Segurança Inovadora',
-    desc: '28 e 29 de maio de 2026 — Ordem pública e controle territorial: integração e participação da sociedade na construção de políticas de segurança pública eficazes.',
-    cta: { label: 'Saiba mais', href: '/seminario' },
+    tag: 'OBSERVATÓRIO · ALEAM',
+    title: 'Centro de análise e monitoramento de segurança pública',
+    desc: 'Dados integrados, indicadores oficiais e estudos técnicos para embasar políticas de segurança pública eficazes nos 62 municípios do Amazonas.',
+    cta: { label: 'Conheça o Observatório', href: '/observatorio' },
     accent: '#22D3EE',
-    bg: '/seminario-4.jpg',
+    bg: 'https://images.unsplash.com/photo-1542361345-89e58247f2d5?auto=format&fit=crop&w=1600&q=70',
     bgPos: 'center',
   },
   {
@@ -87,18 +87,15 @@ export default function HeroCarousel() {
   }, [paused])
 
   const s = SLIDES[current]
-  const isBanner = s.bg === '/seminario-4.jpg'
   const isExternal = s.cta.href.startsWith('http')
 
-  // Escolhe preto ou branco para o texto do botão conforme o brilho do accent,
-  // garantindo leitura em cores claras (dourado, lima, ciano) e escuras (azul, roxo).
+  // Texto do botão: preto em fundos claros, branco em escuros
   const corTextoBotao = (() => {
     const h = s.accent.replace('#', '')
     const r = parseInt(h.slice(0, 2), 16)
     const g = parseInt(h.slice(2, 4), 16)
     const b = parseInt(h.slice(4, 6), 16)
-    const lum = 0.299 * r + 0.587 * g + 0.114 * b
-    return lum > 150 ? '#0A1322' : '#ffffff'
+    return 0.299 * r + 0.587 * g + 0.114 * b > 150 ? '#0A1322' : '#ffffff'
   })()
 
   const ctaStyle = {
@@ -140,6 +137,14 @@ export default function HeroCarousel() {
           0%   { opacity: 0; transform: translateY(14px); }
           100% { opacity: 1; transform: translateY(0); }
         }
+        /* Card do seminário aparece no espaço lateral do carrossel (desktop) */
+        @media (max-width: 960px) {
+          .seminario-lateral-card { display: none !important; }
+        }
+        /* Popup flutuante some no desktop — o card lateral ocupa o lugar */
+        @media (min-width: 961px) {
+          .seminario-popup-float { display: none !important; }
+        }
       `}</style>
 
       {/* Imagem de fundo com zoom lento (Ken Burns) */}
@@ -159,39 +164,26 @@ export default function HeroCarousel() {
         }}
       />
 
-      {/* Banner do seminário: clicável (a imagem já traz o próprio texto) */}
-      {isBanner && (
-        <Link
-          href={s.cta.href}
-          aria-label="4º Seminário de Segurança Inovadora — saiba mais"
-          style={{ position: 'absolute', inset: 0, zIndex: 3 }}
-        />
-      )}
-
-      {/* Escurecimento para legibilidade do texto */}
-      {!isBanner && (
-        <div
-          aria-hidden="true"
-          style={{
-            position: 'absolute',
-            inset: 0,
-            background: `linear-gradient(90deg, rgba(8,18,34,0.94) 0%, rgba(8,18,34,0.80) 45%, rgba(8,18,34,0.45) 100%)`,
-          }}
-        />
-      )}
+      {/* Escurecimento para legibilidade */}
+      <div
+        aria-hidden="true"
+        style={{
+          position: 'absolute',
+          inset: 0,
+          background: `linear-gradient(90deg, rgba(8,18,34,0.94) 0%, rgba(8,18,34,0.80) 45%, rgba(8,18,34,0.40) 100%)`,
+        }}
+      />
 
       {/* Grade sutil sobre a imagem */}
-      {!isBanner && (
-        <div
-          aria-hidden="true"
-          style={{
-            position: 'absolute', inset: 0,
-            backgroundImage:
-              'linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px)',
-            backgroundSize: '60px 60px',
-          }}
-        />
-      )}
+      <div
+        aria-hidden="true"
+        style={{
+          position: 'absolute', inset: 0,
+          backgroundImage:
+            'linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px)',
+          backgroundSize: '60px 60px',
+        }}
+      />
 
       {/* Linha de destaque no topo */}
       <div
@@ -205,8 +197,7 @@ export default function HeroCarousel() {
         }}
       />
 
-      {/* Conteúdo */}
-      {!isBanner && (
+      {/* Conteúdo: texto à esquerda + card do seminário à direita */}
       <div
         style={{
           position: 'relative',
@@ -215,12 +206,18 @@ export default function HeroCarousel() {
           width: '100%',
           margin: '0 auto',
           padding: '3rem 6vw',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          gap: '2rem',
         }}
       >
+        {/* Texto do slide */}
         <div
           key={`txt-${current}`}
           style={{
-            maxWidth: '660px',
+            flex: 1,
+            maxWidth: '580px',
             opacity: fading ? 0 : 1,
             animation: fading ? 'none' : 'obsFadeUp 0.6s ease both',
           }}
@@ -262,7 +259,7 @@ export default function HeroCarousel() {
             color: 'rgba(240,248,255,0.82)',
             fontSize: '0.92rem',
             lineHeight: 1.7,
-            maxWidth: '560px',
+            maxWidth: '520px',
             marginBottom: '1.6rem',
             textShadow: '0 1px 12px rgba(0,0,0,0.6)',
           }}>
@@ -279,8 +276,78 @@ export default function HeroCarousel() {
             </Link>
           )}
         </div>
+
+        {/* Card do Seminário — espaço lateral direito, visível apenas no desktop */}
+        <div
+          className="seminario-lateral-card"
+          style={{
+            flexShrink: 0,
+            width: '270px',
+            background: 'rgba(6,10,20,0.82)',
+            border: '1px solid rgba(34,211,238,0.38)',
+            borderRadius: '8px',
+            overflow: 'hidden',
+            backdropFilter: 'blur(14px)',
+            boxShadow: '0 12px 40px rgba(0,0,0,0.55)',
+          }}
+        >
+          <div style={{ height: '3px', background: 'linear-gradient(90deg,#22D3EE,#FBBF24)' }} />
+          <Link href="/seminario" style={{ display: 'block' }}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/seminario-4.jpg"
+              alt="4º Seminário de Segurança Inovadora"
+              style={{ width: '100%', height: 'auto', display: 'block' }}
+            />
+          </Link>
+          <div style={{
+            padding: '0.8rem 1rem',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            gap: '0.5rem',
+          }}>
+            <div>
+              <p style={{
+                color: '#22D3EE',
+                fontSize: '0.6rem',
+                fontFamily: 'monospace',
+                letterSpacing: '0.15em',
+                textTransform: 'uppercase',
+                marginBottom: '0.2rem',
+              }}>
+                28 e 29 · Maio · 2026
+              </p>
+              <p style={{
+                color: '#fff',
+                fontSize: '0.72rem',
+                fontWeight: 700,
+                lineHeight: 1.3,
+              }}>
+                Inscrições gratuitas abertas
+              </p>
+            </div>
+            <Link
+              href="/seminario"
+              style={{
+                flexShrink: 0,
+                background: '#FBBF24',
+                color: '#060A14',
+                fontWeight: 800,
+                fontSize: '0.65rem',
+                letterSpacing: '0.06em',
+                textTransform: 'uppercase',
+                padding: '0.5rem 0.9rem',
+                textDecoration: 'none',
+                borderRadius: '4px',
+                whiteSpace: 'nowrap',
+              }}
+            >
+              Inscreva-se →
+            </Link>
+          </div>
+        </div>
       </div>
-      )}
 
       {/* Navegação por pontos */}
       <div
