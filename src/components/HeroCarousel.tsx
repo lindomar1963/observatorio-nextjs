@@ -94,8 +94,8 @@ const SLIDES = [
     desc: 'Presidente da Comissão de Segurança Pública, Acesso à Justiça e Defesa Social da ALEAM e idealizador do Observatório de Segurança Pública do Amazonas.',
     cta: { label: 'Conheça o mandato', href: 'https://www.comandantedan.com.br/' },
     accent: '#FBBF24',
-    bg: 'https://comandantedan.com.br/arquivos/imagens/01-%5B30-01-26%5D%5B00-48-51%5D.jpg',
-    bgPos: 'center top',
+    bg: 'linear-gradient(120deg, #060A14 0%, #0A1322 45%, #2a1f06 80%, #4a3608 100%)',
+    bgPos: 'center',
   },
 ]
 
@@ -185,7 +185,7 @@ export default function HeroCarousel() {
         style={{
           position: 'absolute',
           inset: 0,
-          backgroundImage: `url('${s.bg}')`,
+          backgroundImage: s.bg.startsWith('linear-gradient') ? s.bg : `url('${s.bg}')`,
           backgroundSize: 'cover',
           backgroundRepeat: 'no-repeat',
           backgroundPosition: s.bgPos,
