@@ -20,7 +20,6 @@ const catColor: Record<string, string> = {
 }
 
 const PROXIMOS_EVENTOS = [
-  { titulo: '4º Seminário de Segurança Inovadora', data: '28 e 29 · Mai · 2026', local: 'Auditório Belarmino Lins — ALEAM · Manaus', destaque: true },
   { titulo: 'Seminário Regional — Calha do Médio Amazonas', data: '12 jun 2026', local: 'Itacoatiara, AM' },
   { titulo: 'Lançamento do Boletim Trimestral — 2º Tri 2026', data: '30 jun 2026', local: 'Online / ALEAM' },
   { titulo: 'Capacitação em Segurança Comunitária para Gestores Municipais', data: '14 jul 2026', local: 'Manaus, AM' },
@@ -111,14 +110,6 @@ export default async function NoticiasPage() {
                   <p className={`font-semibold text-sm ${(e as { destaque?: boolean }).destaque ? 'text-obs-gold' : 'text-white'}`}>{e.titulo}</p>
                   <p className="text-white/40 text-xs">{e.local}</p>
                 </div>
-                {(e as { destaque?: boolean }).destaque && (
-                  <a
-                    href="/seminario"
-                    className="flex-shrink-0 bg-obs-gold text-obs-navy text-xs font-bold px-4 py-2 hover:bg-yellow-500 transition-colors whitespace-nowrap"
-                  >
-                    Ver programa →
-                  </a>
-                )}
               </div>
             ))}
           </div>

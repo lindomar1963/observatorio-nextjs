@@ -6,7 +6,6 @@ import DashboardPreview from '@/components/DashboardPreview'
 import RelatoriosRecentes from '@/components/RelatoriosRecentes'
 import Parceiros from '@/components/Parceiros'
 import Footer from '@/components/Footer'
-import SeminarioPopup from '@/components/SeminarioPopup'
 
 import { getDadosDiarios } from '@/lib/queries'
 
@@ -25,7 +24,6 @@ export default async function HomePage() {
       <RelatoriosRecentes relatorios={dados.relatorios} />
       <Parceiros />
       <Footer />
-      <SeminarioPopup />
     </main>
   )
 }
